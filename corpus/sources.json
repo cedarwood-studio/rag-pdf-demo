@@ -1,0 +1,110 @@
+[
+  {
+    "file": "NIST.CSWP.29.pdf",
+    "title": "The NIST Cybersecurity Framework (CSF) 2.0",
+    "series": "NIST CSWP 29",
+    "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+    "pages": 32,
+    "sha256": "3c31f46fee98cac0c4323453e5109291a213b4de7fef8c058af9bf67f717433c",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.IR.7621r1.pdf",
+    "title": "Small Business Information Security: The Fundamentals",
+    "series": "NISTIR 7621 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.7621r1.pdf",
+    "pages": 55,
+    "sha256": "edc2fbc5e193f606b985f63f36cf42c57d774ec68ebd2fac8fb978eb8de77374",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-12r1.pdf",
+    "title": "An Introduction to Information Security",
+    "series": "NIST SP 800-12 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-12r1.pdf",
+    "pages": 101,
+    "sha256": "1baa0b89fc554c15b465b6a974be0a63b08124bf5d5987d34e0965fbafea4a2e",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "nistspecialpublication800-34r1.pdf",
+    "title": "Contingency Planning Guide for Federal Information Systems",
+    "series": "NIST SP 800-34 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
+    "pages": 149,
+    "sha256": "476f04d4c60b0770c1ac8b2720551972074ce78e936a3e7a535048416111d0df",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-40r4.pdf",
+    "title": "Guide to Enterprise Patch Management Planning",
+    "series": "NIST SP 800-40 Rev. 4",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf",
+    "pages": 28,
+    "sha256": "351f4a828d6c0bc8bf98f25ba3f87ec5add0ed8cf8bb4a6e6cb4e7e4a9731833",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-46r2.pdf",
+    "title": "Guide to Enterprise Telework, Remote Access, and Bring Your Own Device (BYOD) Security",
+    "series": "NIST SP 800-46 Rev. 2",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-46r2.pdf",
+    "pages": 53,
+    "sha256": "8d236e4b51c0ff0005e6a5be5724de6ba404954021d26c7d7aa4665b6b38a7de",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "nistspecialpublication800-50.pdf",
+    "title": "Building an Information Technology Security Awareness and Training Program",
+    "series": "NIST SP 800-50",
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-50.pdf",
+    "pages": 71,
+    "sha256": "50a26f97c951896fda850baea55cc47e281c74f9fecaa981deca1d3152148d14",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-61r2.pdf",
+    "title": "Computer Security Incident Handling Guide",
+    "series": "NIST SP 800-61 Rev. 2",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf",
+    "pages": 80,
+    "sha256": "b1c5ead0632dcfb979c59d8c462b094ad2465ddaf62d5c246289d6d9b4419df1",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-63b.pdf",
+    "title": "Digital Identity Guidelines: Authentication and Lifecycle Management",
+    "series": "NIST SP 800-63B",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf",
+    "pages": 80,
+    "sha256": "ccfce7510a1267933f912d023306c6e7d485f21be63d271108b61aad6139127e",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-83r1.pdf",
+    "title": "Guide to Malware Incident Prevention and Handling for Desktops and Laptops",
+    "series": "NIST SP 800-83 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-83r1.pdf",
+    "pages": 47,
+    "sha256": "c9fbc3e92aab163e9140a72c3598ca62161a64821e3201e528b7a72f0d9285c1",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-88r1.pdf",
+    "title": "Guidelines for Media Sanitization",
+    "series": "NIST SP 800-88 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
+    "pages": 65,
+    "sha256": "acd2315cb1823d51db93b180d898fabfdf5e964e3fcb41cf44d14b4c3ec8c5c4",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  },
+  {
+    "file": "NIST.SP.800-114r1.pdf",
+    "title": "User's Guide to Telework and Bring Your Own Device (BYOD) Security",
+    "series": "NIST SP 800-114 Rev. 1",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-114r1.pdf",
+    "pages": 44,
+    "sha256": "17712434b2572e05a88c9f6f6364278a8711ea6f5c944f88732b31d8e3aea18a",
+    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)"
+  }
+]

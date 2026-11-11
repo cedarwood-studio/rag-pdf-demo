@@ -1,0 +1,278 @@
+[
+  {
+    "id": "in-01",
+    "question": "What is the minimum length for a password that a user chooses themselves?",
+    "document": "NIST.SP.800-63b.pdf",
+    "pages": [
+      24
+    ]
+  },
+  {
+    "id": "in-02",
+    "question": "Should we force users to change their passwords on a regular schedule?",
+    "document": "NIST.SP.800-63b.pdf",
+    "pages": [
+      25,
+      65
+    ]
+  },
+  {
+    "id": "in-03",
+    "question": "At authenticator assurance level 2, after how long without activity does a user have to sign in again?",
+    "document": "NIST.SP.800-63b.pdf",
+    "pages": [
+      19,
+      22
+    ]
+  },
+  {
+    "id": "in-04",
+    "question": "What is the difference between a cold site, a warm site and a hot site?",
+    "document": "nistspecialpublication800-34r1.pdf",
+    "pages": [
+      36,
+      37,
+      61,
+      62
+    ]
+  },
+  {
+    "id": "in-05",
+    "question": "What does recovery point objective mean?",
+    "document": "nistspecialpublication800-34r1.pdf",
+    "pages": [
+      31,
+      121,
+      144
+    ]
+  },
+  {
+    "id": "in-06",
+    "question": "What is a tabletop exercise?",
+    "document": "nistspecialpublication800-34r1.pdf",
+    "pages": [
+      43
+    ]
+  },
+  {
+    "id": "in-07",
+    "question": "What is the difference between clearing, purging and destroying media?",
+    "document": "NIST.SP.800-88r1.pdf",
+    "pages": [
+      18
+    ]
+  },
+  {
+    "id": "in-08",
+    "question": "What record should be filled in after a drive has been sanitized?",
+    "document": "NIST.SP.800-88r1.pdf",
+    "pages": [
+      31,
+      32,
+      65
+    ]
+  },
+  {
+    "id": "in-09",
+    "question": "What is the difference between a precursor and an indicator of an incident?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      36
+    ]
+  },
+  {
+    "id": "in-10",
+    "question": "How soon after an incident should the lessons learned meeting take place?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      48
+    ]
+  },
+  {
+    "id": "in-11",
+    "question": "What categories describe how much effort it takes to recover from an incident?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      43
+    ]
+  },
+  {
+    "id": "in-12",
+    "question": "What structures can an incident response team have?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      23
+    ]
+  },
+  {
+    "id": "in-13",
+    "question": "What are the six functions of the Cybersecurity Framework?",
+    "document": "NIST.CSWP.29.pdf",
+    "pages": [
+      8
+    ]
+  },
+  {
+    "id": "in-14",
+    "question": "What are the four tiers called?",
+    "document": "NIST.CSWP.29.pdf",
+    "pages": [
+      12,
+      29,
+      31
+    ]
+  },
+  {
+    "id": "in-15",
+    "question": "What are the main kinds of remote access methods for teleworkers?",
+    "document": "NIST.SP.800-46r2.pdf",
+    "pages": [
+      14
+    ]
+  },
+  {
+    "id": "in-16",
+    "question": "How can we find out whether an employee's phone has been jailbroken?",
+    "document": "NIST.SP.800-46r2.pdf",
+    "pages": [
+      27,
+      35
+    ]
+  },
+  {
+    "id": "in-17",
+    "question": "What should we do about systems that cannot be patched?",
+    "document": "NIST.SP.800-40r4.pdf",
+    "pages": [
+      19,
+      22,
+      23
+    ]
+  },
+  {
+    "id": "in-18",
+    "question": "How does emergency patching differ from routine patching?",
+    "document": "NIST.SP.800-40r4.pdf",
+    "pages": [
+      18,
+      19,
+      22
+    ]
+  },
+  {
+    "id": "in-19",
+    "question": "What is the difference between security awareness and security training?",
+    "document": "nistspecialpublication800-50.pdf",
+    "pages": [
+      20,
+      21
+    ]
+  },
+  {
+    "id": "in-20",
+    "question": "What models are there for organizing a security awareness and training program?",
+    "document": "nistspecialpublication800-50.pdf",
+    "pages": [
+      23,
+      24
+    ]
+  },
+  {
+    "id": "in-21",
+    "question": "What is a keystroke logger?",
+    "document": "NIST.SP.800-83r1.pdf",
+    "pages": [
+      15
+    ]
+  },
+  {
+    "id": "in-22",
+    "question": "What is sandboxing and how does it limit malware?",
+    "document": "NIST.SP.800-83r1.pdf",
+    "pages": [
+      9,
+      26
+    ]
+  },
+  {
+    "id": "in-23",
+    "question": "How often should a small business make a full backup of its data?",
+    "document": "NIST.IR.7621r1.pdf",
+    "pages": [
+      32
+    ]
+  },
+  {
+    "id": "in-24",
+    "question": "Why should a small business install an uninterruptible power supply?",
+    "document": "NIST.IR.7621r1.pdf",
+    "pages": [
+      25
+    ]
+  },
+  {
+    "id": "in-25",
+    "question": "Is it safe to check work email from a hotel kiosk computer?",
+    "document": "NIST.SP.800-114r1.pdf",
+    "pages": [
+      10,
+      37
+    ]
+  },
+  {
+    "id": "in-26",
+    "question": "What are the three basic types of information security policy?",
+    "document": "NIST.SP.800-12r1.pdf",
+    "pages": [
+      36
+    ]
+  },
+  {
+    "id": "out-01",
+    "question": "What is the refund policy for annual subscriptions?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-02",
+    "question": "What is the capital of Australia?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-03",
+    "question": "How do I descale an espresso machine?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-04",
+    "question": "What are the maximum fines under GDPR for a data breach?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-05",
+    "question": "How much does ISO 27001 certification cost?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-06",
+    "question": "What caused the 2017 Equifax breach?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-07",
+    "question": "Which encryption protocol does WhatsApp use for its messages?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "out-08",
+    "question": "How do I configure single sign-on for Salesforce with Okta?",
+    "document": null,
+    "pages": []
+  }
+]

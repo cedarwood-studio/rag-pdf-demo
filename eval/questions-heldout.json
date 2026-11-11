@@ -1,0 +1,88 @@
+[
+  {
+    "id": "held-in-01",
+    "question": "What is a rootkit?",
+    "document": "NIST.SP.800-83r1.pdf",
+    "pages": [
+      15
+    ]
+  },
+  {
+    "id": "held-in-02",
+    "question": "What is a blended attack?",
+    "document": "NIST.SP.800-83r1.pdf",
+    "pages": [
+      14
+    ]
+  },
+  {
+    "id": "held-in-03",
+    "question": "What does maximum tolerable downtime mean?",
+    "document": "nistspecialpublication800-34r1.pdf",
+    "pages": [
+      31,
+      121,
+      144
+    ]
+  },
+  {
+    "id": "held-in-04",
+    "question": "What is the difference between an event and an incident?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      16
+    ]
+  },
+  {
+    "id": "held-in-05",
+    "question": "How long does the salt need to be when password hashes are stored?",
+    "document": "NIST.SP.800-63b.pdf",
+    "pages": [
+      26
+    ]
+  },
+  {
+    "id": "held-in-06",
+    "question": "How frequently should incremental backups run in a small business?",
+    "document": "NIST.IR.7621r1.pdf",
+    "pages": [
+      33
+    ]
+  },
+  {
+    "id": "held-out-01",
+    "question": "Which antivirus product is the best choice for a small business?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held-out-02",
+    "question": "How much does a hot site cost per month?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held-out-03",
+    "question": "Who is the current director of NIST?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held-out-04",
+    "question": "What is the penalty for failing to report an incident within 72 hours?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held-out-05",
+    "question": "How many people work on the incident response team at NIST?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held-out-06",
+    "question": "What password does the default administrator account use?",
+    "document": null,
+    "pages": []
+  }
+]
