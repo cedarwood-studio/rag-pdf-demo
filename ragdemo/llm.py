@@ -16,6 +16,9 @@ class LLMError(RuntimeError):
     pass
 
 
+MODEL_ERRORS: tuple[type[Exception], ...] = (LLMError,)  # what a failed model call raises; the API turns these into a 502
+
+
 @dataclass
 class Spend:
     """Counts tokens reported by the API and stops the run when the estimated cost passes the cap."""
@@ -61,8 +64,16 @@ class ChatClient:
 
     def _post(self, payload: dict) -> dict:
         """One request, retried on rate limits and server errors. Error messages never include the key."""
-        for attempt in range(4):
-            response = self._client.post(self._url, json=payload, headers=self._headers)
+        attempts = 4
+        for attempt in range(attempts):
+            last = attempt == attempts - 1
+            try:
+                response = self._client.post(self._url, json=payload, headers=self._headers)
+            except httpx.TransportError as error:  # timeouts and connection failures
+                if last:
+                    raise LLMError(f"chat request failed: {type(error).__name__}") from error
+                time.sleep(2**attempt)
+                continue
             if response.status_code == 200:
                 return response.json()
             try:
@@ -70,11 +81,11 @@ class ChatClient:
             except ValueError:
                 error = {}
             out_of_credit = error.get("type") == "insufficient_quota"
-            if response.status_code in (429, 500, 502, 503) and not out_of_credit and attempt < 3:
+            if response.status_code in (429, 500, 502, 503) and not out_of_credit and not last:
                 time.sleep(2**attempt)
                 continue
             raise LLMError(f"chat request failed with status {response.status_code}: {error.get('message', 'no error message')}")
-        raise LLMError("chat request failed")
+        raise LLMError("chat request failed")  # not reached: the last attempt returns or raises
 
     def complete(self, system: str, user: str, json_reply: bool = False, max_tokens: int = 400) -> str:
         self.spend.check()
@@ -89,4 +100,7 @@ class ChatClient:
         data = self._post(payload)
         usage = data.get("usage", {})
         self.spend.add(usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0))
-        return data["choices"][0]["message"]["content"].strip()
+        try:
+            return (data["choices"][0]["message"]["content"] or "").strip()
+        except (KeyError, IndexError, TypeError) as error:
+            raise LLMError("chat reply had no message content") from error

@@ -33,6 +33,8 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
       ANSWER_MODEL: ${ANSWER_MODEL:-gpt-4o-mini}
+      # Generated answers stop when the estimated spend since the server started reaches this many US dollars.
+      MAX_SPEND_USD: ${MAX_SPEND_USD:-0.40}
     ports:
       - "127.0.0.1:${APP_PORT:-8000}:8000"
     volumes:

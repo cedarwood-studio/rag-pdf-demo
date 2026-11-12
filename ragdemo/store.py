@@ -54,23 +54,24 @@ class PgVectorStore:
     def connect(self) -> psycopg.Connection:
         return psycopg.connect(self.url)
 
+    def _open(self) -> psycopg.Connection:
+        # No server-side prepared statements: with a generic plan Postgres cannot use the trigram index for ILIKE.
+        conn = psycopg.connect(self.url, autocommit=True, prepare_threshold=None)
+        # The HNSW index holds every collection, so the scan has to keep going until k rows pass the filter.
+        conn.execute("SET hnsw.iterative_scan = strict_order")
+        conn.execute("SET hnsw.ef_search = 100")
+        return conn
+
     def _query(self, sql: str, params: tuple | dict = ()) -> list[tuple]:
         """Run a read query on one long-lived connection, reconnecting once if it has dropped."""
         with self._lock:
-            for attempt in (0, 1):
-                try:
-                    if self._conn is None or self._conn.closed:
-                        # No server-side prepared statements: with a generic plan Postgres cannot use the trigram index for ILIKE.
-                        self._conn = psycopg.connect(self.url, autocommit=True, prepare_threshold=None)
-                        # The HNSW index holds every collection, so the scan has to keep going until k rows pass the filter.
-                        self._conn.execute("SET hnsw.iterative_scan = strict_order")
-                        self._conn.execute("SET hnsw.ef_search = 100")
-                    return self._conn.execute(sql, params).fetchall()
-                except psycopg.OperationalError:
-                    self._conn = None
-                    if attempt:
-                        raise
-        return []
+            if self._conn is None or self._conn.closed:
+                self._conn = self._open()
+            try:
+                return self._conn.execute(sql, params).fetchall()
+            except psycopg.OperationalError:
+                self._conn = self._open()
+                return self._conn.execute(sql, params).fetchall()
 
     def wait_until_ready(self, attempts: int = 30, delay: float = 2.0) -> None:
         for attempt in range(attempts):
@@ -100,6 +101,8 @@ class PgVectorStore:
                 """
             )
             conn.execute(f"CREATE INDEX IF NOT EXISTS {self.table}_collection_idx ON {self.table} (collection)")
+            # One row per collection whose ingest ran to the end, so an interrupted ingest is not mistaken for a finished one.
+            conn.execute(f"CREATE TABLE IF NOT EXISTS {self.table}_ingests (collection text PRIMARY KEY, finished_at timestamptz NOT NULL DEFAULT now())")
         self.create_text_index()
 
     def create_text_index(self) -> None:
@@ -136,7 +139,16 @@ class PgVectorStore:
 
     def delete_collection(self, collection: str) -> None:
         with self.connect() as conn:
+            conn.execute(f"DELETE FROM {self.table}_ingests WHERE collection = %s", (collection,))
             conn.execute(f"DELETE FROM {self.table} WHERE collection = %s", (collection,))
+
+    def mark_complete(self, collection: str) -> None:
+        """Record that every document of the collection has been stored."""
+        with self.connect() as conn:
+            conn.execute(f"INSERT INTO {self.table}_ingests (collection) VALUES (%s) ON CONFLICT (collection) DO UPDATE SET finished_at = now()", (collection,))
+
+    def is_complete(self, collection: str) -> bool:
+        return bool(self._query(f"SELECT 1 FROM {self.table}_ingests WHERE collection = %s", (collection,)))
 
     def add(self, collection: str, rows: list[tuple[str, str, int, str, str, list[float]]]) -> None:
         """rows: (document, title, page, heading, body, embedding)"""

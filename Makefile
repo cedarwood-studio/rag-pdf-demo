@@ -37,7 +37,7 @@ eval-full:       ## the same questions against the full corpus, exact search and
 eval-baseline:   ## fixed-size chunks and the untuned threshold
 	$(EVAL) --collection core-fixed --threshold 0.5 --strict-threshold 0 --label core-baseline
 
-eval-heldout:    ## questions written after the settings were fixed
+eval-heldout:    ## the two held-out question sets; EVAL.md says how far each one is held out
 	$(EVAL) $(HELDOUT) --collection core --label heldout-core
 	$(EVAL) $(HELDOUT) --collection full --label heldout-full
 	$(EVAL) $(HELDOUT2) --collection core --label heldout2-core

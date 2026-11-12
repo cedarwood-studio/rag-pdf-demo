@@ -70,7 +70,7 @@ def pipeline(sample_pdf):
     ingest_file(store, embedder, "test", sample_pdf, "kettle-guide.pdf", "Kettle Guide", "heading")
     yield Pipeline(Retriever(store, embedder, "test", top_k=3), ExtractiveAnswerer(), threshold=0.25, max_citations=2)
     with store.connect() as conn:
-        conn.execute(f"DROP TABLE IF EXISTS {table}")
+        conn.execute(f"DROP TABLE IF EXISTS {table}, {table}_ingests")
 
 
 @pytest.fixture()

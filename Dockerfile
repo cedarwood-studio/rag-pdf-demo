@@ -17,5 +17,6 @@ COPY corpus corpus
 COPY eval/*.json eval/
 
 EXPOSE 8000
-# First start downloads the core PDFs and ingests them (about 9 minutes on a 4-core CPU); later starts skip straight to serving.
-CMD ["sh", "-c", "python -m ragdemo.ingest --if-empty && exec uvicorn ragdemo.api:app --host 0.0.0.0 --port 8000"]
+# First start downloads the core PDFs and ingests them (9 to 10 minutes on a 4-core CPU); later starts skip straight to serving.
+# A first start that was interrupted is ingested again from the start.
+CMD ["sh", "-c", "python -m ragdemo.ingest --unless-complete && exec uvicorn ragdemo.api:app --host 0.0.0.0 --port 8000"]

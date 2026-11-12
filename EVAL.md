@@ -1,6 +1,8 @@
 # Evaluation
 
-Every number on this page comes from a script in this repository or in its twin, [rag-pdf-demo-langchain](https://github.com/cedarwood-studio/rag-pdf-demo-langchain). The raw output of every run, question by question, is in `eval/results/` of each repository. This page is the same in both.
+The numbers on this page come from the scripts in this repository and in its twin, [rag-pdf-demo-langchain](https://github.com/cedarwood-studio/rag-pdf-demo-langchain). The raw output of every run, question by question, is in `eval/results/` of each repository. This page is the same in both.
+
+Three groups of numbers were not written by a script at the current commit, and each is marked where it appears: the round 1 history (its result files are in commit `a5c0c6a` of rag-pdf-demo), the cold ingest time for 100 PDFs (assembled from two runs and recorded by hand) and a probe of two other rerankers (output not saved).
 
 ## Read this first: which answer mode each number came from
 
@@ -23,7 +25,7 @@ Common settings for every run unless a table says otherwise:
 - **Citation correctness:** the system answered, and at least one cited passage is on an accepted page of the expected document.
 - **False refusals:** answerable questions the system declined to answer.
 - **Refusals of unanswerable questions:** higher is better. In generated mode they are split into refusals by the retrieval checks (before any model call) and refusals by the model.
-- **Answer correctness** (generated mode): the grader compares the answer with a short reference answer written by hand: correct, partial or incorrect.
+- **Answer correctness** (generated mode): the grader compares the answer with the short reference answer stored with each question and returns correct, partial or incorrect.
 - **Faithfulness** (generated mode): the grader checks whether every claim in the answer is supported by the passages the answer cites.
 
 ## Question sets and ground truth
@@ -34,13 +36,13 @@ Common settings for every run unless a table says otherwise:
 
 The answerable questions are all answered by the 12 core documents. The expected pages were found by reading the PDFs before any retrieval run.
 
-**Independent check of the ground truth.** A second reader, given only the questions and the PDFs and not the expected pages, located the answer pages for 10 of the 26 main questions (including the four that the system got wrong in round 1). It agreed with the recorded pages on all 10 and found two more valid pages that had been missed: the glossary page of the CSF document for in-13 and the executive summary of SP 800-50 for in-20. Both were added. Neither changed a score. The second reader was another instance of the same assistant that built the system, working without access to the expected answers, not a person.
+**Independent check of the ground truth.** A second reader, given only the questions and the PDFs and not the expected pages, located the answer pages for 10 of the 26 main questions (including the four that the system got wrong in round 1). It agreed with the recorded pages on all 10 and found two more valid pages that had been missed: the glossary page of the CSF document for in-13 and the executive summary of SP 800-50 for in-20. Both were added. Neither changed a score. The second reader was another instance of the AI assistant that built the system, working without access to the expected answers. No person repeated the check.
 
 **A limit that grows with the corpus.** At 100 PDFs, other documents sometimes state the same fact as the expected one. The scoring only accepts the expected document, so a correct citation to a different document counts as a miss. We read the eight main-set questions that lack a correct citation at 100 PDFs. One is this case: the tabletop exercise question (in-06) is answered from SP 800-84, the NIST guide on exercises, whose passage does define the term. One is the opposite and more instructive: the question about the six functions of the Cybersecurity Framework (in-13) pulls in documents built on version 1.1 of the framework, which has five functions. A corpus that holds an old and a new version of the same document will do this unless the old one is removed or marked. For the other six we did not check whether the cited page of a different document also answers the question; the four that are also missed at 12 PDFs cite a related page that does not state the answer.
 
 ## Retrieval, citations and refusals at 12 and at 100 PDFs
 
-Answer mode: extractive. Reranker off (the default). Questions: `eval/questions.json`.
+These runs are in extractive mode with the reranker off (the default), on the questions of `eval/questions.json`.
 
 | Metric | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
 | --- | --- | --- | --- | --- |
@@ -51,14 +53,14 @@ Answer mode: extractive. Reranker off (the default). Questions: `eval/questions.
 | False refusals (answerable questions) | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) |
 | Refusals (unanswerable questions, higher is better) | 8/8 (100%) | 8/8 (100%) | 4/8 (50%) | 4/8 (50%) |
 
-- **The two implementations score the same**, question for question, at both sizes. They store the same chunks and vectors and apply the same thresholds, so this is the expected result. LangChain changes how the steps are wired, not what they return.
+- **The two implementations score the same**, question for question, at both sizes. They store the same chunks and vectors and apply the same thresholds, so this is the expected result. LangChain changes how the steps are wired. What they return is the same.
 - **Going from 12 to 100 PDFs cost four questions out of 26.** Correct citations go from 22 to 18, and the expected page is the top result for 13 questions where it was 16.
 - **Off-topic refusals halve at 100 PDFs**, from 8 of 8 to 4 of 8. The larger corpus contains more of the questions' words ("GDPR", "WhatsApp"), so the unknown-word check fires less often, and it offers passages that look closer. In generated mode the model catches all of these (next section).
-- **Why retrieval drops.** The 88 added documents are on the same subject. Several restate or summarise what the core documents say, so they outrank the expected page. See the review of misses above.
+- **Why retrieval drops.** The 88 added documents are on the same subject. Several restate or summarize what the core documents say, so they outrank the expected page. See the review of misses above.
 
 ## Generated answers
 
-Answer mode: generated. Model: `openai/gpt-4o-mini` through OpenRouter, for both the answers and the grading. Reranker off (the default).
+These runs are in generated mode. `openai/gpt-4o-mini`, called through OpenRouter, wrote the answers and graded them. The reranker is off (the default).
 
 Main question set, `eval/questions.json` (26 answerable, 8 off-topic):
 
@@ -105,7 +107,7 @@ Round 1 held-out set, `eval/questions-heldout.json` (6 answerable, 6 on-topic un
 | Refusals (unanswerable questions, higher is better) | 6/6 (100%) | 6/6 (100%) | 6/6 (100%) | 6/6 (100%) |
 | of which refused by the model itself | 5/6 (83%) | 5/6 (83%) | 6/6 (100%) | 6/6 (100%) |
 
-**The weak spot: on-topic questions the documents do not answer.** Extractive mode, the same questions and settings, is shown beside generated mode:
+**On-topic questions the documents do not answer.** Extractive mode, the same questions and settings, is shown beside generated mode:
 
 | On-topic unanswerable questions refused | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
 | --- | --- | --- | --- | --- |
@@ -117,14 +119,14 @@ Round 1 held-out set, `eval/questions-heldout.json` (6 answerable, 6 on-topic un
 What these runs show:
 
 - **The model closes most of the refusal gap.** Told to refuse when the passages are on the subject but do not state the answer, it refused 9 of the 10 newer on-topic unanswerable questions where the retrieval checks alone refused 3 (2 at 100 PDFs), and all 6 of the round 1 set.
-- **The one it answered was our mistake, not the model's.** "On what date will the incident handling guide be withdrawn?" was written as unanswerable. The withdrawal notice on page 1 of SP 800-61 Rev. 2 gives the date, and the model answered with it and cited that page. The question is left in the set as written, so the tables count it against the system.
+- **The one it answered was a mistake in our question set.** "On what date will the incident handling guide be withdrawn?" was written as unanswerable. The withdrawal notice on page 1 of SP 800-61 Rev. 2 gives the date, and the model answered with it and cited that page. The question is left in the set as written, so the tables count it against the system.
 - **No answer was graded unsupported by its passages,** in any run. Between 74% and 100% of answers were graded fully supported, and the rest partly: typically a correct answer with one added detail that the cited passage does not contain.
 - **Answers are right more often than not, and less often at 100 PDFs.** On the main set 18 of 26 were graded correct at 12 PDFs and 16 at 100, with 5 and 7 partly correct and none incorrect. On the newer set, 8 of 10 at 12 PDFs and 7 of 10 at 100, where one answer was graded incorrect in each implementation (the system should allow passwords of at least 64 characters; the answer gave the 8-character minimum instead).
 - **Partial answers often trace to the documents, not the model.** For "Should we force users to change their passwords on a regular schedule?" one document in the corpus says yes and another says no. The model reported both, which the grader marked partly correct against a reference taken from one of them.
 
-What got worse in generated mode, stated plainly:
+What got worse in generated mode:
 
-- **False refusals appear.** On the main set the model declined 3 of 26 answerable questions at both sizes, where extractive mode declined none. In each case retrieval had not put the page with the answer among the passages, so the model was right that the passages did not state it. Extractive mode "answers" those questions by quoting the wrong passages. The cost is real all the same: a user gets no answer to a question the documents do cover.
+- **False refusals appear.** On the main set the model declined 3 of 26 answerable questions at both sizes, where extractive mode declined none. In each case retrieval had not put the page with the answer among the passages, so the model was right that the passages did not state it. Extractive mode "answers" those questions by quoting the wrong passages. Even so, a user gets no answer to a question the documents do cover.
 - **Citation correctness did not improve.** It is 21 of 26 and 20 of 26 on the main set, against 22 and 18 in extractive mode. The model can only cite what retrieval hands it.
 - **Each answer needs a paid model call and about two seconds more.**
 
@@ -150,11 +152,11 @@ With the optional reranker switched on, generated mode (`eval/results/answers-*-
 | --- | --- | --- | --- | --- |
 | Newer set, generated, reranker on | 9/10 (5 by checks, 4 by the model) | 9/10 (5 by checks, 4 by the model) | 9/10 (4 by checks, 5 by the model) | 9/10 (4 by checks, 5 by the model) |
 
-With the reranker on, more answers were graded correct on the main set: 20 of 26 at 12 PDFs, and 18 (plain) and 17 (LangChain) at 100, against 18 and 16 without it. False refusals fell from 3 to 1 at 12 PDFs and to 2 at 100. One answer per run was graded incorrect where none was before. On-topic unanswerable refusals stayed at 9 of 10, with more of them made by the retrieval checks and fewer left to the model. The gain is about two questions in 26, and it comes with the licence caveat and about 0.7 seconds more per question.
+With the reranker on, more answers were graded correct on the main set: 20 of 26 at 12 PDFs, and 18 (plain) and 17 (LangChain) at 100, against 18 and 16 without it. False refusals fell from 3 to 1 at 12 PDFs and to 2 at 100. One answer per run was graded incorrect where none was before. On-topic unanswerable refusals stayed at 9 of 10, with more of them made by the retrieval checks and fewer left to the model. The gain is about two questions in 26, and it comes with the license caveat and about 0.7 seconds more per question.
 
 ## Held-out questions
 
-Answer mode: extractive. Reranker off (the default).
+These runs are in extractive mode with the reranker off (the default).
 
 `eval/questions-heldout2.json`:
 
@@ -186,7 +188,7 @@ So in extractive mode most on-topic questions that the documents cannot answer s
 
 ## Scale: ingest time, size and latency
 
-Answer mode: extractive. Latency is measured in process over the 34 main questions, three passes each (one pass for the reranker rows).
+These runs are in extractive mode. Latency is measured in process over the 34 main questions, three passes each (one pass for the reranker rows).
 
 | | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
 | --- | --- | --- | --- | --- |
@@ -194,8 +196,8 @@ Answer mode: extractive. Latency is measured in process over the 34 main questio
 | Pages | 805 | 805 | 6,252 | 6,252 |
 | Chunks | 2,448 | 2,448 | 18,205 | 18,205 |
 | Stored size of the collection (text, metadata, vectors) | 6 MB | 6 MB | 42 MB | 42 MB |
-| Ingest from nothing, embedding on CPU | 529 s (measured in round 1) | not measured separately | 4,349 s, about 72 minutes | not measured separately |
-| Re-ingest with embeddings cached (parse PDFs, write rows) | 48 s | 80 s | 284 s | 423 s |
+| Ingest from nothing, embedding on CPU | 535 s | 586 s | 4,349 s, about 72 minutes (assembled from two runs) | not measured |
+| Re-ingest with embeddings cached (parse PDFs, write rows) | 31 s | 52 s | 271 s | 429 s |
 | Vector search, exact, p50 / p95 ms | 15 / 22 | 21 / 33 | 103 / 119 | 108 / 120 |
 | Vector search, HNSW index, p50 / p95 ms | 3 / 5 | 22 / 32 | 2 / 5 | 6 / 14 |
 | HNSW top-5 results shared with exact search | 94% | 100% | 98% | 96% |
@@ -209,10 +211,10 @@ Answer mode: extractive. Latency is measured in process over the 34 main questio
 
 How to read the timings:
 
-- **Embedding dominates ingestion.** Embedding 18,205 chunks on 4 CPU cores took about 72 minutes, at 4.3 chunks per second when nothing else was running. The figure is assembled from two runs: the first stopped after 93 documents on a NUL byte inside one PDF (now stripped in `pdf.py`), and other jobs shared the CPU during its first 14 documents. An embedding API or a GPU would change this number more than anything else here. The 12-PDF figure of 529 seconds is from round 1. Both implementations call the same embedding code, so the cold run was not repeated for LangChain.
-- **Re-ingest with cached embeddings** shows what the rest of ingestion costs: parsing the PDFs and writing rows. LangChain's vector store took about one and a half times as long to write the same rows (423 against 284 seconds for 100 PDFs, one run each, before the trigram index existed).
+- **Embedding dominates ingestion.** Embedding 18,205 chunks on 4 CPU cores took about 72 minutes, at 4.3 chunks per second when nothing else was running. The figure is assembled from two runs: the first stopped after 93 documents on a NUL byte inside one PDF (now stripped in `pdf.py`), and other jobs shared the CPU during its first 14 documents. An embedding API or a GPU would change this number more than anything else here. That run has no result file of its own: its figures are recorded by hand in the `cold_run` entry of `eval/results/ingest-full.json` in rag-pdf-demo. The 100-PDF cold run was not repeated for LangChain, which calls the same embedding code. The 12-PDF figures are one first start of each container from an empty database and an empty cache (`eval/results/ingest-core.json`), of which 503 and 532 seconds were embedding.
+- **Re-ingest with cached embeddings** shows what the rest of ingestion costs: parsing the PDFs and writing rows. LangChain's vector store took about one and a half times as long to write the same rows (429 against 271 seconds for 100 PDFs, one run each, in `eval/results/ingest-full-cached.json`).
 - **Exact vector search grows with the corpus**, from about 15 ms to about 105 ms. At 100 PDFs an HNSW index brings it to 2 to 6 ms and returns 96 to 98% of the same top-5 passages as exact search. At 12 PDFs LangChain's table is small enough that Postgres scans it without the index either way.
-- **Scores with the HNSW index at 100 PDFs** (`eval/results/full-hnsw.md`): retrieval and citation scores were unchanged in both implementations. The LangChain run refused one more off-topic question (5 of 8 against 4), because approximate search returned a slightly different nearest passage for it. The two implementations lay out their indexes differently: plain Python keeps one table with one index over all collections and asks pgvector to keep scanning until enough rows of the collection are found, LangChain keeps one table and one index per collection.
+- **Scores with the HNSW index at 100 PDFs** (`eval/results/full-hnsw.md`): with the first build of each index, retrieval and citation scores were the same as with exact search in both implementations, and the LangChain run refused one more off-topic question (5 of 8 against 4), because approximate search returned a slightly different nearest passage for it. An HNSW index is approximate and two builds of it are not the same. A second build (`eval/results/full-hnsw-rebuild.md`) left the LangChain scores where they were and gave the plain-Python version one more correct citation (19 of 26) and one more off-topic refusal (5 of 8). A difference of one question between these runs is variation from build to build. The two implementations lay out their indexes differently: plain Python keeps one table with one index over all collections and asks pgvector to keep scanning until enough rows of the collection are found, LangChain keeps one table and one index per collection.
 - **The index is not the default.** At this size exact search is fast enough, and it is exact. The index is one setting (`USE_INDEX=1`) and becomes worth its small loss somewhere past a hundred thousand chunks.
 - **The slow part of the default path was not vector search.** The unknown-word check looked up each question word with a pattern match over every chunk. For questions with rare words that put the 95th percentile of the whole answer path at 460 to 500 ms at 100 PDFs. A trigram index on the chunk text brought it to under 300 ms. That index is now created at ingestion.
 - **The optional reranker costs about 0.7 seconds per question** on this CPU, and more in the tail.
@@ -221,7 +223,7 @@ How to read the timings:
 
 ## The optional reranker
 
-Answer mode: extractive. The same collections and questions as the main table, with the reranker switched on (`RERANK=1`).
+These runs are in extractive mode, on the same collections and questions as the main table, with the reranker switched on (`RERANK=1`).
 
 | Metric | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
 | --- | --- | --- | --- | --- |
@@ -241,7 +243,7 @@ Compared with the main table (reranker off):
 - **On-topic unanswerable questions (newer held-out set, extractive):** 5 of 10 refused at 12 PDFs and 4 of 10 at 100, against 3 and 2 without it. The rerank threshold was chosen on the round 1 held-out set, where it lifts refusals from 1 of 6 to 3 of 6 (0 to 3 at 100 PDFs).
 - **It costs about 0.7 seconds per question** (see the scale table).
 
-Why it is off by default: the licence position of its model is not clean enough for a public repository (see Licences in the README). Two cross-encoders with an Apache 2.0 licence on their own model cards were tried as replacements on the 32 answerable questions of the main and round 1 sets at 12 PDFs, as a quick probe and not a full evaluation: `jinaai/jina-reranker-v1-tiny-en` put the expected page first for 24, `jinaai/jina-reranker-v1-turbo-en` for 22, against 26 for the MiniLM model and 21 for vector search alone, and both separated answerable from unanswerable questions less well. Neither was adopted. With a language model in the answer step the reranker matters less: the model sees five passages and does the refusing.
+Why it is off by default: the license position of its model is not clean enough for a public repository (see Licenses in the README). Two cross-encoders with an Apache 2.0 license on their own model cards were tried as replacements on the 32 answerable questions of the main and round 1 sets at 12 PDFs, as a quick probe and not a full evaluation: `jinaai/jina-reranker-v1-tiny-en` put the expected page first for 24, `jinaai/jina-reranker-v1-turbo-en` for 22, against 26 for the MiniLM model and 21 for vector search alone, and both separated answerable from unanswerable questions less well. Neither was adopted. The probe was run by hand and its output was not saved, so these counts have no file in `eval/results/`. With a language model in the answer step the reranker matters less: the model sees five passages and does the refusing.
 
 ## Baselines: what the chunker is worth
 

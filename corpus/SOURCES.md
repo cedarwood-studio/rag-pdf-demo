@@ -1,8 +1,8 @@
 # Corpus sources
 
-100 publications of the US National Institute of Standards and Technology (NIST), 6,252 pages in total. They are works of the US Government and are not subject to copyright in the United States (17 U.S.C. 105). The PDFs are not stored in this repository. `python -m ragdemo.corpus --corpus full` downloads them from nist.gov and checks each file against the SHA-256 recorded in `sources.json`.
+100 publications of the US National Institute of Standards and Technology (NIST), 6,252 pages in total. NIST publishes them as works of the US Government, which are not subject to copyright in the United States (17 U.S.C. 105). The PDFs are not stored in this repository. `python -m ragdemo.corpus --corpus full` downloads them from nist.gov and checks each file against the SHA-256 recorded in `sources.json`.
 
-This file is generated from `sources.json`.
+This file lists the same documents as `sources.json`.
 
 ## Core set (12 documents, 805 pages)
 

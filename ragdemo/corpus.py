@@ -43,7 +43,8 @@ def fetch(corpus: str = "core", pdf_dir: Path = PDF_DIR) -> None:
             time.sleep(0.5)  # the publisher's server throttles bursts
         digest = hashlib.sha256(target.read_bytes()).hexdigest()
         if digest != src["sha256"]:
-            sys.exit(f"checksum mismatch for {src['file']}: got {digest}")
+            target.unlink()  # so that the next run downloads it again
+            sys.exit(f"checksum mismatch for {src['file']}: got {digest}. The file was removed.")
     print(f"{len(sources)} PDFs present and verified in {pdf_dir}")
 
 

@@ -1,6 +1,6 @@
 """PDF text extraction that keeps the page number and the font of every line.
 
-pypdf is used because its licence (BSD) puts no conditions on the code that
+pypdf is used because its license (BSD) puts no conditions on the code that
 calls it. Font size and weight are what the chunker uses to find headings.
 """
 

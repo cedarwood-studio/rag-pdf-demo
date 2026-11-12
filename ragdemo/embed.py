@@ -47,7 +47,7 @@ class FastEmbedEmbedder:
 
 
 class HashEmbedder:
-    """Bag of words hashed into a fixed number of buckets, L2 normalised."""
+    """Bag of words hashed into a fixed number of buckets, L2 normalized."""
 
     STOP = frozenset("a an and are as at be by do does for from how in is it of on or that the to what when which who why with".split())
 

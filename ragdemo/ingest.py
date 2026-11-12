@@ -37,7 +37,7 @@ def main() -> None:
     parser.add_argument("--corpus", choices=["core", "full"], default=settings.corpus)
     parser.add_argument("--strategy", choices=["heading", "fixed"], default="heading")
     parser.add_argument("--collection", default=None, help="defaults to the corpus name, with -fixed added for the baseline chunker")
-    parser.add_argument("--if-empty", action="store_true", help="do nothing when the collection already has chunks")
+    parser.add_argument("--unless-complete", action="store_true", help="do nothing when an earlier ingest of the collection ran to the end")
     args = parser.parse_args()
 
     collection = args.collection or (args.corpus if args.strategy == "heading" else f"{args.corpus}-{args.strategy}")
@@ -45,8 +45,8 @@ def main() -> None:
     store = PgVectorStore(settings.database_url, embedder.dim)
     store.wait_until_ready()
     store.init_schema()
-    if args.if_empty and store.count(collection) > 0:
-        print(f"collection '{collection}' already has {store.count(collection)} chunks, skipping ingest")
+    if args.unless_complete and store.is_complete(collection):
+        print(f"collection '{collection}' is complete with {store.count(collection)} chunks, skipping ingest")
         return
     fetch(args.corpus)
     store.delete_collection(collection)
@@ -71,6 +71,7 @@ def main() -> None:
             }
         )
         print(f"{src['file']}: {p} pages, {c} chunks, {seconds}s", flush=True)
+    store.mark_complete(collection)
     total = time.perf_counter() - start
     report = {
         "collection": collection,
@@ -85,10 +86,11 @@ def main() -> None:
         "per_document": per_document,
     }
     RESULTS.mkdir(parents=True, exist_ok=True)
-    # Keep the record of the cold run: a later run that only reads the cache must not overwrite its timings.
-    record = RESULTS / f"ingest-{collection}.json"
-    if embedder.computed == chunks or not record.exists():
-        record.write_text(json.dumps(report, indent=2) + "\n")
+    # A run that embedded every chunk is the cold record. A run that read every vector from the cache is kept beside it,
+    # and a mixed run is only printed, so neither overwrites the cold timings.
+    if embedder.computed in (0, chunks):
+        suffix = "-cached" if embedder.computed == 0 else ""
+        (RESULTS / f"ingest-{collection}{suffix}.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: v for k, v in report.items() if k != "per_document"}))
 
 

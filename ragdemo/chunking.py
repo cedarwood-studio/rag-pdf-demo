@@ -52,7 +52,7 @@ def strip_running_lines(pages: list[Page]) -> list[Page]:
         lines = []
         for i, line in enumerate(page.lines):
             at_edge = i < 2 or i >= len(page.lines) - 2
-            if at_edge and (_norm(line.text) in repeated or re.fullmatch(r"[\divxlc\-– ]{1,8}", line.text.lower())):
+            if at_edge and (_norm(line.text) in repeated or re.fullmatch(r"[\divxlc\-\u2013 ]{1,8}", line.text.lower())):
                 continue
             lines.append(line)
         cleaned.append(Page(number=page.number, lines=lines))

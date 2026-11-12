@@ -6,7 +6,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
     "pages": 32,
     "sha256": "3c31f46fee98cac0c4323453e5109291a213b4de7fef8c058af9bf67f717433c",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -16,7 +16,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.7621r1.pdf",
     "pages": 55,
     "sha256": "edc2fbc5e193f606b985f63f36cf42c57d774ec68ebd2fac8fb978eb8de77374",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -26,7 +26,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-12r1.pdf",
     "pages": 101,
     "sha256": "1baa0b89fc554c15b465b6a974be0a63b08124bf5d5987d34e0965fbafea4a2e",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -36,7 +36,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
     "pages": 149,
     "sha256": "476f04d4c60b0770c1ac8b2720551972074ce78e936a3e7a535048416111d0df",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -46,7 +46,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf",
     "pages": 28,
     "sha256": "351f4a828d6c0bc8bf98f25ba3f87ec5add0ed8cf8bb4a6e6cb4e7e4a9731833",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -56,7 +56,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-46r2.pdf",
     "pages": 53,
     "sha256": "8d236e4b51c0ff0005e6a5be5724de6ba404954021d26c7d7aa4665b6b38a7de",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -66,7 +66,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-50.pdf",
     "pages": 71,
     "sha256": "50a26f97c951896fda850baea55cc47e281c74f9fecaa981deca1d3152148d14",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -76,7 +76,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf",
     "pages": 80,
     "sha256": "b1c5ead0632dcfb979c59d8c462b094ad2465ddaf62d5c246289d6d9b4419df1",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -86,7 +86,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf",
     "pages": 80,
     "sha256": "ccfce7510a1267933f912d023306c6e7d485f21be63d271108b61aad6139127e",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -96,7 +96,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-83r1.pdf",
     "pages": 47,
     "sha256": "c9fbc3e92aab163e9140a72c3598ca62161a64821e3201e528b7a72f0d9285c1",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -106,7 +106,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
     "pages": 65,
     "sha256": "acd2315cb1823d51db93b180d898fabfdf5e964e3fcb41cf44d14b4c3ec8c5c4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -116,7 +116,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-114r1.pdf",
     "pages": 44,
     "sha256": "17712434b2572e05a88c9f6f6364278a8711ea6f5c944f88732b31d8e3aea18a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "core"
   },
   {
@@ -126,7 +126,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf",
     "pages": 55,
     "sha256": "0f3ca796610ab024cbc3484cbd6799e19b4d9159d3634972a2a76af83f15fb92",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -136,7 +136,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.20.pdf",
     "pages": 18,
     "sha256": "c6162eab43cc6ac4e2d791eb57ad67b8c0676779cb2f2e1fd8372c108ad8b030",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -146,7 +146,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2020/NIST.IR.8183r1.pdf",
     "pages": 60,
     "sha256": "ed32a2662e064012174d0b2dfe021aa25fe29c6997909b2dcec641b37425fef3",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -156,7 +156,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2019/NIST.IR.8228.pdf",
     "pages": 44,
     "sha256": "b66050cd5ec154912610ac20e5e846f7f1d25de1fbc374d4cd40c729a73c5c50",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -166,7 +166,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2020/NIST.IR.8259.pdf",
     "pages": 37,
     "sha256": "837d42bd6588a359bbdba265c477b7cf4f867aa4a36b5c5262df570382b2b382",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -176,7 +176,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2020/NIST.IR.8259A.pdf",
     "pages": 23,
     "sha256": "b3b54b00b5ac3f3582a3e3fd17d3f25b18f848a51f113000b6489adbcce374b4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -186,7 +186,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2021/NIST.IR.8259B.pdf",
     "pages": 21,
     "sha256": "81de5249627a4862f61ffbc91cb589db75aff02436ca5fad5b1b6b26f501b904",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -196,7 +196,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2020/NIST.IR.8286.pdf",
     "pages": 75,
     "sha256": "a4df1552e1241cfa581e5e2b4005a72591314620fc955648aae0b0a73e717265",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -206,7 +206,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2021/NIST.IR.8286A.pdf",
     "pages": 62,
     "sha256": "46afb33b5c52ca6c17ae1d6d6f8f9438227a73d3ae09e4463d2edf4f29f649a1",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -216,7 +216,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8286B.pdf",
     "pages": 46,
     "sha256": "89bf746b2970042d7ad43112bc802d89b2e61b52a6777cf821c563d280336976",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -226,7 +226,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8374.pdf",
     "pages": 29,
     "sha256": "cf5c89e8e3f3893d58de74174d5333f34a7e707fa5b6635594779b84908eada2",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -236,7 +236,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-101r1.pdf",
     "pages": 85,
     "sha256": "efd3f02258276fb294d62a73bb0a6ec80051fd625d5197584220beaface31718",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -246,7 +246,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-116r1.pdf",
     "pages": 71,
     "sha256": "5d2864b44bbc13471c1665e30073684ebf5b6ca42b5227424f79a85d9accd9f4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -256,7 +256,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-121r2.pdf",
     "pages": 68,
     "sha256": "06fdf2eb6bfeab8693fe05866ac123fabf2e835354a0d9ad619c4e6b7b0c7bc0",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -266,7 +266,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-125Ar1.pdf",
     "pages": 39,
     "sha256": "a0bdcc709f60177b66dbacb4b3828df45425e9b4678b652719818423ab94ace8",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -276,7 +276,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-125B.pdf",
     "pages": 30,
     "sha256": "2fdda2147b7819c01fc351f1b070e61a0eb4868534f95575051b21b6e241d4a4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -286,7 +286,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf",
     "pages": 99,
     "sha256": "ee97c5be0a5a1c70165bf960c67042c5ed1bcb186aeb592eada60e512ab35a70",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -296,7 +296,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-137A.pdf",
     "pages": 77,
     "sha256": "faf53de596de79151a3bf999ff9c67cce7f394cf41bbbac7dbf58ff6ee6071c3",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -306,7 +306,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-150.pdf",
     "pages": 43,
     "sha256": "c9ade17b8524d0bae4f77e4aefa79f0b752ca18dcaf01c84214bf2b8a05376f8",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -316,7 +316,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-162.pdf",
     "pages": 47,
     "sha256": "ea90ee967a7011c8de5cfaffe0820d157167edefdea5fc2a84af730af4295cd7",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -326,7 +326,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163r1.pdf",
     "pages": 55,
     "sha256": "c21235ab318aba66a52135d9b15c50c1d4213f9e32dd2e0c9554105fb282b974",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -336,7 +336,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-167.pdf",
     "pages": 24,
     "sha256": "9a383e711d8dc0ce4500db01b459257c0500e287415c1632a8a027dd8ca7f91e",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -346,7 +346,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171Ar3.pdf",
     "pages": 123,
     "sha256": "946d963707cdaba19901c49d5c89517adb00844fe5d101e9dac7febc68e34cfa",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -356,7 +356,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
     "pages": 120,
     "sha256": "3e4631df8b5d61f40a6e542b52779ef30ddbbfff31e09214fa94ad6e6f5e6d08",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -366,7 +366,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-172r3.pdf",
     "pages": 119,
     "sha256": "e70f2e81b0131f83aaf6973c7e5563de8d8bd7f034e03ea64125c90c16c5afca",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -376,7 +376,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-177r1.pdf",
     "pages": 128,
     "sha256": "16943833039802353339cc03a99421f1771f33777a82a3c046c76c00125e802a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -386,7 +386,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-178.pdf",
     "pages": 68,
     "sha256": "63d2b358109b96ba6430db7c72dcab419159cd38a114bfb32dc5ecb47e6153db",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -396,7 +396,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-181r1.pdf",
     "pages": 27,
     "sha256": "d27e324ed650551015ffe5d44608fcd1e1b71dafadd5f4d44f3767002e0e9313",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -406,7 +406,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-183.pdf",
     "pages": 30,
     "sha256": "d2ec695aeeb64f0f5f28b9e473ca6b7a0afc4948cc0cc84dc21c6dab4c3c3811",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -416,7 +416,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-184.pdf",
     "pages": 53,
     "sha256": "c03b6245d3ebbe71a5b52072f756504b76f9fd36e8e8c8a71115364b09f2946f",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -426,7 +426,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-187.pdf",
     "pages": 49,
     "sha256": "f08bd0283ea77a3f7c95888f490cc791c50b265615d8c4093a1895ef5441355d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -436,7 +436,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-188.pdf",
     "pages": 122,
     "sha256": "ae50872a59d8fdd287d46baaf324da204d019849c03f13ad1d9bf76ab9be81c0",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -446,7 +446,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-18r2.pdf",
     "pages": 70,
     "sha256": "640f9124469f285fc39dbeffd59708c84043d1a6b64cc87988f31e7e98942371",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -456,7 +456,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf",
     "pages": 63,
     "sha256": "0ebad52c4a3aba971b3a707b056e57238d1c4ad8f212dffd461ff9f5fed1bdb6",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -466,7 +466,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-192.pdf",
     "pages": 68,
     "sha256": "cedb74f71493588e638003d5a2eab1d000956d15ed53c44c89bbf5f2851b1676",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -476,7 +476,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-193.pdf",
     "pages": 45,
     "sha256": "a07a759fe0e58f91c92d466afc9c582d1e1ff3a7cd4a04600ec7f7ff61d5bb06",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -486,7 +486,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204.pdf",
     "pages": 50,
     "sha256": "25412c860165e5ee1cfbf26ed47c56f4d213b1996a73365f5561be6403cf7588",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -496,7 +496,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204A.pdf",
     "pages": 27,
     "sha256": "823db628e007a61e370deb2d98b94c11ff4520be8f4b9b73ef9ea9e49c42d97a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -506,7 +506,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204B.pdf",
     "pages": 41,
     "sha256": "e41e391641e603afa215ea83d704a1c471ca3b987faa3a0cb0d6f70a724b99f0",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -516,7 +516,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204C.pdf",
     "pages": 45,
     "sha256": "d51133dc55a804990d80ba4b9c35e3fbb2d5acdf7b330b66edeaae59fc63d69b",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -526,7 +526,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204D.pdf",
     "pages": 41,
     "sha256": "74e404d98c9dd74722b678246e5127ffeede71c4b80d0c631c995650128174e8",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -536,7 +536,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-205.pdf",
     "pages": 42,
     "sha256": "93a7e637531a2dfcd11402803e36208ee1259391103194994768d34344cb6141",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -546,7 +546,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf",
     "pages": 59,
     "sha256": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -556,7 +556,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207A.pdf",
     "pages": 31,
     "sha256": "bb1af3bab70d8589e71e9fce4a99d3e714a82dd7b2bc7a931c7458a6ab60bb52",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -566,7 +566,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-209.pdf",
     "pages": 79,
     "sha256": "d94e95a18e6a12395d7e3ed8707266028ad188ce0a6e985137278d3e4416706d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -576,7 +576,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-210.pdf",
     "pages": 34,
     "sha256": "147271600180dfd048c21da0892a1228f574bdf7b69f5982710a3aa6ebf79a95",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -586,7 +586,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-213.pdf",
     "pages": 47,
     "sha256": "8f90d1fc02a3436444dca859b2f66e97942f443c07109798aeaee1315a6c60ae",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -596,7 +596,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-213A.pdf",
     "pages": 94,
     "sha256": "d75f9e71cc178f293837fb9ad514f2b79facdb242a75b802e279b56e58171fdd",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -606,7 +606,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-215.pdf",
     "pages": 41,
     "sha256": "159e17820a0a337c4a7e9c7ee8b966823e81dc72f5c6229e7d7244c40b0b1645",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -616,7 +616,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-216.pdf",
     "pages": 37,
     "sha256": "363183f02e9366e63a0913080c6576cb4f10f1b635e0a3f12ad7367d8980b67f",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -626,7 +626,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf",
     "pages": 36,
     "sha256": "617746e553a9e2da49bfbd4eef0dfc3094758a39b869314e4173ac36605cde22",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -636,7 +636,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-221A.pdf",
     "pages": 20,
     "sha256": "c667cbaad712ff7140c8eb34b358c937ea546fc82e037c82ff042a5b0db4befc",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -646,7 +646,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-228.pdf",
     "pages": 58,
     "sha256": "c553a071cbc7535d586c9cdbafb41ec6ddf79594043ae51c86e07a7cea907fb4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -656,7 +656,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-47r1.pdf",
     "pages": 58,
     "sha256": "3ba5248bab614da212440a1bcfe814f0068ef95ebc2d73025742bc78a89c865a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -666,7 +666,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-52r2.pdf",
     "pages": 72,
     "sha256": "f9a4dbb9cc6ac6778bb9f4e6be9272c2f14d113f3ad241a295684ac6bd71f257",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -676,7 +676,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf",
     "pages": 85,
     "sha256": "8a9dae903c2e4924d7b67c246faa32757d15f9731abb85922fad63f9ea0e02fa",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -686,7 +686,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf",
     "pages": 76,
     "sha256": "915bb812cb705918461e642e84141c6ca2adc2ca0106e1d88f3884c61f07110a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -696,7 +696,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63a.pdf",
     "pages": 48,
     "sha256": "de3ffae0d7912763545d8327235259c75cab2d579c4a36888f0da17ef591c49d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -706,7 +706,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63c.pdf",
     "pages": 50,
     "sha256": "c558e7870ad229f3bf76795f1655e2ad6c76236069796edc3209afeefcdf7a8d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -716,7 +716,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-66r2.pdf",
     "pages": 122,
     "sha256": "3910c9b29e06d978bf17258d94e851d8d3d786ceb65beb352cc93271f4d3173e",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -726,7 +726,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-70r5.pdf",
     "pages": 59,
     "sha256": "3d9bfac71bc75050fba779d1f7aa126144e90ea866dedba93386267ed92b31e3",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -736,7 +736,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-111.pdf",
     "pages": 40,
     "sha256": "cbee78e499681f636f5021cd1ef5f55968ed7000af402189ed330ee7591cfb48",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -746,7 +746,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-113.pdf",
     "pages": 87,
     "sha256": "0a46de5a37eb27fec60ec33e3e123eafc739c87df15a7e76870c30953fd6c5cf",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -756,7 +756,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf",
     "pages": 80,
     "sha256": "58e5ed41e5c8ca34ce14fd80b70f118f2c6d613d1647bc307edca30bcc45f063",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -766,7 +766,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
     "pages": 59,
     "sha256": "555b9df82af12de4ca887efc21c0a9e159a14485d5d570f44b32ef15c6c62470",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -776,7 +776,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-123.pdf",
     "pages": 53,
     "sha256": "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -786,7 +786,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-125.pdf",
     "pages": 35,
     "sha256": "da8bd5054eb1d6a1942cf756901e5ebfece26458580af143971bc54f45d5114d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -796,7 +796,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
     "pages": 80,
     "sha256": "2d1c0bf459f5e1bfd41ceb5eac83bf62e4c34bf08e2e7088b37cb73a11442b98",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -806,7 +806,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-144.pdf",
     "pages": 80,
     "sha256": "47f0fdf31f4f2b37fb2a8fa0bf77235aad0b3daa74a6397603a619a839500a42",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -816,7 +816,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf",
     "pages": 81,
     "sha256": "03dd14aafeb121566b5c79167824327e8e3b1ed1cb5bd68989370ca8f23cf55c",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -826,7 +826,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-147.pdf",
     "pages": 26,
     "sha256": "6726923ada7eaea66482e482beb2289a4b02bdc8643f4d85d0f0857e1d2d6c64",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -836,7 +836,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-153.pdf",
     "pages": 24,
     "sha256": "6e8d44de32789ecb3267c8a7778eb3088c15f5c860cf6e823243c8030ed3ec09",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -846,7 +846,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-27.pdf",
     "pages": 41,
     "sha256": "da2978e3000580f31fe3235524559d018e04a5a29cc90b3586a5a892332292a3",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -856,7 +856,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-28ver2.pdf",
     "pages": 62,
     "sha256": "ecd0b0490c049ba704d72b4b9f1cab7e04ce0a00b6de1db584f2d6525ddcd29a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -866,7 +866,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
     "pages": 95,
     "sha256": "f214087f0bdb35932a28c16eb93932a33c67a6edfb5e6f1638866bd201c98e04",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -876,7 +876,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-32.pdf",
     "pages": 55,
     "sha256": "cb116319d9aa1c0ec3bf2a5651198d05cb8f6d301ad2b70f51ed49699bb31338",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -886,7 +886,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-35.pdf",
     "pages": 84,
     "sha256": "deda9b93dc7ee64cc8069be815e8359fb22841953866f81597b7f27b695f7915",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -896,7 +896,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-36.pdf",
     "pages": 68,
     "sha256": "611d09bf0094959ab4e5d7c7ae16e509caf11516fdfa92932a5724a876a3574d",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -906,7 +906,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
     "pages": 88,
     "sha256": "cf680760d171fc590396c1d98eef184af96efa971ef9880830cd2912ea1a54a8",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -916,7 +916,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-41r1.pdf",
     "pages": 48,
     "sha256": "06642409a8f0dcc9de8725f2d76d6feedea2d4d1faa860c2ee18488863dd1f4f",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -926,7 +926,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-48r1.pdf",
     "pages": 51,
     "sha256": "e43a50ae42163d842452ee118edd9d4eeb01da4bef96b70bce5941ced6a4e2d0",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -936,7 +936,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-55r1.pdf",
     "pages": 81,
     "sha256": "05a3addfb2f3d74cdbfe3dc95f1a7e88ba1a7d24d24d2bbd10014d6a9d8c26ca",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -946,7 +946,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-58.pdf",
     "pages": 99,
     "sha256": "665709c96b9f52c36e634c3bc08cd1b0cc9ad8b1a282be42a01f6042b7966357",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -956,7 +956,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf",
     "pages": 68,
     "sha256": "5bf405c9ceb855317f99bc4614b569af427ec82ab09108a0894abb6a589b5c5a",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -966,7 +966,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-84.pdf",
     "pages": 97,
     "sha256": "5ce70d6200687746a6b231f001c181621935734d92fdd043704c6113bede41a6",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -976,7 +976,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-86.pdf",
     "pages": 121,
     "sha256": "ea7eb645bcd3feaf3ab9ea7dfc3c8987a08bf260c40682df1e5e8292bf9fe9b4",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -986,7 +986,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-92.pdf",
     "pages": 72,
     "sha256": "466c3ab1580bc3b2e25d11bbd4b2ac92fd1762b3c5b10596924981bc1b9e61e1",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   },
   {
@@ -996,7 +996,7 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf",
     "pages": 127,
     "sha256": "289c2ed27f7e3aac41624bf2e6fad268642bad2dabe352a5ab28fa169824a96e",
-    "licence": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
+    "license": "Work of the US Government (NIST), not subject to copyright in the United States (17 U.S.C. 105)",
     "set": "extended"
   }
 ]
