@@ -32,27 +32,27 @@ Ingestion (`ragdemo/pdf.py`, `ragdemo/chunking.py`, `ragdemo/ingest.py`) reads e
 | `ragdemo/rerank.py` | Cross-encoder reranking | fastembed cross-encoder | 33 | The same model as a `BaseDocumentCompressor`. | 45 |
 | `ragdemo/refusal.py` | The refusal checks | Own code | 70 | The same logic, reading scores from document metadata. | 70 |
 | `ragdemo/answer.py` | Extractive and generated answers | A prompt string and a parser | 75 | `ChatPromptTemplate`, the chat model and `StrOutputParser` joined with the pipe operator. Same parser. | 82 |
-| `ragdemo/llm.py` | Chat model client, token count, spend cap | An httpx client with retries | 106 | `ChatOpenAI` plus a callback handler for the spend cap. | 88 |
+| `ragdemo/llm.py` | Chat model client, token count, spend cap | An httpx client with retries | 111 | `ChatOpenAI` plus a callback handler for the spend cap. | 88 |
 | `ragdemo/pipeline.py` | The whole path, wired together | One method of about 25 lines | 135 | One LCEL chain with a `RunnableBranch` for the refusal path. | 166 |
 | `ragdemo/api.py` | FastAPI app | FastAPI | 90 | The same file. | 90 |
 | `ragdemo/eval.py` | Retrieval, citation and refusal scoring | Own code | 231 | The same, reading document metadata. | 231 |
-| `ragdemo/eval_answers.py` | Answer correctness and faithfulness grading | Two prompts and a JSON reply | 199 | The grader is a chain: prompt, model in JSON mode, `JsonOutputParser`. | 210 |
-| `ragdemo/bench.py` | Latency and size | Own code | 106 | The same. | 106 |
-| `ragdemo/config.py` | Settings from the environment | Own code | 63 | The same file. | 63 |
+| `ragdemo/eval_answers.py` | Answer correctness and faithfulness grading | Two prompts and a JSON reply | 199 | The grader is a chain: prompt, model in JSON mode, `JsonOutputParser`. | 212 |
+| `ragdemo/bench.py` | Latency and size | Own code | 106 | The same, reading document metadata. | 106 |
+| `ragdemo/config.py` | Settings from the environment | Own code | 63 | The same but for the default database port. | 63 |
 | `ragdemo/corpus.py` | Download and checksum the PDFs | Own code | 54 | The same file. | 54 |
-| Total | | | 1,835 | | 1,922 |
+| Total | | | 1,840 | | 1,924 |
 
-Line counts are of the files in `ragdemo/`, comments and blank lines included.
+Line counts are of the files in `ragdemo/`, comments and blank lines included. The one-line `__init__.py` is left out.
 
 ## Run it
 
-Requirements: Docker with the compose plugin (or podman with podman-compose), and about 3 GB of disk. With podman, use `podman-compose` in place of `docker compose`, and `make COMPOSE=podman-compose` for the make targets.
+Requirements: Docker with the compose plugin (or podman with podman-compose), and about 3 GB of disk (a rough figure, not recorded in a file). With podman, use `podman-compose` in place of `docker compose`, and `make COMPOSE=podman-compose` for the make targets.
 
 ```sh
 docker compose up -d --build
 ```
 
-The first start downloads the 12 core PDFs (15 MB) from nist.gov, verifies their checksums, embeds them on CPU and stores them. That takes about 9 minutes on a 4-core ARM machine. Follow it with `docker compose logs -f app`. Later starts skip ingestion. A first start that is interrupted begins the ingest again.
+The first start downloads the 12 core PDFs (15 MB by the sizes of the downloaded files) from nist.gov, verifies their checksums, embeds them on CPU and stores them. That takes about 9 minutes on a 4-core ARM machine. Follow it with `docker compose logs -f app`. Later starts skip ingestion. A first start that is interrupted begins the ingest again.
 
 Then open http://localhost:8000, or use curl:
 
@@ -167,7 +167,7 @@ The held-out sets, the optional reranker, the index comparison, the baselines an
 
 This section is the same in both repositories.
 
-**Size.** The `ragdemo` package is 1,835 lines in plain Python and 1,922 lines with LangChain, so the framework did not make the code shorter. `store.py` shrank from 179 to 147 lines and `llm.py` from 106 to 88, while `pipeline.py` grew from 135 to 166 and `ingest.py` from 98 to 149. Four files are identical, and `config.py` differs only in the default database port. Installed with its test tools, the plain-Python version pulls in 51 Python packages (324 MB) and the LangChain version 91 (504 MB).
+**Size.** The `ragdemo` package is 1,840 lines in plain Python and 1,924 lines with LangChain, so the framework did not make the code shorter. `store.py` shrank from 179 to 147 lines and `llm.py` from 111 to 88, while `pipeline.py` grew from 135 to 166 and `ingest.py` from 98 to 149. Four files are identical, and `config.py` differs only in the default database port. Installed with its test tools, the plain-Python version pulls in 51 Python packages (about 325 MB) and the LangChain version 91 (about 500 MB). These were counted by hand with `pip list` and `du` in a fresh virtualenv and are not recorded in a file.
 
 **What got simpler.**
 

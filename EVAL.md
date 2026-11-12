@@ -128,7 +128,7 @@ What got worse in generated mode:
 
 - **False refusals appear.** On the main set the model declined 3 of 26 answerable questions at both sizes, where extractive mode declined none. In each case retrieval had not put the page with the answer among the passages, so the model was right that the passages did not state it. Extractive mode "answers" those questions by quoting the wrong passages. Even so, a user gets no answer to a question the documents do cover.
 - **Citation correctness did not improve.** It is 21 of 26 and 20 of 26 on the main set, against 22 and 18 in extractive mode. The model can only cite what retrieval hands it.
-- **Each answer needs a paid model call and about two seconds more.**
+- **Each answer needs a paid model call.** The time that call adds was not measured.
 
 How far to trust these numbers:
 

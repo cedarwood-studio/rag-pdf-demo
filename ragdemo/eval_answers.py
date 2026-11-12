@@ -26,7 +26,7 @@ from pathlib import Path
 from . import config
 from .answer import format_passages
 from .eval import IMPLEMENTATION, QUESTIONS, RESULTS, _match
-from .llm import ChatClient, LLMError, Spend
+from .llm import BudgetExceeded, ChatClient, LLMError, Spend
 from .pipeline import Pipeline, build_pipeline
 
 CORRECTNESS_PROMPT = (
@@ -164,7 +164,7 @@ def main() -> None:
     questions = json.loads(args.questions.read_text())
     try:
         report = evaluate(pipeline, grader, questions)
-    except LLMError as error:
+    except (LLMError, BudgetExceeded) as error:
         sys.exit(f"stopped: {error}")
     label = args.label or f"answers-{args.collection}"
     report = {

@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 
 from ragdemo.answer import GeneratedAnswerer
 from ragdemo.api import app, get_pipeline
-from ragdemo.llm import MODEL_ERRORS, BudgetExceeded, ChatClient, Spend
+from ragdemo.llm import MODEL_ERRORS, BudgetExceeded, ChatClient, LLMError, Spend
 from ragdemo.refusal import REFUSAL
 from ragdemo.store import Hit
 
@@ -155,3 +155,26 @@ def test_reranker_reorders_and_can_refuse(pipeline):
         assert refused.refused_by == "rerank"
     finally:
         pipeline.reranker = None
+
+
+@pytest.mark.parametrize(
+    "response",
+    [
+        httpx.Response(200, text="<html>gateway</html>"),
+        httpx.Response(500, json={"error": "upstream failed"}),
+        httpx.Response(401, text="denied"),
+    ],
+)
+def test_malformed_provider_replies_become_llm_errors(response, monkeypatch):
+    monkeypatch.setattr("ragdemo.llm.time.sleep", lambda seconds: None)
+    client = httpx.Client(transport=httpx.MockTransport(lambda request: response))
+    chat = ChatClient("test-key", "https://llm.invalid/v1", "some-model", Spend(0.15, 0.60, 1.0), client=client)
+    with pytest.raises(LLMError):
+        chat.complete("system", "user")
+
+
+def test_reply_without_usage_is_accepted():
+    body = {"choices": [{"message": {"content": "Every two months [1]."}}], "usage": None}
+    client = httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(200, json=body)))
+    chat = ChatClient("test-key", "https://llm.invalid/v1", "some-model", Spend(0.15, 0.60, 1.0), client=client)
+    assert chat.complete("system", "user") == "Every two months [1]."

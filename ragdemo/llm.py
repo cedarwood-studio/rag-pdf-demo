@@ -74,11 +74,16 @@ class ChatClient:
                     raise LLMError(f"chat request failed: {type(error).__name__}") from error
                 time.sleep(2**attempt)
                 continue
-            if response.status_code == 200:
-                return response.json()
             try:
-                error = response.json().get("error", {})
+                body = response.json()
             except ValueError:
+                body = None
+            if response.status_code == 200:
+                if not isinstance(body, dict):
+                    raise LLMError("chat reply was not a JSON object")
+                return body
+            error = body.get("error") if isinstance(body, dict) else None
+            if not isinstance(error, dict):
                 error = {}
             out_of_credit = error.get("type") == "insufficient_quota"
             if response.status_code in (429, 500, 502, 503) and not out_of_credit and not last:
@@ -98,7 +103,7 @@ class ChatClient:
         if json_reply:
             payload["response_format"] = {"type": "json_object"}
         data = self._post(payload)
-        usage = data.get("usage", {})
+        usage = data.get("usage") or {}
         self.spend.add(usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0))
         try:
             return (data["choices"][0]["message"]["content"] or "").strip()
