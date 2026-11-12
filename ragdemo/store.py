@@ -39,8 +39,17 @@ class PgVectorStore:
         self.use_index = use_index
         self._conn: psycopg.Connection | None = None
         self._lock = threading.Lock()
-        if use_index:
+        self._apply_index_setting()
+
+    def _apply_index_setting(self) -> None:
+        """Make the database match the setting: an HNSW index when use_index is on, none (exact search) when it is off."""
+        with self.connect() as conn:
+            if not conn.execute("SELECT to_regclass(%s)", (self.table,)).fetchone()[0]:
+                return
+        if self.use_index:
             self.create_index()
+        else:
+            self.drop_index()
 
     def connect(self) -> psycopg.Connection:
         return psycopg.connect(self.url)

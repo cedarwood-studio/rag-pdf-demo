@@ -25,14 +25,14 @@ services:
       CORPUS: ${CORPUS:-core}
       SCORE_THRESHOLD: ${SCORE_THRESHOLD:-0.62}
       STRICT_THRESHOLD: ${STRICT_THRESHOLD:-0.75}
-      RERANK: ${RERANK:-1}
+      RERANK: ${RERANK:-0}
       RERANK_THRESHOLD: ${RERANK_THRESHOLD:--1.5}
       USE_INDEX: ${USE_INDEX:-0}
       TOP_K: ${TOP_K:-5}
       # Passed through from your shell when set. Leave it unset for extractive answers.
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
-      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      ANSWER_MODEL: ${ANSWER_MODEL:-gpt-4o-mini}
     ports:
       - "127.0.0.1:${APP_PORT:-8000}:8000"
     volumes:

@@ -2,6 +2,8 @@
 
     OPENAI_API_KEY=... python -m ragdemo.eval_answers --collection core --label answers-core
 
+Any OpenAI-compatible endpoint can be used by setting OPENAI_BASE_URL and ANSWER_MODEL.
+
 Every question is answered by the language model from the retrieved passages.
 A second call to the same model then grades each answer twice:
 
@@ -120,7 +122,7 @@ def to_markdown(report: dict) -> str:
         f"- Questions: `eval/{report['questions']}`",
         f"- Collection: `{report['collection']}`",
         "- Answer mode: generated",
-        f"- Answer and grading model: {report['model']}",
+        f"- Answer and grading model: {report['model']} at {report['endpoint']}",
         f"- Embedding model: {report['embedding_model']}",
         f"- Reranker: {report['rerank']}",
         f"- Estimated spend: ${report['spend']['estimated_usd']:.4f} "
@@ -150,14 +152,15 @@ def main() -> None:
     parser.add_argument("--collection", default=settings.collection)
     parser.add_argument("--questions", type=Path, default=QUESTIONS)
     parser.add_argument("--use-index", action=argparse.BooleanOptionalAction, default=settings.use_index)
+    parser.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=settings.rerank)
     parser.add_argument("--label", default=None)
     args = parser.parse_args()
     if not settings.openai_api_key:
         sys.exit("OPENAI_API_KEY is not set. This evaluation needs a language model; ragdemo.eval runs without one.")
 
     spend = Spend(settings.price_input_per_m, settings.price_output_per_m, settings.max_spend_usd)
-    pipeline = build_pipeline(settings, spend=spend, collection=args.collection, use_index=args.use_index, answer_mode="generated")
-    grader = ChatClient(settings.openai_api_key, settings.openai_base_url, settings.openai_model, spend)
+    pipeline = build_pipeline(settings, spend=spend, collection=args.collection, use_index=args.use_index, rerank=args.rerank, answer_mode="generated")
+    grader = ChatClient(settings.openai_api_key, settings.openai_base_url, settings.answer_model, spend)
     questions = json.loads(args.questions.read_text())
     try:
         report = evaluate(pipeline, grader, questions)
@@ -170,11 +173,12 @@ def main() -> None:
         "questions": args.questions.name,
         "collection": args.collection,
         "answer_mode": "generated",
-        "model": settings.openai_model,
+        "model": settings.answer_model,
+        "endpoint": settings.openai_base_url,
         "embedding_model": settings.embedding_model,
         "threshold": settings.score_threshold,
         "strict_threshold": settings.strict_threshold,
-        "rerank": f"{settings.rerank_model}, pool {settings.rerank_pool}, threshold {settings.rerank_threshold}" if settings.rerank else "off",
+        "rerank": f"{settings.rerank_model}, pool {settings.rerank_pool}, threshold {settings.rerank_threshold}" if args.rerank else "off",
         "chunks": pipeline.count(),
         "spend": spend.report(),
         "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -183,7 +187,7 @@ def main() -> None:
     RESULTS.mkdir(parents=True, exist_ok=True)
     (RESULTS / f"{label}.json").write_text(json.dumps(report, indent=2) + "\n")
     (RESULTS / f"{label}.md").write_text(to_markdown(report))
-    print(f"label={label} collection={args.collection} mode=generated model={settings.openai_model}")
+    print(f"label={label} collection={args.collection} mode=generated model={settings.answer_model}")
     for key, value in report["summary"].items():
         rate = f"  {value['rate']:.0%}" if value["rate"] is not None else ""
         print(f"  {key:32s} {value['count']}/{value['of']}{rate}")

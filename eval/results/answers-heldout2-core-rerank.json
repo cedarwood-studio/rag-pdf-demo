@@ -1,0 +1,406 @@
+{
+  "label": "answers-heldout2-core-rerank",
+  "implementation": "plain Python",
+  "questions": "questions-heldout2.json",
+  "collection": "core",
+  "answer_mode": "generated",
+  "model": "openai/gpt-4o-mini",
+  "endpoint": "https://openrouter.ai/api/v1",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "threshold": 0.62,
+  "strict_threshold": 0.75,
+  "rerank": "Xenova/ms-marco-MiniLM-L-6-v2, pool 10, threshold -1.5",
+  "chunks": 2448,
+  "spend": {
+    "calls": 36,
+    "input_tokens": 23030,
+    "output_tokens": 1307,
+    "estimated_usd": 0.0042,
+    "price_input_per_m": 0.15,
+    "price_output_per_m": 0.6
+  },
+  "run_at": "2026-11-12T01:46:41+00:00",
+  "summary": {
+    "answer_correct": {
+      "count": 9,
+      "of": 10,
+      "rate": 0.9
+    },
+    "answer_partial": {
+      "count": 1,
+      "of": 10,
+      "rate": 0.1
+    },
+    "answer_incorrect": {
+      "count": 0,
+      "of": 10,
+      "rate": 0.0
+    },
+    "false_refusals_in_corpus": {
+      "count": 0,
+      "of": 10,
+      "rate": 0.0
+    },
+    "citation_correct": {
+      "count": 9,
+      "of": 10,
+      "rate": 0.9
+    },
+    "faithful_of_answered": {
+      "count": 10,
+      "of": 11,
+      "rate": 0.909
+    },
+    "partly_faithful_of_answered": {
+      "count": 1,
+      "of": 11,
+      "rate": 0.091
+    },
+    "unfaithful_of_answered": {
+      "count": 0,
+      "of": 11,
+      "rate": 0.0
+    },
+    "refusals_out_of_corpus": {
+      "count": 11,
+      "of": 12,
+      "rate": 0.917
+    },
+    "refused_by_model_out_of_corpus": {
+      "count": 4,
+      "of": 12,
+      "rate": 0.333
+    }
+  },
+  "rows": [
+    {
+      "id": "held2-in-01",
+      "question": "What is an attrition attack?",
+      "in_corpus": true,
+      "answer": "An attrition attack is an attack that employs brute force methods to compromise, degrade, or destroy systems, networks, or services, such as a DDoS intended to impair or deny access to a service or application, or a brute force attack against an authentication mechanism like passwords or CAPTCHAS [1][2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.12",
+        "NIST.SP.800-61r2.pdf p.35"
+      ],
+      "reference": "An attack that uses brute force methods to compromise, degrade or destroy systems, networks or services.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes an attrition attack as defined in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes an attrition attack and provides additional examples that align with the reference answer."
+      }
+    },
+    {
+      "id": "held2-in-02",
+      "question": "What is a portal in a remote access setup?",
+      "in_corpus": true,
+      "answer": "A portal in a remote access setup is a server that offers access to one or more applications through a single centralized interface, allowing teleworkers to use a portal client on their devices to access the portal. Most portals are web-based, and they provide security features such as authentication and access control, similar to tunnels, but with the application client software and associated data located on the portal server rather than on the client device [1][4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-46r2.pdf p.17",
+        "NIST.SP.800-46r2.pdf p.17"
+      ],
+      "reference": "A server that offers access to one or more applications through a single centralized interface.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes the function and characteristics of a portal in a remote access setup as stated in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes a portal in a remote access setup, including its function and additional details about security features and client-server relationships."
+      }
+    },
+    {
+      "id": "held2-in-03",
+      "question": "What are the steps in the life cycle of a security awareness and training program?",
+      "in_corpus": true,
+      "answer": "The steps in the life cycle of a security awareness and training program include: 1) Awareness and Training Program Design, which involves conducting a needs assessment and developing a training strategy; 2) Awareness and Training Material Development, focusing on the development of training materials; and 3) Program Implementation, which addresses the effective communication and rollout of the program [1][2][3]. Additionally, there is a post-implementation step that involves keeping the program current and monitoring its effectiveness [5].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-50.pdf p.11",
+        "nistspecialpublication800-50.pdf p.23",
+        "nistspecialpublication800-50.pdf p.43",
+        "nistspecialpublication800-50.pdf p.11"
+      ],
+      "reference": "Four steps: program design, material development, program implementation and post-implementation.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The answer correctly identifies the first three steps in the life cycle of a security awareness and training program but inaccurately references a post-implementation step as part of the main steps."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately outlines the four steps of the life cycle of a security awareness and training program, providing additional detail without contradicting the reference."
+      }
+    },
+    {
+      "id": "held2-in-04",
+      "question": "What types of compiled viruses are there?",
+      "in_corpus": true,
+      "answer": "The types of compiled viruses include file infector viruses, boot sector viruses, and multipartite viruses [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.13"
+      ],
+      "reference": "File infector viruses, boot sector viruses and multipartite viruses.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately lists the types of compiled viruses as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the key facts of the reference without any contradictions."
+      }
+    },
+    {
+      "id": "held2-in-05",
+      "question": "What should a small business do when an employee leaves?",
+      "in_corpus": true,
+      "answer": "When an employee leaves the business, the small business should ensure they no longer have access to the business\u2019s information or systems. This includes collecting their business ID, deleting their username and account from all systems, changing any group passwords or combination locks they may have known, and collecting any keys they were given [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.IR.7621r1.pdf p.25"
+      ],
+      "reference": "Make sure they no longer have access to the business's information or systems: collect their ID and keys, delete their username and account from all systems, and change any group passwords or combination locks they knew.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information provided in the passage regarding the steps to take when an employee leaves the business."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states all key facts from the reference answer without contradiction."
+      }
+    },
+    {
+      "id": "held2-in-06",
+      "question": "What does an Organizational Profile describe?",
+      "in_corpus": true,
+      "answer": "An Organizational Profile describes an organization\u2019s current and/or target cybersecurity posture in terms of the Core\u2019s outcomes, helping to understand, tailor, assess, prioritize, and communicate those outcomes based on the organization\u2019s mission objectives, stakeholder expectations, threat landscape, and requirements [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.CSWP.29.pdf p.11"
+      ],
+      "reference": "An organization's current and/or target cybersecurity posture in terms of the Core's outcomes.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the definition and purpose of an Organizational Profile as described in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the key facts of the reference and provides additional relevant details without contradicting it."
+      }
+    },
+    {
+      "id": "held2-in-07",
+      "question": "How long a password should a system let users choose?",
+      "in_corpus": true,
+      "answer": "A system should encourage users to make their passwords as lengthy as they want, within reason, as there is no reason not to permit the use of lengthy passwords or passphrases if the user wishes [4]. However, extremely long passwords could require excessive processing time to hash, so it is reasonable to have some limit [4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-63b.pdf p.79"
+      ],
+      "reference": "Verifiers should permit subscriber-chosen passwords of at least 64 characters.",
+      "citation_correct": false,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information provided in the passages regarding password length and the need for reasonable limits."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer discusses the importance of lengthy passwords but does not specify the minimum length of 64 characters as stated in the reference."
+      }
+    },
+    {
+      "id": "held2-in-08",
+      "question": "How often should staff with contingency plan roles be trained?",
+      "in_corpus": true,
+      "answer": "Staff with contingency plan roles should be trained at least annually. Additionally, personnel newly appointed to ISCP roles should receive training shortly after their appointment [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.42"
+      ],
+      "reference": "At least annually, and shortly after a person is newly appointed to a role.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the training requirements for staff with contingency plan roles as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately reflects the key facts of the reference, stating the annual training requirement and the need for training shortly after a new appointment."
+      }
+    },
+    {
+      "id": "held2-in-09",
+      "question": "Which wireless security option is preferred for a home network?",
+      "in_corpus": true,
+      "answer": "The preferred wireless security option for a home network is WPA2 with AES, followed by WPA with AES, and then WPA with TKIP. Wired Equivalent Privacy (WEP) is not recommended due to its serious flaws [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-114r1.pdf p.21"
+      ],
+      "reference": "WPA2 with AES is the most preferred option, then WPA with AES, then WPA with TKIP. WEP has serious flaws.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the recommended wireless security options and the issues with WEP as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the preferred wireless security options and correctly identifies WEP's serious flaws."
+      }
+    },
+    {
+      "id": "held2-in-10",
+      "question": "How many security control baselines are there and what do they correspond to?",
+      "in_corpus": true,
+      "answer": "There are three security control baselines, which correspond to low-impact, moderate-impact, and high-impact systems [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-12r1.pdf p.53"
+      ],
+      "reference": "Three, corresponding to low-impact, moderate-impact and high-impact systems.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information provided in the passage regarding the three security control baselines."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the number of security control baselines and what they correspond to, matching the reference answer."
+      }
+    },
+    {
+      "id": "held2-out-01",
+      "question": "Which mobile device management product should we buy?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held2-out-02",
+      "question": "How much does an uninterruptible power supply cost for a small office?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "held2-out-03",
+      "question": "What is the email address of the incident response team?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held2-out-04",
+      "question": "Which company makes the most reliable degausser?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "similarity",
+      "cited": []
+    },
+    {
+      "id": "held2-out-05",
+      "question": "What salary does an incident response team manager earn?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held2-out-06",
+      "question": "Which VPN vendor has had the fewest vulnerabilities?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "unknown word",
+      "cited": []
+    },
+    {
+      "id": "held2-out-07",
+      "question": "Which training vendor offers the cheapest security awareness course?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "unknown word",
+      "cited": []
+    },
+    {
+      "id": "held2-out-08",
+      "question": "On what date will the incident handling guide be withdrawn?",
+      "in_corpus": false,
+      "answer": "The incident handling guide will be withdrawn on April 3, 2025 [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.1"
+      ],
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately states that the incident handling guide will be withdrawn on April 3, 2025, as mentioned in the passage."
+      }
+    },
+    {
+      "id": "held2-out-09",
+      "question": "Which cloud provider is approved for storing our backups?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held2-out-10",
+      "question": "How many passwords were stolen in the largest breach on record?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "held2-out-11",
+      "question": "What is the boiling point of water at sea level?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "similarity",
+      "cited": []
+    },
+    {
+      "id": "held2-out-12",
+      "question": "Who won the football World Cup in 2018?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "similarity",
+      "cited": []
+    }
+  ]
+}

@@ -8,21 +8,21 @@
   "threshold": 0.62,
   "strict_threshold": 0.75,
   "search": "HNSW index",
-  "rerank": "Xenova/ms-marco-MiniLM-L-6-v2, pool 10, threshold -1.5",
+  "rerank": "off",
   "top_k": 5,
   "max_citations": 3,
   "chunks": 18205,
-  "run_at": "2026-11-12T01:15:38+00:00",
+  "run_at": "2026-11-12T01:48:30+00:00",
   "summary": {
     "retrieval_hit@1": {
-      "count": 17,
+      "count": 13,
       "of": 26,
-      "rate": 0.654
+      "rate": 0.5
     },
     "retrieval_hit@3": {
-      "count": 20,
+      "count": 18,
       "of": 26,
-      "rate": 0.769
+      "rate": 0.692
     },
     "retrieval_hit@5": {
       "count": 20,
@@ -30,24 +30,24 @@
       "rate": 0.769
     },
     "citation_correct": {
-      "count": 20,
+      "count": 18,
       "of": 26,
-      "rate": 0.769
+      "rate": 0.692
     },
     "top_citation_correct": {
-      "count": 17,
+      "count": 13,
       "of": 26,
-      "rate": 0.654
+      "rate": 0.5
     },
     "false_refusals_in_corpus": {
-      "count": 1,
+      "count": 0,
       "of": 26,
-      "rate": 0.038
+      "rate": 0.0
     },
     "refusals_out_of_corpus": {
-      "count": 7,
+      "count": 4,
       "of": 8,
-      "rate": 0.875
+      "rate": 0.5
     }
   },
   "rows": [
@@ -58,20 +58,20 @@
       "expected": "NIST.SP.800-63b.pdf p.24",
       "top_score": 0.7739,
       "unknown_terms": [],
-      "rerank_score": 3.04,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
+        "NIST.SP.800-114r1.pdf p.24 (0.774)",
         "NIST.SP.800-63b.pdf p.78 (0.768)",
         "nistspecialpublication800-123.pdf p.29 (0.767)",
-        "NIST.SP.800-209.pdf p.45 (0.743)",
-        "NIST.SP.800-114r1.pdf p.24 (0.774)",
+        "NIST.SP.800-63b.pdf p.79 (0.756)",
         "NIST.SP.800-63b.pdf p.80 (0.747)"
       ],
       "cited": [
+        "NIST.SP.800-114r1.pdf p.24",
         "NIST.SP.800-63b.pdf p.78",
-        "nistspecialpublication800-123.pdf p.29",
-        "NIST.SP.800-209.pdf p.45"
+        "nistspecialpublication800-123.pdf p.29"
       ],
       "hit@1": false,
       "hit@3": false,
@@ -86,26 +86,26 @@
       "expected": "NIST.SP.800-63b.pdf p.25,65",
       "top_score": 0.8048,
       "unknown_terms": [],
-      "rerank_score": 2.69,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.IR.7621r1.pdf p.38 (0.805)",
-        "nistspecialpublication800-123.pdf p.29 (0.756)",
         "NIST.SP.800-114r1.pdf p.25 (0.758)",
-        "nistspecialpublication800-123.pdf p.29 (0.712)",
-        "NIST.SP.800-209.pdf p.45 (0.715)"
+        "NIST.SP.800-63b.pdf p.65 (0.758)",
+        "nistspecialpublication800-123.pdf p.29 (0.756)",
+        "NIST.SP.800-114r1.pdf p.24 (0.725)"
       ],
       "cited": [
         "NIST.IR.7621r1.pdf p.38",
-        "nistspecialpublication800-123.pdf p.29",
-        "NIST.SP.800-114r1.pdf p.25"
+        "NIST.SP.800-114r1.pdf p.25",
+        "NIST.SP.800-63b.pdf p.65"
       ],
       "hit@1": false,
-      "hit@3": false,
-      "hit@5": false,
+      "hit@3": true,
+      "hit@5": true,
       "top_citation_correct": false,
-      "citation_correct": false
+      "citation_correct": true
     },
     {
       "id": "in-03",
@@ -114,20 +114,20 @@
       "expected": "NIST.SP.800-63b.pdf p.19,22",
       "top_score": 0.768,
       "unknown_terms": [],
-      "rerank_score": 2.38,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-63b.pdf p.19 (0.768)",
+        "NIST.SP.800-63b.pdf p.22 (0.760)",
+        "NIST.SP.800-172r3.pdf p.43 (0.751)",
         "NIST.SP.800-63b.pdf p.21 (0.750)",
-        "NIST.SP.800-63b.pdf p.64 (0.739)",
-        "NIST.SP.800-63b.pdf p.17 (0.747)",
-        "NIST.SP.800-63b.pdf p.17 (0.744)"
+        "NIST.SP.800-63b.pdf p.17 (0.747)"
       ],
       "cited": [
         "NIST.SP.800-63b.pdf p.19",
-        "NIST.SP.800-63b.pdf p.21",
-        "NIST.SP.800-63b.pdf p.64"
+        "NIST.SP.800-63b.pdf p.22",
+        "NIST.SP.800-172r3.pdf p.43"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -142,19 +142,19 @@
       "expected": "nistspecialpublication800-34r1.pdf p.36,37,61,62",
       "top_score": 0.7796,
       "unknown_terms": [],
-      "rerank_score": 6.63,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "nistspecialpublication800-34r1.pdf p.61 (0.718)",
         "nistspecialpublication800-34r1.pdf p.36 (0.780)",
+        "nistspecialpublication800-34r1.pdf p.61 (0.718)",
         "nistspecialpublication800-34r1.pdf p.61 (0.713)",
         "nistspecialpublication800-34r1.pdf p.36 (0.687)",
-        "nistspecialpublication800-34r1.pdf p.61 (0.637)"
+        "nistspecialpublication800-34r1.pdf p.61 (0.683)"
       ],
       "cited": [
-        "nistspecialpublication800-34r1.pdf p.61",
         "nistspecialpublication800-34r1.pdf p.36",
+        "nistspecialpublication800-34r1.pdf p.61",
         "nistspecialpublication800-34r1.pdf p.61"
       ],
       "hit@1": true,
@@ -170,20 +170,20 @@
       "expected": "nistspecialpublication800-34r1.pdf p.31,121,144",
       "top_score": 0.7786,
       "unknown_terms": [],
-      "rerank_score": 6.79,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "nistspecialpublication800-34r1.pdf p.144 (0.779)",
         "nistspecialpublication800-34r1.pdf p.31 (0.756)",
+        "NIST.SP.800-184.pdf p.18 (0.753)",
         "NIST.SP.800-172r3.pdf p.50 (0.752)",
-        "nistspecialpublication800-34r1.pdf p.122 (0.745)",
-        "NIST.IR.8183r1.pdf p.20 (0.742)"
+        "nistspecialpublication800-34r1.pdf p.122 (0.745)"
       ],
       "cited": [
         "nistspecialpublication800-34r1.pdf p.144",
         "nistspecialpublication800-34r1.pdf p.31",
-        "NIST.SP.800-172r3.pdf p.50"
+        "NIST.SP.800-184.pdf p.18"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -198,20 +198,20 @@
       "expected": "nistspecialpublication800-34r1.pdf p.43",
       "top_score": 0.8227,
       "unknown_terms": [],
-      "rerank_score": 9.55,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "nistspecialpublication800-84.pdf p.21 (0.807)",
         "nistspecialpublication800-84.pdf p.25 (0.823)",
-        "nistspecialpublication800-84.pdf p.14 (0.788)",
-        "nistspecialpublication800-84.pdf p.10 (0.790)",
-        "nistspecialpublication800-84.pdf p.24 (0.802)"
+        "nistspecialpublication800-84.pdf p.21 (0.807)",
+        "nistspecialpublication800-84.pdf p.24 (0.802)",
+        "nistspecialpublication800-84.pdf p.49 (0.791)",
+        "nistspecialpublication800-84.pdf p.45 (0.791)"
       ],
       "cited": [
-        "nistspecialpublication800-84.pdf p.21",
         "nistspecialpublication800-84.pdf p.25",
-        "nistspecialpublication800-84.pdf p.14"
+        "nistspecialpublication800-84.pdf p.21",
+        "nistspecialpublication800-84.pdf p.24"
       ],
       "hit@1": false,
       "hit@3": false,
@@ -226,20 +226,20 @@
       "expected": "NIST.SP.800-88r1.pdf p.18",
       "top_score": 0.8221,
       "unknown_terms": [],
-      "rerank_score": 6.2,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "nistspecialpublication800-115.pdf p.61 (0.822)",
         "NIST.SP.800-88r1.pdf p.18 (0.814)",
-        "NIST.SP.800-88r1.pdf p.52 (0.771)",
-        "NIST.SP.800-88r1.pdf p.34 (0.784)",
-        "NIST.SP.800-88r1.pdf p.33 (0.813)"
+        "NIST.SP.800-88r1.pdf p.33 (0.813)",
+        "nistspecialpublication800-115.pdf p.61 (0.793)",
+        "NIST.SP.800-88r1.pdf p.34 (0.784)"
       ],
       "cited": [
         "nistspecialpublication800-115.pdf p.61",
         "NIST.SP.800-88r1.pdf p.18",
-        "NIST.SP.800-88r1.pdf p.52"
+        "NIST.SP.800-88r1.pdf p.33"
       ],
       "hit@1": false,
       "hit@3": true,
@@ -254,26 +254,26 @@
       "expected": "NIST.SP.800-88r1.pdf p.31,32,65",
       "top_score": 0.7749,
       "unknown_terms": [],
-      "rerank_score": -0.61,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-88r1.pdf p.43 (0.748)",
         "NIST.SP.800-88r1.pdf p.44 (0.775)",
-        "NIST.SP.800-88r1.pdf p.32 (0.744)",
-        "NIST.SP.800-88r1.pdf p.41 (0.743)",
-        "NIST.SP.800-88r1.pdf p.54 (0.758)"
+        "NIST.SP.800-88r1.pdf p.54 (0.758)",
+        "NIST.SP.800-88r1.pdf p.43 (0.748)",
+        "NIST.SP.800-88r1.pdf p.41 (0.745)",
+        "NIST.SP.800-88r1.pdf p.48 (0.745)"
       ],
       "cited": [
-        "NIST.SP.800-88r1.pdf p.43",
         "NIST.SP.800-88r1.pdf p.44",
-        "NIST.SP.800-88r1.pdf p.32"
+        "NIST.SP.800-88r1.pdf p.54",
+        "NIST.SP.800-88r1.pdf p.43"
       ],
       "hit@1": false,
-      "hit@3": true,
-      "hit@5": true,
+      "hit@3": false,
+      "hit@5": false,
       "top_citation_correct": false,
-      "citation_correct": true
+      "citation_correct": false
     },
     {
       "id": "in-09",
@@ -282,20 +282,20 @@
       "expected": "NIST.SP.800-61r2.pdf p.36",
       "top_score": 0.8745,
       "unknown_terms": [],
-      "rerank_score": 8.46,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-61r2.pdf p.36 (0.874)",
-        "NIST.SP.800-61r2.pdf p.38 (0.722)",
-        "NIST.SP.800-61r2.pdf p.60 (0.717)",
-        "NIST.SP.800-61r2.pdf p.62 (0.697)",
-        "NIST.SP.800-61r2.pdf p.37 (0.745)"
+        "NIST.SP.800-61r2.pdf p.37 (0.745)",
+        "NIST.SP.800-61r2.pdf p.37 (0.734)",
+        "NIST.SP.800-61r2.pdf p.38 (0.732)",
+        "NIST.SP.800-61r2.pdf p.38 (0.722)"
       ],
       "cited": [
         "NIST.SP.800-61r2.pdf p.36",
-        "NIST.SP.800-61r2.pdf p.38",
-        "NIST.SP.800-61r2.pdf p.60"
+        "NIST.SP.800-61r2.pdf p.37",
+        "NIST.SP.800-61r2.pdf p.37"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -310,20 +310,20 @@
       "expected": "NIST.SP.800-61r2.pdf p.48",
       "top_score": 0.814,
       "unknown_terms": [],
-      "rerank_score": 5.93,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-61r2.pdf p.48 (0.814)",
+        "NIST.SP.800-61r2.pdf p.49 (0.790)",
         "NIST.SP.800-61r2.pdf p.13 (0.768)",
         "NIST.SP.800-61r2.pdf p.54 (0.749)",
-        "NIST.SP.800-83r1.pdf p.42 (0.708)",
-        "NIST.SP.800-61r2.pdf p.49 (0.790)"
+        "NIST.SP.800-61r2.pdf p.49 (0.737)"
       ],
       "cited": [
         "NIST.SP.800-61r2.pdf p.48",
-        "NIST.SP.800-61r2.pdf p.13",
-        "NIST.SP.800-61r2.pdf p.54"
+        "NIST.SP.800-61r2.pdf p.49",
+        "NIST.SP.800-61r2.pdf p.13"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -338,20 +338,20 @@
       "expected": "NIST.SP.800-61r2.pdf p.43",
       "top_score": 0.8104,
       "unknown_terms": [],
-      "rerank_score": 4.92,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-61r2.pdf p.43 (0.810)",
+        "NIST.SP.800-184.pdf p.28 (0.742)",
         "NIST.SP.800-61r2.pdf p.42 (0.725)",
         "NIST.SP.800-61r2.pdf p.50 (0.720)",
-        "NIST.SP.800-61r2.pdf p.47 (0.719)",
-        "NIST.SP.800-184.pdf p.28 (0.742)"
+        "NIST.SP.800-184.pdf p.29 (0.720)"
       ],
       "cited": [
         "NIST.SP.800-61r2.pdf p.43",
-        "NIST.SP.800-61r2.pdf p.42",
-        "NIST.SP.800-61r2.pdf p.50"
+        "NIST.SP.800-184.pdf p.28",
+        "NIST.SP.800-61r2.pdf p.42"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -366,20 +366,20 @@
       "expected": "NIST.SP.800-61r2.pdf p.23",
       "top_score": 0.8768,
       "unknown_terms": [],
-      "rerank_score": 8.81,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-61r2.pdf p.23 (0.859)",
         "NIST.SP.800-61r2.pdf p.23 (0.877)",
-        "NIST.SP.800-61r2.pdf p.11 (0.825)",
+        "NIST.SP.800-61r2.pdf p.23 (0.859)",
+        "NIST.SP.800-66r2.pdf p.55 (0.836)",
         "NIST.SP.800-61r2.pdf p.18 (0.836)",
-        "NIST.SP.800-171r3.pdf p.52 (0.824)"
+        "NIST.SP.800-61r2.pdf p.18 (0.834)"
       ],
       "cited": [
         "NIST.SP.800-61r2.pdf p.23",
         "NIST.SP.800-61r2.pdf p.23",
-        "NIST.SP.800-61r2.pdf p.11"
+        "NIST.SP.800-66r2.pdf p.55"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -394,19 +394,19 @@
       "expected": "NIST.CSWP.29.pdf p.8,31",
       "top_score": 0.8325,
       "unknown_terms": [],
-      "rerank_score": 8.7,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.IR.8374.pdf p.11 (0.833)",
-        "NIST.IR.8183r1.pdf p.14 (0.810)",
-        "NIST.CSWP.04162018.pdf p.14 (0.815)",
         "NIST.CSWP.04162018.pdf p.53 (0.818)",
-        "NIST.CSWP.29.pdf p.9 (0.802)"
+        "NIST.CSWP.04162018.pdf p.14 (0.815)",
+        "NIST.CSWP.04162018.pdf p.13 (0.811)",
+        "NIST.IR.8183r1.pdf p.14 (0.810)"
       ],
       "cited": [
         "NIST.IR.8374.pdf p.11",
-        "NIST.IR.8183r1.pdf p.14",
+        "NIST.CSWP.04162018.pdf p.53",
         "NIST.CSWP.04162018.pdf p.14"
       ],
       "hit@1": false,
@@ -422,26 +422,26 @@
       "expected": "NIST.CSWP.29.pdf p.12,29,31",
       "top_score": 0.6521,
       "unknown_terms": [],
-      "rerank_score": 3.64,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "nistspecialpublication800-86.pdf p.84 (0.621)",
+        "NIST.IR.8183r1.pdf p.19 (0.652)",
+        "NIST.SP.800-53B.pdf p.60 (0.642)",
+        "NIST.IR.8183r1.pdf p.59 (0.639)",
         "NIST.CSWP.29.pdf p.12 (0.638)",
-        "NIST.SP.800-190.pdf p.19 (0.627)",
-        "NIST.CSWP.04162018.pdf p.15 (0.632)",
-        "nistspecialpublication800-92.pdf p.27 (0.630)"
+        "NIST.CSWP.04162018.pdf p.15 (0.632)"
       ],
       "cited": [
-        "nistspecialpublication800-86.pdf p.84",
-        "NIST.CSWP.29.pdf p.12",
-        "NIST.SP.800-190.pdf p.19"
+        "NIST.IR.8183r1.pdf p.19",
+        "NIST.SP.800-53B.pdf p.60",
+        "NIST.IR.8183r1.pdf p.59"
       ],
       "hit@1": false,
-      "hit@3": true,
+      "hit@3": false,
       "hit@5": true,
       "top_citation_correct": false,
-      "citation_correct": true
+      "citation_correct": false
     },
     {
       "id": "in-15",
@@ -450,25 +450,25 @@
       "expected": "NIST.SP.800-46r2.pdf p.14",
       "top_score": 0.8209,
       "unknown_terms": [],
-      "rerank_score": 8.2,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
+        "NIST.SP.800-114r1.pdf p.13 (0.821)",
+        "NIST.SP.800-114r1.pdf p.14 (0.810)",
         "NIST.SP.800-46r2.pdf p.14 (0.807)",
         "NIST.SP.800-114r1.pdf p.13 (0.803)",
-        "NIST.SP.800-114r1.pdf p.13 (0.821)",
-        "NIST.SP.800-46r2.pdf p.15 (0.788)",
         "NIST.SP.800-114r1.pdf p.14 (0.800)"
       ],
       "cited": [
-        "NIST.SP.800-46r2.pdf p.14",
         "NIST.SP.800-114r1.pdf p.13",
-        "NIST.SP.800-114r1.pdf p.13"
+        "NIST.SP.800-114r1.pdf p.14",
+        "NIST.SP.800-46r2.pdf p.14"
       ],
-      "hit@1": true,
+      "hit@1": false,
       "hit@3": true,
       "hit@5": true,
-      "top_citation_correct": true,
+      "top_citation_correct": false,
       "citation_correct": true
     },
     {
@@ -478,17 +478,21 @@
       "expected": "NIST.SP.800-46r2.pdf p.27,35",
       "top_score": 0.6778,
       "unknown_terms": [],
-      "rerank_score": -6.71,
-      "refused": true,
-      "refused_by": "rerank",
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-163r1.pdf p.37 (0.648)",
-        "NIST.SP.800-101r1.pdf p.54 (0.668)",
         "NIST.SP.800-101r1.pdf p.35 (0.678)",
-        "NIST.SP.800-101r1.pdf p.34 (0.647)",
-        "NIST.SP.800-101r1.pdf p.54 (0.663)"
+        "NIST.SP.800-101r1.pdf p.54 (0.668)",
+        "NIST.SP.800-101r1.pdf p.54 (0.663)",
+        "NIST.SP.800-101r1.pdf p.53 (0.662)",
+        "NIST.SP.800-101r1.pdf p.34 (0.654)"
       ],
-      "cited": [],
+      "cited": [
+        "NIST.SP.800-101r1.pdf p.35",
+        "NIST.SP.800-101r1.pdf p.54",
+        "NIST.SP.800-101r1.pdf p.54"
+      ],
       "hit@1": false,
       "hit@3": false,
       "hit@5": false,
@@ -502,20 +506,20 @@
       "expected": "NIST.SP.800-40r4.pdf p.19,22,23",
       "top_score": 0.7378,
       "unknown_terms": [],
-      "rerank_score": 4.36,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "nistspecialpublication800-137.pdf p.66 (0.692)",
-        "nistspecialpublication800-123.pdf p.26 (0.705)",
-        "NIST.IR.7621r1.pdf p.26 (0.700)",
+        "NIST.SP.800-171r3.pdf p.81 (0.738)",
         "nistspecialpublication800-123.pdf p.25 (0.710)",
-        "NIST.SP.800-171r3.pdf p.81 (0.738)"
+        "nistspecialpublication800-123.pdf p.26 (0.705)",
+        "NIST.SP.800-171r3.pdf p.80 (0.701)",
+        "NIST.IR.7621r1.pdf p.26 (0.700)"
       ],
       "cited": [
-        "nistspecialpublication800-137.pdf p.66",
-        "nistspecialpublication800-123.pdf p.26",
-        "NIST.IR.7621r1.pdf p.26"
+        "NIST.SP.800-171r3.pdf p.81",
+        "nistspecialpublication800-123.pdf p.25",
+        "nistspecialpublication800-123.pdf p.26"
       ],
       "hit@1": false,
       "hit@3": false,
@@ -530,20 +534,20 @@
       "expected": "NIST.SP.800-40r4.pdf p.18,19,22",
       "top_score": 0.8157,
       "unknown_terms": [],
-      "rerank_score": 6.09,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-40r4.pdf p.18 (0.784)",
         "NIST.SP.800-40r4.pdf p.22 (0.816)",
         "NIST.SP.800-40r4.pdf p.19 (0.799)",
-        "NIST.SP.800-40r4.pdf p.21 (0.719)",
-        "NIST.SP.800-40r4.pdf p.22 (0.747)"
+        "NIST.SP.800-40r4.pdf p.18 (0.784)",
+        "NIST.SP.800-40r4.pdf p.15 (0.772)",
+        "NIST.SP.800-40r4.pdf p.15 (0.760)"
       ],
       "cited": [
-        "NIST.SP.800-40r4.pdf p.18",
         "NIST.SP.800-40r4.pdf p.22",
-        "NIST.SP.800-40r4.pdf p.19"
+        "NIST.SP.800-40r4.pdf p.19",
+        "NIST.SP.800-40r4.pdf p.18"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -558,20 +562,20 @@
       "expected": "nistspecialpublication800-50.pdf p.20,21",
       "top_score": 0.8781,
       "unknown_terms": [],
-      "rerank_score": 8.44,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "nistspecialpublication800-50.pdf p.21 (0.878)",
+        "nistspecialpublication800-50.pdf p.19 (0.822)",
         "nistspecialpublication800-50.pdf p.20 (0.818)",
         "NIST.SP.800-12r1.pdf p.70 (0.802)",
-        "nistspecialpublication800-50.pdf p.19 (0.822)",
-        "nistspecialpublication800-50.pdf p.32 (0.797)"
+        "nistspecialpublication800-50.pdf p.22 (0.801)"
       ],
       "cited": [
         "nistspecialpublication800-50.pdf p.21",
-        "nistspecialpublication800-50.pdf p.20",
-        "NIST.SP.800-12r1.pdf p.70"
+        "nistspecialpublication800-50.pdf p.19",
+        "nistspecialpublication800-50.pdf p.20"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -586,25 +590,25 @@
       "expected": "nistspecialpublication800-50.pdf p.11,23,24",
       "top_score": 0.836,
       "unknown_terms": [],
-      "rerank_score": 7.59,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "nistspecialpublication800-50.pdf p.24 (0.813)",
         "nistspecialpublication800-50.pdf p.44 (0.836)",
         "nistspecialpublication800-50.pdf p.23 (0.830)",
+        "nistspecialpublication800-50.pdf p.19 (0.827)",
         "nistspecialpublication800-50.pdf p.25 (0.822)",
         "nistspecialpublication800-50.pdf p.11 (0.819)"
       ],
       "cited": [
-        "nistspecialpublication800-50.pdf p.24",
         "nistspecialpublication800-50.pdf p.44",
-        "nistspecialpublication800-50.pdf p.23"
+        "nistspecialpublication800-50.pdf p.23",
+        "nistspecialpublication800-50.pdf p.19"
       ],
-      "hit@1": true,
+      "hit@1": false,
       "hit@3": true,
       "hit@5": true,
-      "top_citation_correct": true,
+      "top_citation_correct": false,
       "citation_correct": true
     },
     {
@@ -614,26 +618,26 @@
       "expected": "NIST.SP.800-83r1.pdf p.15",
       "top_score": 0.7595,
       "unknown_terms": [],
-      "rerank_score": 5.12,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-83r1.pdf p.15 (0.704)",
         "nistspecialpublication800-115.pdf p.59 (0.760)",
-        "NIST.SP.800-209.pdf p.27 (0.698)",
         "NIST.SP.800-12r1.pdf p.91 (0.738)",
-        "nistspecialpublication800-86.pdf p.27 (0.698)"
+        "nistspecialpublication800-92.pdf p.62 (0.709)",
+        "NIST.SP.800-83r1.pdf p.15 (0.704)",
+        "NIST.SP.800-209.pdf p.27 (0.698)"
       ],
       "cited": [
-        "NIST.SP.800-83r1.pdf p.15",
         "nistspecialpublication800-115.pdf p.59",
-        "NIST.SP.800-209.pdf p.27"
+        "NIST.SP.800-12r1.pdf p.91",
+        "nistspecialpublication800-92.pdf p.62"
       ],
-      "hit@1": true,
-      "hit@3": true,
+      "hit@1": false,
+      "hit@3": false,
       "hit@5": true,
-      "top_citation_correct": true,
-      "citation_correct": true
+      "top_citation_correct": false,
+      "citation_correct": false
     },
     {
       "id": "in-22",
@@ -642,20 +646,20 @@
       "expected": "NIST.SP.800-83r1.pdf p.9,26",
       "top_score": 0.8438,
       "unknown_terms": [],
-      "rerank_score": 7.48,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-83r1.pdf p.26 (0.844)",
-        "NIST.SP.800-83r1.pdf p.26 (0.757)",
         "NIST.SP.800-83r1.pdf p.9 (0.758)",
+        "NIST.SP.800-83r1.pdf p.26 (0.757)",
         "nistspecialpublication800-28ver2.pdf p.30 (0.751)",
-        "NIST.SP.800-207.pdf p.26 (0.726)"
+        "nistspecialpublication800-123.pdf p.30 (0.748)"
       ],
       "cited": [
         "NIST.SP.800-83r1.pdf p.26",
-        "NIST.SP.800-83r1.pdf p.26",
-        "NIST.SP.800-83r1.pdf p.9"
+        "NIST.SP.800-83r1.pdf p.9",
+        "NIST.SP.800-83r1.pdf p.26"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -670,25 +674,25 @@
       "expected": "NIST.IR.7621r1.pdf p.32",
       "top_score": 0.858,
       "unknown_terms": [],
-      "rerank_score": 5.03,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.IR.7621r1.pdf p.32 (0.798)",
         "NIST.IR.7621r1.pdf p.33 (0.858)",
-        "nistspecialpublication800-34r1.pdf p.35 (0.748)",
-        "nistspecialpublication800-34r1.pdf p.81 (0.742)",
-        "nistspecialpublication800-34r1.pdf p.112 (0.739)"
+        "NIST.IR.7621r1.pdf p.32 (0.798)",
+        "NIST.IR.7621r1.pdf p.33 (0.792)",
+        "NIST.IR.7621r1.pdf p.32 (0.780)",
+        "nistspecialpublication800-34r1.pdf p.35 (0.748)"
       ],
       "cited": [
-        "NIST.IR.7621r1.pdf p.32",
         "NIST.IR.7621r1.pdf p.33",
-        "nistspecialpublication800-34r1.pdf p.35"
+        "NIST.IR.7621r1.pdf p.32",
+        "NIST.IR.7621r1.pdf p.33"
       ],
-      "hit@1": true,
+      "hit@1": false,
       "hit@3": true,
       "hit@5": true,
-      "top_citation_correct": true,
+      "top_citation_correct": false,
       "citation_correct": true
     },
     {
@@ -698,20 +702,20 @@
       "expected": "NIST.IR.7621r1.pdf p.25",
       "top_score": 0.7528,
       "unknown_terms": [],
-      "rerank_score": 4.77,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.IR.7621r1.pdf p.25 (0.753)",
-        "NIST.IR.7621r1.pdf p.43 (0.698)",
-        "nistspecialpublication800-58.pdf p.29 (0.721)",
-        "nistspecialpublication800-34r1.pdf p.33 (0.643)",
-        "nistspecialpublication800-34r1.pdf p.60 (0.737)"
+        "nistspecialpublication800-34r1.pdf p.60 (0.737)",
+        "nistspecialpublication800-34r1.pdf p.60 (0.736)",
+        "nistspecialpublication800-34r1.pdf p.71 (0.727)",
+        "nistspecialpublication800-58.pdf p.29 (0.721)"
       ],
       "cited": [
         "NIST.IR.7621r1.pdf p.25",
-        "NIST.IR.7621r1.pdf p.43",
-        "nistspecialpublication800-58.pdf p.29"
+        "nistspecialpublication800-34r1.pdf p.60",
+        "nistspecialpublication800-34r1.pdf p.60"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -726,14 +730,14 @@
       "expected": "NIST.SP.800-114r1.pdf p.10,37",
       "top_score": 0.7198,
       "unknown_terms": [],
-      "rerank_score": 3.5,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-114r1.pdf p.10 (0.720)",
         "NIST.SP.800-177r1.pdf p.29 (0.707)",
         "NIST.IR.7621r1.pdf p.36 (0.694)",
-        "NIST.SP.800-177r1.pdf p.29 (0.685)",
+        "NIST.SP.800-177r1.pdf p.4 (0.690)",
         "NIST.SP.800-177r1.pdf p.93 (0.689)"
       ],
       "cited": [
@@ -754,20 +758,20 @@
       "expected": "NIST.SP.800-12r1.pdf p.36",
       "top_score": 0.7913,
       "unknown_terms": [],
-      "rerank_score": 8.63,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
         "NIST.SP.800-12r1.pdf p.36 (0.791)",
         "nistspecialpublication800-35.pdf p.45 (0.787)",
-        "NIST.SP.800-12r1.pdf p.37 (0.756)",
-        "NIST.SP.800-12r1.pdf p.36 (0.756)",
-        "NIST.IR.7621r1.pdf p.54 (0.760)"
+        "NIST.SP.800-12r1.pdf p.40 (0.772)",
+        "NIST.IR.7621r1.pdf p.54 (0.760)",
+        "NIST.SP.800-12r1.pdf p.37 (0.756)"
       ],
       "cited": [
         "NIST.SP.800-12r1.pdf p.36",
         "nistspecialpublication800-35.pdf p.45",
-        "NIST.SP.800-12r1.pdf p.37"
+        "NIST.SP.800-12r1.pdf p.40"
       ],
       "hit@1": true,
       "hit@3": true,
@@ -780,19 +784,21 @@
       "question": "What is the refund policy for annual subscriptions?",
       "in_corpus": false,
       "expected": "not in corpus",
-      "top_score": 0.605,
+      "top_score": 0.6225,
       "unknown_terms": [],
       "rerank_score": null,
-      "refused": true,
-      "refused_by": "similarity",
+      "refused": false,
+      "refused_by": "",
       "retrieved": [
+        "nistspecialpublication800-146.pdf p.16 (0.622)",
         "NIST.SP.800-63b.pdf p.17 (0.605)",
         "NIST.SP.800-63c.pdf p.17 (0.600)",
         "NIST.SP.800-63b.pdf p.19 (0.598)",
-        "NIST.SP.800-63b.pdf p.21 (0.595)",
-        "NIST.SP.800-63c.pdf p.17 (0.594)"
+        "NIST.SP.800-63b.pdf p.21 (0.595)"
       ],
-      "cited": []
+      "cited": [
+        "nistspecialpublication800-146.pdf p.16"
+      ]
     },
     {
       "id": "out-02",
@@ -841,17 +847,21 @@
       "expected": "not in corpus",
       "top_score": 0.6959,
       "unknown_terms": [],
-      "rerank_score": -5.06,
-      "refused": true,
-      "refused_by": "rerank",
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
       "retrieved": [
         "NIST.SP.800-209.pdf p.30 (0.696)",
-        "NIST.SP.800-188.pdf p.74 (0.673)",
+        "NIST.SP.800-171Ar3.pdf p.41 (0.694)",
         "NIST.SP.800-171Ar3.pdf p.97 (0.693)",
-        "nistspecialpublication800-122.pdf p.15 (0.667)",
-        "NIST.SP.800-171Ar3.pdf p.41 (0.694)"
+        "NIST.SP.800-63-3.pdf p.33 (0.691)",
+        "NIST.SP.800-205.pdf p.33 (0.689)"
       ],
-      "cited": []
+      "cited": [
+        "NIST.SP.800-209.pdf p.30",
+        "NIST.SP.800-171Ar3.pdf p.41",
+        "NIST.SP.800-171Ar3.pdf p.97"
+      ]
     },
     {
       "id": "out-05",
@@ -860,17 +870,21 @@
       "expected": "not in corpus",
       "top_score": 0.6392,
       "unknown_terms": [],
-      "rerank_score": -4.72,
-      "refused": true,
-      "refused_by": "rerank",
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-216.pdf p.33 (0.625)",
-        "nistspecialpublication800-39.pdf p.13 (0.605)",
+        "nistspecialpublication800-50.pdf p.71 (0.639)",
         "NIST.SP.800-216.pdf p.34 (0.628)",
-        "NIST.SP.800-188.pdf p.107 (0.604)",
-        "nistspecialpublication800-50.pdf p.66 (0.606)"
+        "NIST.IR.8286.pdf p.44 (0.625)",
+        "NIST.SP.800-216.pdf p.33 (0.625)",
+        "NIST.SP.800-116r1.pdf p.56 (0.606)"
       ],
-      "cited": []
+      "cited": [
+        "nistspecialpublication800-50.pdf p.71",
+        "NIST.SP.800-216.pdf p.34",
+        "NIST.IR.8286.pdf p.44"
+      ]
     },
     {
       "id": "out-06",
@@ -900,20 +914,20 @@
       "expected": "not in corpus",
       "top_score": 0.721,
       "unknown_terms": [],
-      "rerank_score": 0.83,
+      "rerank_score": null,
       "refused": false,
       "refused_by": "",
       "retrieved": [
-        "NIST.SP.800-177r1.pdf p.84 (0.696)",
-        "NIST.SP.800-52r2.pdf p.14 (0.703)",
+        "nistspecialpublication800-113.pdf p.72 (0.721)",
         "NIST.SP.800-177r1.pdf p.85 (0.710)",
-        "NIST.SP.800-177r1.pdf p.83 (0.696)",
-        "NIST.SP.800-177r1.pdf p.26 (0.693)"
+        "nistspecialpublication800-113.pdf p.15 (0.705)",
+        "NIST.SP.800-52r2.pdf p.14 (0.703)",
+        "NIST.SP.800-121r2.pdf p.34 (0.698)"
       ],
       "cited": [
-        "NIST.SP.800-177r1.pdf p.84",
-        "NIST.SP.800-52r2.pdf p.14",
-        "NIST.SP.800-177r1.pdf p.85"
+        "nistspecialpublication800-113.pdf p.72",
+        "NIST.SP.800-177r1.pdf p.85",
+        "nistspecialpublication800-113.pdf p.15"
       ]
     },
     {
@@ -985,7 +999,7 @@
       "threshold": 0.62,
       "false_refusals_in_corpus": 0,
       "in_corpus": 26,
-      "refusals_out_of_corpus": 5,
+      "refusals_out_of_corpus": 4,
       "out_of_corpus": 8
     },
     {
@@ -1052,125 +1066,5 @@
       "out_of_corpus": 8
     }
   ],
-  "rerank_sweep": [
-    {
-      "rerank_threshold": -4.0,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -3.5,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -3.0,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -2.5,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -2.0,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -1.5,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -1.0,
-      "false_refusals_in_corpus": 1,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": -0.5,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 0.0,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 0.5,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 2,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 1.0,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 1.5,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 2.0,
-      "false_refusals_in_corpus": 2,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 2.5,
-      "false_refusals_in_corpus": 3,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 3.0,
-      "false_refusals_in_corpus": 4,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 3.5,
-      "false_refusals_in_corpus": 5,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    },
-    {
-      "rerank_threshold": 4.0,
-      "false_refusals_in_corpus": 7,
-      "in_corpus": 26,
-      "refusals_out_of_corpus": 3,
-      "out_of_corpus": 3
-    }
-  ]
+  "rerank_sweep": []
 }

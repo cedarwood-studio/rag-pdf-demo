@@ -1,0 +1,585 @@
+{
+  "label": "heldout-core-rerank",
+  "implementation": "plain Python",
+  "questions": "questions-heldout.json",
+  "collection": "core",
+  "answer_mode": "extractive",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "threshold": 0.62,
+  "strict_threshold": 0.75,
+  "search": "exact",
+  "rerank": "Xenova/ms-marco-MiniLM-L-6-v2, pool 10, threshold -1.5",
+  "top_k": 5,
+  "max_citations": 3,
+  "chunks": 2448,
+  "run_at": "2026-11-12T01:37:37+00:00",
+  "summary": {
+    "retrieval_hit@1": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "retrieval_hit@3": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "retrieval_hit@5": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "citation_correct": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "top_citation_correct": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "false_refusals_in_corpus": {
+      "count": 0,
+      "of": 6,
+      "rate": 0.0
+    },
+    "refusals_out_of_corpus": {
+      "count": 3,
+      "of": 6,
+      "rate": 0.5
+    }
+  },
+  "rows": [
+    {
+      "id": "held-in-01",
+      "question": "What is a rootkit?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-83r1.pdf p.15",
+      "top_score": 0.7475,
+      "unknown_terms": [],
+      "rerank_score": 7.65,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-83r1.pdf p.15 (0.748)",
+        "NIST.SP.800-83r1.pdf p.44 (0.682)",
+        "NIST.SP.800-83r1.pdf p.15 (0.602)",
+        "NIST.SP.800-83r1.pdf p.15 (0.603)",
+        "NIST.SP.800-46r2.pdf p.50 (0.611)"
+      ],
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.15",
+        "NIST.SP.800-83r1.pdf p.44"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-in-02",
+      "question": "What is a blended attack?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-83r1.pdf p.14",
+      "top_score": 0.7209,
+      "unknown_terms": [],
+      "rerank_score": 7.05,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-83r1.pdf p.14 (0.721)",
+        "NIST.SP.800-61r2.pdf p.35 (0.660)",
+        "NIST.SP.800-61r2.pdf p.12 (0.662)",
+        "NIST.SP.800-12r1.pdf p.31 (0.698)",
+        "NIST.SP.800-61r2.pdf p.35 (0.658)"
+      ],
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.14",
+        "NIST.SP.800-61r2.pdf p.35",
+        "NIST.SP.800-61r2.pdf p.12"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-in-03",
+      "question": "What does maximum tolerable downtime mean?",
+      "in_corpus": true,
+      "expected": "nistspecialpublication800-34r1.pdf p.31,121,144",
+      "top_score": 0.7161,
+      "unknown_terms": [],
+      "rerank_score": 6.93,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "nistspecialpublication800-34r1.pdf p.144 (0.697)",
+        "nistspecialpublication800-34r1.pdf p.121 (0.716)",
+        "nistspecialpublication800-34r1.pdf p.125 (0.688)",
+        "nistspecialpublication800-34r1.pdf p.62 (0.682)",
+        "nistspecialpublication800-34r1.pdf p.31 (0.709)"
+      ],
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.144",
+        "nistspecialpublication800-34r1.pdf p.121",
+        "nistspecialpublication800-34r1.pdf p.125"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-in-04",
+      "question": "What is the difference between an event and an incident?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-61r2.pdf p.16",
+      "top_score": 0.7713,
+      "unknown_terms": [],
+      "rerank_score": 5.07,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.16 (0.759)",
+        "NIST.SP.800-61r2.pdf p.75 (0.771)",
+        "NIST.SP.800-61r2.pdf p.38 (0.728)",
+        "NIST.SP.800-61r2.pdf p.75 (0.711)",
+        "NIST.SP.800-61r2.pdf p.12 (0.715)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.16",
+        "NIST.SP.800-61r2.pdf p.75",
+        "NIST.SP.800-61r2.pdf p.38"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-in-05",
+      "question": "How long does the salt need to be when password hashes are stored?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-63b.pdf p.26",
+      "top_score": 0.7768,
+      "unknown_terms": [],
+      "rerank_score": 2.11,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-63b.pdf p.26 (0.728)",
+        "NIST.SP.800-63b.pdf p.26 (0.777)",
+        "NIST.SP.800-63b.pdf p.27 (0.756)",
+        "NIST.SP.800-63b.pdf p.26 (0.698)",
+        "NIST.SP.800-63b.pdf p.78 (0.709)"
+      ],
+      "cited": [
+        "NIST.SP.800-63b.pdf p.26",
+        "NIST.SP.800-63b.pdf p.26",
+        "NIST.SP.800-63b.pdf p.27"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-in-06",
+      "question": "How frequently should incremental backups run in a small business?",
+      "in_corpus": true,
+      "expected": "NIST.IR.7621r1.pdf p.33",
+      "top_score": 0.8484,
+      "unknown_terms": [],
+      "rerank_score": 4.15,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.IR.7621r1.pdf p.33 (0.848)",
+        "nistspecialpublication800-34r1.pdf p.35 (0.731)",
+        "nistspecialpublication800-34r1.pdf p.58 (0.753)",
+        "NIST.SP.800-12r1.pdf p.59 (0.741)",
+        "NIST.IR.7621r1.pdf p.32 (0.712)"
+      ],
+      "cited": [
+        "NIST.IR.7621r1.pdf p.33",
+        "nistspecialpublication800-34r1.pdf p.35",
+        "nistspecialpublication800-34r1.pdf p.58"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held-out-01",
+      "question": "Which antivirus product is the best choice for a small business?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7297,
+      "unknown_terms": [],
+      "rerank_score": -2.09,
+      "refused": true,
+      "refused_by": "rerank",
+      "retrieved": [
+        "NIST.SP.800-83r1.pdf p.22 (0.709)",
+        "NIST.SP.800-83r1.pdf p.22 (0.682)",
+        "NIST.SP.800-83r1.pdf p.21 (0.708)",
+        "NIST.SP.800-114r1.pdf p.27 (0.730)",
+        "NIST.SP.800-83r1.pdf p.22 (0.690)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held-out-02",
+      "question": "How much does a hot site cost per month?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6372,
+      "unknown_terms": [],
+      "rerank_score": -5.29,
+      "refused": true,
+      "refused_by": "rerank",
+      "retrieved": [
+        "nistspecialpublication800-34r1.pdf p.39 (0.617)",
+        "nistspecialpublication800-34r1.pdf p.61 (0.625)",
+        "nistspecialpublication800-34r1.pdf p.61 (0.637)",
+        "nistspecialpublication800-34r1.pdf p.36 (0.594)",
+        "nistspecialpublication800-34r1.pdf p.61 (0.581)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held-out-03",
+      "question": "Who is the current director of NIST?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6629,
+      "unknown_terms": [],
+      "rerank_score": 4.63,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-12r1.pdf p.2 (0.632)",
+        "NIST.SP.800-40r4.pdf p.2 (0.663)",
+        "nistspecialpublication800-50.pdf p.2 (0.651)",
+        "nistspecialpublication800-34r1.pdf p.2 (0.648)",
+        "nistspecialpublication800-34r1.pdf p.7 (0.629)"
+      ],
+      "cited": [
+        "NIST.SP.800-12r1.pdf p.2",
+        "NIST.SP.800-40r4.pdf p.2",
+        "nistspecialpublication800-50.pdf p.2"
+      ]
+    },
+    {
+      "id": "held-out-04",
+      "question": "What is the penalty for failing to report an incident within 72 hours?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6934,
+      "unknown_terms": [
+        "penalty"
+      ],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "unknown word",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.49 (0.693)",
+        "NIST.SP.800-61r2.pdf p.43 (0.680)",
+        "NIST.SP.800-61r2.pdf p.51 (0.676)",
+        "NIST.SP.800-61r2.pdf p.51 (0.655)",
+        "NIST.SP.800-61r2.pdf p.76 (0.653)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held-out-05",
+      "question": "How many people work on the incident response team at NIST?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7237,
+      "unknown_terms": [],
+      "rerank_score": 2.75,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.23 (0.724)",
+        "NIST.SP.800-61r2.pdf p.24 (0.707)",
+        "NIST.SP.800-61r2.pdf p.24 (0.708)",
+        "NIST.SP.800-61r2.pdf p.28 (0.705)",
+        "NIST.SP.800-61r2.pdf p.28 (0.709)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.23",
+        "NIST.SP.800-61r2.pdf p.24",
+        "NIST.SP.800-61r2.pdf p.24"
+      ]
+    },
+    {
+      "id": "held-out-06",
+      "question": "What password does the default administrator account use?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7362,
+      "unknown_terms": [],
+      "rerank_score": 2.7,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.IR.7621r1.pdf p.38 (0.736)",
+        "NIST.IR.7621r1.pdf p.26 (0.668)",
+        "NIST.SP.800-114r1.pdf p.25 (0.671)",
+        "NIST.SP.800-114r1.pdf p.24 (0.682)",
+        "NIST.SP.800-114r1.pdf p.24 (0.703)"
+      ],
+      "cited": [
+        "NIST.IR.7621r1.pdf p.38",
+        "NIST.IR.7621r1.pdf p.26",
+        "NIST.SP.800-114r1.pdf p.25"
+      ]
+    }
+  ],
+  "sweep": [
+    {
+      "threshold": 0.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.52,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.54,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.56,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.58,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.6,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.62,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.64,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.66,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.68,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 3,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.7,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 3,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.72,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 3,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.74,
+      "false_refusals_in_corpus": 2,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 6,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.76,
+      "false_refusals_in_corpus": 3,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 6,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.78,
+      "false_refusals_in_corpus": 5,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 6,
+      "out_of_corpus": 6
+    },
+    {
+      "threshold": 0.8,
+      "false_refusals_in_corpus": 5,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 6,
+      "out_of_corpus": 6
+    }
+  ],
+  "rerank_sweep": [
+    {
+      "rerank_threshold": -4.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -3.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -3.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -2.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 1,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -2.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -1.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -1.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": -0.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 0.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 0.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 1.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 1.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 2.0,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 2.5,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 2,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 3.0,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 3.5,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 5
+    },
+    {
+      "rerank_threshold": 4.0,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 6,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 5
+    }
+  ]
+}

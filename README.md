@@ -8,13 +8,14 @@ This is a demonstration built by Cedarwood Studio on public documents. It is not
 
 ## How a question is answered
 
-1. **Retrieve** (`ragdemo/retrieval.py`, `ragdemo/store.py`): the question is embedded on CPU with `BAAI/bge-small-en-v1.5` and the 10 nearest chunks are read from Postgres with pgvector.
+1. **Retrieve** (`ragdemo/retrieval.py`, `ragdemo/store.py`): the question is embedded on CPU with `BAAI/bge-small-en-v1.5` and the 5 nearest chunks are read from Postgres with pgvector.
 2. **Refuse early** (`ragdemo/refusal.py`): if the best chunk is below a similarity threshold, the reply is "I could not find this in the documents." A question that uses a word found nowhere in the corpus has to clear a stricter threshold.
-3. **Rerank** (`ragdemo/rerank.py`): a small cross-encoder reads the question together with each of the 10 chunks and reorders them. The best 5 are kept. If even the best one scores low, the question is refused. This check is aimed at questions that are on the corpus topic but not answered by it.
-4. **Answer** (`ragdemo/answer.py`), in one of two modes:
+3. **Answer** (`ragdemo/answer.py`), in one of two modes:
    - **Extractive** (default, no key): the best passages are returned word for word, each with its document and page.
-   - **Generated** (when `OPENAI_API_KEY` is set): the passages go to an OpenAI-compatible chat model, which must cite passages by number and must refuse if they do not state the answer. An answer that cites nothing is turned into a refusal.
-5. **Cite** (`ragdemo/pipeline.py`): every answer carries the file name, document title, page number and section heading of each passage it used.
+   - **Generated** (when `OPENAI_API_KEY` is set): the passages go to a chat model, which must cite passages by number and must refuse if they do not state the answer. An answer that cites nothing is turned into a refusal.
+4. **Cite** (`ragdemo/pipeline.py`): every answer carries the file name, document title, page number and section heading of each passage it used.
+
+An **optional reranker** (`ragdemo/rerank.py`, `RERANK=1`) sits between steps 2 and 3. A small cross-encoder reads the question together with each of the 10 nearest chunks, reorders them, keeps the best 5, and refuses the question if even the best one scores low. It is off by default because of the licence position of its model (see Licences). Results are given with and without it.
 
 Ingestion (`ragdemo/pdf.py`, `ragdemo/chunking.py`, `ragdemo/ingest.py`) reads each PDF page by page, removes running headers and footers, finds section headings from font weight and numbering, and cuts the text into chunks that start at headings and never cross a page.
 
@@ -26,7 +27,7 @@ Ingestion (`ragdemo/pdf.py`, `ragdemo/chunking.py`, `ragdemo/ingest.py`) reads e
 | `ragdemo/chunking.py` | Heading and page aware chunks | Own code | 167 | The same file. Nothing in LangChain splits on detected headings while keeping the page. | 167 |
 | `ragdemo/ingest.py` | Read, chunk, embed, store | A loop over the files | 96 | The chunker wrapped as a `BaseLoader` that yields `Document` objects. The baseline uses `PyPDFLoader` and `RecursiveCharacterTextSplitter`. | 147 |
 | `ragdemo/embed.py` | Embedding model and cache | A small protocol around fastembed | 124 | The same model behind LangChain's `Embeddings` interface. | 129 |
-| `ragdemo/store.py` | pgvector table, insert, search, index | SQL written by hand | 158 | `PGVectorStore` from langchain-postgres creates the table, inserts, searches and builds the HNSW index. Counts, sizes and the word lookup are still SQL. | 131 |
+| `ragdemo/store.py` | pgvector table, insert, search, index | SQL written by hand | 167 | `PGVectorStore` from langchain-postgres creates the table, inserts, searches and builds the HNSW index. Counts, sizes and the word lookup are still SQL. | 135 |
 | `ragdemo/retrieval.py` | Question to scored passages | One class | 25 | A `BaseRetriever` subclass, because the stock retriever drops the scores. | 45 |
 | `ragdemo/rerank.py` | Cross-encoder reranking | fastembed cross-encoder | 33 | The same model as a `BaseDocumentCompressor`. | 45 |
 | `ragdemo/refusal.py` | The refusal checks | Own code | 70 | The same logic, reading scores from document metadata. | 70 |
@@ -35,11 +36,11 @@ Ingestion (`ragdemo/pdf.py`, `ragdemo/chunking.py`, `ragdemo/ingest.py`) reads e
 | `ragdemo/pipeline.py` | The whole path, wired together | One method of about 25 lines | 135 | One LCEL chain with a `RunnableBranch` for the refusal path. | 166 |
 | `ragdemo/api.py` | FastAPI app | FastAPI | 70 | The same file. | 70 |
 | `ragdemo/eval.py` | Retrieval, citation and refusal scoring | Own code | 231 | The same, reading document metadata. | 231 |
-| `ragdemo/eval_answers.py` | Answer correctness and faithfulness grading | Two prompts and a JSON reply | 195 | The grader is a chain: prompt, model in JSON mode, `JsonOutputParser`. | 207 |
-| `ragdemo/bench.py` | Latency and size | Own code | 107 | The same. | 107 |
-| `ragdemo/config.py` | Settings from the environment | Own code | 62 | The same, apart from the default database port. | 62 |
+| `ragdemo/eval_answers.py` | Answer correctness and faithfulness grading | Two prompts and a JSON reply | 199 | The grader is a chain: prompt, model in JSON mode, `JsonOutputParser`. | 211 |
+| `ragdemo/bench.py` | Latency and size | Own code | 106 | The same. | 106 |
+| `ragdemo/config.py` | Settings from the environment | Own code | 63 | The same file. | 63 |
 | `ragdemo/corpus.py` | Download and checksum the PDFs | Own code | 53 | The same file. | 53 |
-| Total | | | 1,773 | | 1,876 |
+| Total | | | 1,786 | | 1,884 |
 
 Line counts are of the files in `ragdemo/`, comments and blank lines included.
 
@@ -68,7 +69,7 @@ The response has these fields:
 - `mode`: `extractive` or `generated`
 - `citations`: a list, each with `document`, `title`, `page`, `heading`, `score` and a `snippet`
 - `top_score` and `threshold`: the best similarity score and the cut-off it was compared with
-- `rerank_score`: the best cross-encoder score, when the reranker ran
+- `rerank_score`: the best cross-encoder score, when the optional reranker ran
 - `unknown_terms`: words of the question that appear nowhere in the corpus
 
 To load all 100 PDFs and serve them:
@@ -78,58 +79,98 @@ make ingest-full                      # over an hour on a 4-core CPU the first t
 CORPUS=full docker compose up -d
 ```
 
-To use a language model for the answer step, set a key in your shell before starting. It is read from the environment only and is never written to a file by this code.
+### Generated answers
+
+Set a key in your shell before starting. It is read from the environment only and is never written to a file by this code.
 
 ```sh
-OPENAI_API_KEY=... OPENAI_MODEL=gpt-4o-mini docker compose up -d
+OPENAI_API_KEY=... docker compose up -d
 ```
 
-`OPENAI_BASE_URL` points the same code at any other OpenAI-compatible endpoint.
+The defaults are the OpenAI API and `gpt-4o-mini`. Any OpenAI-compatible endpoint works by setting three variables: `OPENAI_BASE_URL`, `ANSWER_MODEL`, and that endpoint's key in `OPENAI_API_KEY`. The generated-answer numbers below were produced this way through OpenRouter:
+
+```sh
+OPENAI_API_KEY=... OPENAI_BASE_URL=https://openrouter.ai/api/v1 ANSWER_MODEL=openai/gpt-4o-mini docker compose up -d
+```
 
 ## Results
 
-Every number in this section is from the **extractive** answer mode: no language model wrote any answer. Generated answers are built and tested but not measured, because the OpenAI key supplied for this work had no credit (details in [EVAL.md](EVAL.md)).
+Two answer modes were measured, and every table says which one it shows.
 
-The 26 answerable and 8 off-topic questions of `eval/questions.json`, in both implementations, at 12 and at 100 PDFs:
+- **Extractive:** no language model. The reply quotes the best passages with their pages.
+- **Generated:** `openai/gpt-4o-mini` writes the answer from the passages and must cite them or refuse. It was called through OpenRouter's OpenAI-compatible endpoint, and the same model graded the answers.
+
+All numbers are with the default configuration: exact vector search, no reranker. The two implementations are shown side by side at 12 and at 100 PDFs.
+
+**Retrieval and citations, extractive mode.** The 26 answerable and 8 off-topic questions of `eval/questions.json`:
 
 | Metric | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
 | --- | --- | --- | --- | --- |
-| Expected page is the top result | 20/26 (77%) | 20/26 (77%) | 17/26 (65%) | 17/26 (65%) |
-| Expected page in top 3 | 21/26 (81%) | 21/26 (81%) | 20/26 (77%) | 20/26 (77%) |
-| Expected page in top 5 | 23/26 (88%) | 23/26 (88%) | 20/26 (77%) | 20/26 (77%) |
+| Expected page is the top result | 16/26 (62%) | 16/26 (62%) | 13/26 (50%) | 13/26 (50%) |
+| Expected page in top 3 | 22/26 (85%) | 22/26 (85%) | 18/26 (69%) | 18/26 (69%) |
+| Expected page in top 5 | 22/26 (85%) | 22/26 (85%) | 20/26 (77%) | 20/26 (77%) |
+| Answered with a citation to an accepted page | 22/26 (85%) | 22/26 (85%) | 18/26 (69%) | 18/26 (69%) |
+| False refusals (answerable questions) | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) |
+| Refusals (unanswerable questions, higher is better) | 8/8 (100%) | 8/8 (100%) | 4/8 (50%) | 4/8 (50%) |
+
+**Answers, generated mode.** The same questions:
+
+| Metric | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
+| --- | --- | --- | --- | --- |
+| Answer correct | 18/26 (69%) | 18/26 (69%) | 16/26 (62%) | 16/26 (62%) |
+| Answer partly correct | 5/26 (19%) | 5/26 (19%) | 7/26 (27%) | 7/26 (27%) |
+| Answer incorrect | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) | 0/26 (0%) |
+| False refusals (answerable questions) | 3/26 (12%) | 3/26 (12%) | 3/26 (12%) | 3/26 (12%) |
 | Answered with a citation to an accepted page | 21/26 (81%) | 21/26 (81%) | 20/26 (77%) | 20/26 (77%) |
-| False refusals (answerable questions) | 0/26 (0%) | 0/26 (0%) | 1/26 (4%) | 1/26 (4%) |
-| Refusals (unanswerable questions, higher is better) | 8/8 (100%) | 8/8 (100%) | 7/8 (88%) | 7/8 (88%) |
+| Faithful to its cited passages (of answers given) | 20/23 (87%) | 20/23 (87%) | 17/23 (74%) | 17/23 (74%) |
+| Partly faithful (of answers given) | 3/23 (13%) | 3/23 (13%) | 6/23 (26%) | 6/23 (26%) |
+| Unfaithful (of answers given) | 0/23 (0%) | 0/23 (0%) | 0/23 (0%) | 0/23 (0%) |
+| Refusals (unanswerable questions, higher is better) | 8/8 (100%) | 8/8 (100%) | 8/8 (100%) | 8/8 (100%) |
+| of which refused by the model itself | 0/8 (0%) | 0/8 (0%) | 4/8 (50%) | 4/8 (50%) |
 
-- **Both implementations give the same result on every question.** They share chunks, vectors and thresholds. LangChain changes the wiring, not the output.
-- **Growing the corpus eight times cost about one question in eight.** The added documents are on the same subject and compete for every question. One of the "misses" at 100 PDFs is a correct answer from a different document, and one is an answer from an outdated version of a document. Both are discussed in EVAL.md.
-- **Held-out questions written after the settings were fixed:** 9 of 10 answerable questions cited correctly at 12 PDFs, 8 of 10 at 100, no false refusals.
-- **The refusal path is the weak part.** Off-topic questions are refused (8 of 8, and 7 of 8 at 100 PDFs). Of 10 held-out questions that are on the corpus topic but not answered by it, 5 were refused at 12 PDFs and 4 at 100. Without the reranker it was 3 and 2. The remaining cases need a language model to read the passages, and that step is the one not yet measured.
+**The hard case: questions on the corpus topic that the documents do not answer.** Ten such questions from the held-out set written after all settings were fixed:
 
-Size and speed on 4 CPU cores, no GPU:
+| On-topic unanswerable questions refused | Plain, 12 PDFs | LangChain, 12 PDFs | Plain, 100 PDFs | LangChain, 100 PDFs |
+| --- | --- | --- | --- | --- |
+| Extractive mode | 3/10 | 3/10 | 2/10 | 2/10 |
+| Generated mode | 9/10 (3 by checks, 6 by the model) | 9/10 (3 by checks, 6 by the model) | 9/10 (2 by checks, 7 by the model) | 9/10 (2 by checks, 7 by the model) |
+
+What to take from this:
+
+- **Both implementations behave the same.** Extractive results are identical question for question. Generated results differ by a question here and there, because the model is not perfectly repeatable.
+- **The model is what makes the refusal path work.** Retrieval checks alone refuse 3 of 10 on-topic unanswerable questions (2 at 100 PDFs). With the model, 9 of 10. The tenth was a mistake in our question set: the document does give the answer, and the model found it.
+- **No generated answer was graded unsupported by its cited passages.** Most were graded fully supported and the rest partly.
+- **Answers were graded correct for 18 of 26 questions at 12 PDFs and 16 of 26 at 100,** with 5 and 7 partly correct and none incorrect. On the held-out set one answer in ten was graded incorrect at 100 PDFs.
+- **Generated mode refuses 3 of 26 answerable questions** where extractive mode refuses none. In those cases retrieval had not found the right page, and the model declined instead of answering from the wrong one.
+- **Growing the corpus eight times cost four correct citations out of 26 in extractive mode** (22 to 18) and halved the off-topic refusals of the retrieval checks (8 to 4 of 8). The model still refused all 8.
+- **The grader is the same model that wrote the answers,** so the correctness and faithfulness figures are optimistic until a person has read a sample.
+
+Size and speed on 4 CPU cores, no GPU (extractive mode, so no model call is included):
 
 | | 12 PDFs | 100 PDFs |
 | --- | --- | --- |
 | Pages / chunks | 805 / 2,448 | 6,252 / 18,205 |
 | Stored size before indexes | 6 MB | 42 MB |
 | First ingest, embedding on CPU | about 9 minutes | about 72 minutes |
-| Vector search, exact, p50 (plain / LangChain) | 15 / 20 ms | 103 / 108 ms |
-| Vector search, HNSW index, p50 (plain / LangChain) | 3 / 21 ms | 2 / 6 ms |
-| Whole answer with reranker, p50 / p95 (plain) | 774 / 1016 ms | 941 / 2135 ms |
-| Whole answer with reranker, p50 / p95 (LangChain) | 817 / 1280 ms | 835 / 1299 ms |
+| Vector search, exact, p50 (plain / LangChain) | 15 / 21 ms | 103 / 108 ms |
+| Vector search, HNSW index, p50 (plain / LangChain) | 3 / 22 ms | 2 / 6 ms |
+| Whole answer path, p50 / p95 (plain) | 110 / 200 ms | 139 / 294 ms |
+| Whole answer path, p50 / p95 (LangChain) | 60 / 101 ms | 147 / 192 ms |
 
-The reranker, not the database, sets the response time: about 0.7 seconds of CPU per question. The full tables, the index comparison and the method are in [EVAL.md](EVAL.md).
+The generated-mode runs of both repositories together cost an estimated $0.13 (680,081 input and 40,170 output tokens), computed from the token counts the API returned.
+
+The held-out sets, the optional reranker, the index comparison, the baselines and the method are in [EVAL.md](EVAL.md).
 
 ## What LangChain changed
 
 This section is the same in both repositories.
 
-**Size.** The `ragdemo` package is 1,773 lines in plain Python and 1,876 lines with LangChain. The framework did not make the code shorter. It moved where the lines are: `store.py` shrank from 158 to 131 lines and `llm.py` from 92 to 84, while `pipeline.py` grew from 135 to 166 and `ingest.py` from 96 to 147. Four files are identical, and `config.py` differs only in the default database port. Installed with its test tools, the plain version pulls in 51 Python packages (324 MB) and the LangChain version 91 (504 MB).
+**Size.** The `ragdemo` package is 1,786 lines in plain Python and 1,884 lines with LangChain. The framework did not make the code shorter. It moved where the lines are: `store.py` shrank from 167 to 135 lines and `llm.py` from 92 to 84, while `pipeline.py` grew from 135 to 166 and `ingest.py` from 96 to 147. Four files are identical, and `config.py` differs only in the default database port. Installed with its test tools, the plain version pulls in 51 Python packages (324 MB) and the LangChain version 91 (504 MB).
 
 **What got simpler.**
 
 - **The vector store.** `PGVectorStore` creates the table, inserts rows, runs the similarity query and builds the HNSW index in one call each. The plain version writes that SQL by hand, including a pgvector setting needed to combine an index with a filter on the collection.
-- **The model call.** `ChatOpenAI` replaces a hand-written HTTP client: retries, JSON replies and token usage come with it. The prompt, model and parser join with one operator.
+- **The model call.** `ChatOpenAI` replaces a hand-written HTTP client: retries, JSON replies and token usage come with it. The prompt, model and parser join with one operator. Pointing it at another OpenAI-compatible endpoint was a base URL in both versions.
 - **Testing the model path.** LangChain's fake chat model stands in for the API in tests with one line.
 - **A first baseline.** The stock PDF loader and text splitter give a working ingestion in about ten lines.
 
@@ -139,13 +180,13 @@ This section is the same in both repositories.
 - **There is no refusal path to reuse.** The thresholds, the unknown-word check and the rerank check are the same hand-written logic in both repositories. LangChain contributes the branch that routes around the answer step.
 - **The chain is harder to follow than the function it replaces.** State travels through the chain as a dictionary, and a mistake in a key shows up at run time inside the framework's call stack.
 - **A threading surprise.** The vector store calls the embedder from a worker thread. The SQLite embedding cache that worked in the plain version failed there until it was given a lock.
-- **Reranking.** LangChain's own cross-encoder reranker loads models through PyTorch. To keep the small ONNX model, the reranker is a custom document compressor.
+- **Reranking.** LangChain's own cross-encoder reranker loads models through PyTorch. To keep the small ONNX model, the optional reranker is a custom document compressor.
 - **SQL did not go away.** Row counts, storage size and the word lookup for the refusal check use a second database connection beside the vector store.
 - **Dependency churn.** The stock PDF loader lives in `langchain-community`, which prints a notice on import that the package is being retired.
 
-**Scores.** Identical on every question set at both corpus sizes with exact search. With the HNSW index at 100 PDFs the LangChain version lost one correct citation and gained one false refusal, and the plain version did not change. LangChain's stock loader and splitter, used as the baseline, gave a correct citation for 19 of 26 questions against 22 for this project's chunker, which is why both versions use the same chunker.
+**Scores.** Extractive results are identical on every question set at both corpus sizes with exact search. Generated results agree to within a question or two per set, which is the run-to-run variation of the model. With the HNSW index at 100 PDFs retrieval and citation scores were unchanged in both, and the LangChain version refused one more off-topic question. LangChain's stock loader and splitter, used as the baseline, gave a correct citation for 19 of 26 questions against 22 for this project's chunker, which is why both versions use the same chunker.
 
-**Speed.** No difference that matters. Vector search through LangChain costs about 3 ms more per question with the index and nothing measurable without it. Writing 18,205 chunks took about one and a half times as long through LangChain. Both are dominated by the reranker.
+**Speed.** No difference that matters. Vector search through LangChain costs a few milliseconds more per question. At 12 PDFs the plain version's whole answer path is the slower one (110 against 60 ms at the median), because it keeps all three collections in one table and filters, where LangChain has a table per collection. Writing 18,205 chunks took about one and a half times as long through LangChain.
 
 **In short:** for this brief LangChain is a reasonable way to hold the pipeline together and the client asked for it by name, so it is the version to build on. It did not remove the parts that decide accuracy (chunking, thresholds, refusal, evaluation), and those are the same code in both repositories.
 
@@ -154,10 +195,10 @@ This section is the same in both repositories.
 ```sh
 make ingest ingest-full ingest-baseline   # the three collections
 make eval eval-full eval-baseline         # retrieval, citations and refusals, extractive answers
-make eval-norerank                        # the same with the reranker off
 make eval-heldout                         # two question sets written after settings were fixed
-make bench                                # latency and storage, exact search and HNSW index
-OPENAI_API_KEY=... make eval-answers PY=.venv/bin/python   # generated answers, graded
+make eval-rerank                          # the same runs with the optional reranker on
+make bench                                # latency and storage: exact search, HNSW index, reranker
+OPENAI_API_KEY=... make eval-answers eval-answers-rerank PY=.venv/bin/python   # generated answers, graded
 ```
 
 Every run writes a JSON file and a Markdown table, question by question, to `eval/results/`. The method and the full history are in [EVAL.md](EVAL.md).
@@ -166,7 +207,7 @@ The question sets:
 
 - `eval/questions.json`: 26 questions answered by the core documents and 8 off-topic questions. Used for tuning.
 - `eval/questions-heldout.json`: 6 answerable and 6 on-topic unanswerable questions. Written as a held-out set in the first round, then used to set the rerank threshold.
-- `eval/questions-heldout2.json`: 10 answerable, 10 on-topic unanswerable and 2 off-topic questions. Written after all settings were fixed and run once.
+- `eval/questions-heldout2.json`: 10 answerable, 10 on-topic unanswerable and 2 off-topic questions. Written after all settings were fixed.
 
 Each answerable question lists the document and the pages where its answer is stated, and a short reference answer. Page numbers are positions in the PDF file (what a PDF viewer shows), not the numbers printed on the page.
 
@@ -188,18 +229,39 @@ ruff check .
 
 The tests build a three-page PDF, ingest it into a temporary pgvector table and check that chunks keep their page numbers, that `/chat` returns the right document and page, that an out-of-corpus question is refused, that the reranker can reorder and refuse, and that the generated-answer path and its spend cap behave, using a mocked model. They use a hashing embedder so that CI downloads no model. GitHub Actions runs lint and tests on every push.
 
+## Licences
+
+This section records what was checked before these repositories could be made public. It is a reading of licence statements, not legal advice.
+
+- **This code** has no licence file yet. The repository is private. A licence has to be chosen before it is published.
+- **The corpus** is US Government work, not subject to copyright in the United States (17 U.S.C. 105). The PDFs are fetched by script and are not in the repository.
+- **Embedding model, in the default path:** `BAAI/bge-small-en-v1.5`. fastembed downloads it from the Hugging Face repository `Qdrant/bge-small-en-v1.5-onnx-Q`. The model card of that repository and the card of the original model both state `license: mit`. Neither card lists the training data. The container image includes these weights.
+- **Reranker model, optional and off by default:** `Xenova/ms-marco-MiniLM-L-6-v2`.
+  - It is an ONNX conversion of `cross-encoder/ms-marco-MiniLM-L6-v2`. The card of the conversion states no licence. The card of the original states `license: apache-2.0` and lists its training data as `sentence-transformers/msmarco`.
+  - The MS MARCO terms say: "The MS MARCO datasets are intended for non-commercial research purposes only ... and is made available free of charge without extending any license or other intellectual property rights."
+  - Whether a dataset's terms reach a model trained on it is not settled, and the exact files we download carry no licence statement of their own. So the reranker is off by default, its weights are not in the container image, and they are downloaded only when `RERANK=1` is set. All headline numbers are without it, and EVAL.md gives the numbers with it.
+  - Two Apache 2.0 cross-encoders were tried as replacements and scored lower (EVAL.md). Their cards do not list training data either.
+- **Chat model:** called over an API (`gpt-4o-mini`). No model weights are involved. The provider's terms of service apply to whoever supplies the key.
+- **Python dependencies.** The licence field of every installed package was read from its metadata. All are MIT, BSD, Apache 2.0, ISC or PSF except these:
+  - `psycopg` and `psycopg-binary`, the Postgres driver: LGPL-3.0-only. It is used unmodified as a library, which the LGPL allows without affecting the licence of this code. Anyone shipping a container image passes on the LGPL's terms for that component.
+  - `certifi`: MPL-2.0. `tqdm`: `MPL-2.0 AND MIT`. Both are used unmodified, and MPL's conditions apply only to changes to their own files.
+  - `py_rust_stemmers`, pulled in by fastembed: no licence in its package metadata. Its source repository on GitHub is marked MIT.
+- **Postgres and pgvector** are both under the PostgreSQL License, which is permissive.
+- **The method** was a script over package metadata and a reading of five model cards. Transitive licence texts were not read in full, and container base images were not audited.
+
 ## Limits
 
-- **Generated answers are not measured.** The answer-quality evaluation is ready and has not run, because the API key supplied had no credit. Every number in this repository is from extractive mode.
-- **The refusal path misses about half of the on-topic unanswerable questions** in extractive mode. Off-topic questions are refused reliably at 12 PDFs and mostly at 100.
+- **Generated answers were graded by the model that wrote them.** No person has read the graded answers, apart from the rows quoted in EVAL.md.
+- **Without a language model the refusal path is weak for on-topic questions.** In extractive mode the retrieval checks refuse 3 of 10 on-topic unanswerable questions, and 2 of 10 at 100 PDFs. With the model it is 9 of 10.
+- **With a language model, some answerable questions are refused:** 3 of 26 on the main set, where retrieval had not found the right page.
 - **Accuracy fell as the corpus grew** from 12 to 100 PDFs, under thresholds tuned at 12 and not retuned.
-- **Old and new versions of a document compete.** With two versions of the Cybersecurity Framework in the corpus, a question about the current one was answered from the old one. Nothing here detects or prefers the newer document.
-- **The question sets are small and we wrote them.** 26 plus 8 for tuning, 22 held out. The expected pages were spot-checked by a second automated reader, not by a person.
-- **One answer takes about a second on CPU** because of the reranker, before any language model call. `RERANK=0` turns it off and gives back the accuracy shown in EVAL.md.
+- **Old and new versions of a document compete, and documents can disagree.** With two versions of the Cybersecurity Framework in the corpus, passages from the old one were retrieved for a question about the current one. Two documents give opposite advice on changing passwords, and the generated answer reports both. Nothing here detects or prefers the newer document.
+- **The question sets are small and we wrote them.** 26 plus 8 for tuning, 34 held out. The expected pages were spot-checked by a second automated reader, not by a person, and one question labelled unanswerable turned out to be answerable.
+- **The OpenAI API itself was not exercised.** The default endpoint in the code is OpenAI's, but the account available had no credit, so generated mode was run through OpenRouter with the same model.
 - **The first ingest of 100 PDFs takes over an hour on 4 CPU cores.** Embedding on CPU is the cost. An embedding API or a GPU removes most of it.
 - **Text PDFs only.** Scanned pages need OCR, which is not included. Tables are read as plain text lines, and figures are ignored.
 - **Heading detection is a heuristic** (bold or larger font, section numbering). It is covered by tests and reads most sections of these documents correctly, but not all: some title-page lines are taken as headings, and a numbered template in an appendix of SP 800-34 is read as a section.
 - **The unknown-word check is crude.** It trims a few English endings and looks for the word as a substring. A misspelled word counts as unknown and raises the bar for that question. It also weakens as the corpus grows, because more words occur somewhere.
-- **English only**, because of the embedding and reranking models.
+- **English only**, because of the embedding model.
 - **No authentication, rate limiting or conversation memory.** Each question is answered on its own.
 - **Not deployed anywhere.** It runs with Docker Compose on one machine, and was run here with podman.

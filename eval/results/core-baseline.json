@@ -12,7 +12,7 @@
   "top_k": 5,
   "max_citations": 3,
   "chunks": 2740,
-  "run_at": "2026-11-12T00:43:59+00:00",
+  "run_at": "2026-11-12T01:34:32+00:00",
   "summary": {
     "retrieval_hit@1": {
       "count": 13,

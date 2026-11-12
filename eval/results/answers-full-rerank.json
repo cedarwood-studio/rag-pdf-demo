@@ -1,0 +1,695 @@
+{
+  "label": "answers-full-rerank",
+  "implementation": "plain Python",
+  "questions": "questions.json",
+  "collection": "full",
+  "answer_mode": "generated",
+  "model": "openai/gpt-4o-mini",
+  "endpoint": "https://openrouter.ai/api/v1",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "threshold": 0.62,
+  "strict_threshold": 0.75,
+  "rerank": "Xenova/ms-marco-MiniLM-L-6-v2, pool 10, threshold -1.5",
+  "chunks": 18205,
+  "spend": {
+    "calls": 74,
+    "input_tokens": 46719,
+    "output_tokens": 3046,
+    "estimated_usd": 0.0088,
+    "price_input_per_m": 0.15,
+    "price_output_per_m": 0.6
+  },
+  "run_at": "2026-11-12T01:43:58+00:00",
+  "summary": {
+    "answer_correct": {
+      "count": 18,
+      "of": 26,
+      "rate": 0.692
+    },
+    "answer_partial": {
+      "count": 5,
+      "of": 26,
+      "rate": 0.192
+    },
+    "answer_incorrect": {
+      "count": 1,
+      "of": 26,
+      "rate": 0.038
+    },
+    "false_refusals_in_corpus": {
+      "count": 2,
+      "of": 26,
+      "rate": 0.077
+    },
+    "citation_correct": {
+      "count": 20,
+      "of": 26,
+      "rate": 0.769
+    },
+    "faithful_of_answered": {
+      "count": 20,
+      "of": 24,
+      "rate": 0.833
+    },
+    "partly_faithful_of_answered": {
+      "count": 4,
+      "of": 24,
+      "rate": 0.167
+    },
+    "unfaithful_of_answered": {
+      "count": 0,
+      "of": 24,
+      "rate": 0.0
+    },
+    "refusals_out_of_corpus": {
+      "count": 8,
+      "of": 8,
+      "rate": 1.0
+    },
+    "refused_by_model_out_of_corpus": {
+      "count": 1,
+      "of": 8,
+      "rate": 0.125
+    }
+  },
+  "rows": [
+    {
+      "id": "in-01",
+      "question": "What is the minimum length for a password that a user chooses themselves?",
+      "in_corpus": true,
+      "answer": "The minimum length for a password that a user chooses themselves is 8 characters, as stated in the guidelines [5].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-63b.pdf p.80"
+      ],
+      "reference": "At least 8 characters.",
+      "citation_correct": false,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The claim that the minimum length for a user-chosen password is 8 characters is directly stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the minimum length for a user-chosen password as 8 characters, matching the reference."
+      }
+    },
+    {
+      "id": "in-02",
+      "question": "Should we force users to change their passwords on a regular schedule?",
+      "in_corpus": true,
+      "answer": "Yes, it is recommended to force users to change their passwords regularly, with many policies suggesting a change at least every 3 months to enhance security [1]. Additionally, organizations should consider their password policies regarding aging and complexity to determine the appropriate frequency for password changes [4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.IR.7621r1.pdf p.38",
+        "nistspecialpublication800-123.pdf p.29"
+      ],
+      "reference": "No. Passwords should not have to be changed arbitrarily or periodically; a change should be forced only when there is evidence of compromise.",
+      "citation_correct": false,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The answer correctly states the recommendation to change passwords every 3 months, but it incorrectly cites a source number that is not present in the passages."
+      },
+      "correctness": {
+        "verdict": "incorrect",
+        "reason": "The answer contradicts the reference by advocating for regular password changes, while the reference states that changes should only be forced when there is evidence of compromise."
+      }
+    },
+    {
+      "id": "in-03",
+      "question": "At authenticator assurance level 2, after how long without activity does a user have to sign in again?",
+      "in_corpus": true,
+      "answer": "At authenticator assurance level 2 (AAL2), a user must reauthenticate after any period of inactivity lasting 30 minutes or longer [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-63b.pdf p.19"
+      ],
+      "reference": "After 30 minutes of inactivity (and in any case at least once every 12 hours).",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the requirement for reauthentication after a period of inactivity lasting 30 minutes or longer as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer correctly states the 30 minutes of inactivity requirement but omits the detail about needing to sign in at least once every 12 hours."
+      }
+    },
+    {
+      "id": "in-04",
+      "question": "What is the difference between a cold site, a warm site and a hot site?",
+      "in_corpus": true,
+      "answer": "A cold site has basic infrastructure but no equipment or telecommunications in place, making it the least expensive option and requiring the longest recovery time [2][5]. A warm site is partially equipped with some hardware and telecommunications but may not have all necessary software or data loaded, allowing for quicker recovery than a cold site [3]. A hot site is fully operational with the latest equipment and software, enabling rapid takeover of system operations after a loss, making it the most expensive and quickest to recover [1][2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.61",
+        "nistspecialpublication800-34r1.pdf p.36",
+        "nistspecialpublication800-34r1.pdf p.61",
+        "nistspecialpublication800-34r1.pdf p.61"
+      ],
+      "reference": "A cold site has space and basic infrastructure such as power and HVAC but no equipment in place. A warm site is partially equipped with some or all of the hardware, software, telecommunications and power. A hot site is fully equipped and ready to operate.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "Every factual claim in the answer is stated in or directly follows from the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes the characteristics of cold, warm, and hot sites, including their infrastructure, equipment, and recovery times."
+      }
+    },
+    {
+      "id": "in-05",
+      "question": "What does recovery point objective mean?",
+      "in_corpus": true,
+      "answer": "The Recovery Point Objective (RPO) represents the point in time, prior to a disruption or system outage, to which mission/business process data can be recovered [2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.31"
+      ],
+      "reference": "The point in time, before a disruption or outage, to which data can be recovered after the outage, given the most recent backup.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes the Recovery Point Objective (RPO) as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately defines Recovery Point Objective (RPO) and aligns with the key facts presented in the reference answer."
+      }
+    },
+    {
+      "id": "in-06",
+      "question": "What is a tabletop exercise?",
+      "in_corpus": true,
+      "answer": "A tabletop exercise is a discussion-based event where personnel with roles and responsibilities in a particular IT plan meet to discuss their roles and responses during an emergency situation. It is conducted in an informal environment with a facilitator guiding the discussion, and it typically lasts between two to eight hours [1][2][3].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-84.pdf p.21",
+        "nistspecialpublication800-84.pdf p.25",
+        "nistspecialpublication800-84.pdf p.14"
+      ],
+      "reference": "A discussion-based exercise in which personnel meet in a classroom setting or breakout groups to talk through their roles and their responses to an emergency scenario presented by a facilitator.",
+      "citation_correct": false,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the definition and characteristics of a tabletop exercise as described in the passages."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer includes key elements of a tabletop exercise but focuses specifically on IT plans and lacks mention of the classroom setting or breakout groups."
+      }
+    },
+    {
+      "id": "in-07",
+      "question": "What is the difference between clearing, purging and destroying media?",
+      "in_corpus": true,
+      "answer": "Clearing applies logical techniques to sanitize data, making it difficult to recover using simple non-invasive methods. Purging uses physical or logical techniques to render data recovery infeasible with state-of-the-art laboratory techniques. Destroying involves physically obliterating the media, making it unusable for storage and ensuring that data recovery is infeasible using advanced techniques [1][2][4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-115.pdf p.61",
+        "NIST.SP.800-88r1.pdf p.18",
+        "NIST.SP.800-88r1.pdf p.34"
+      ],
+      "reference": "Clear uses logical techniques on user-addressable storage and protects against simple, non-invasive recovery. Purge uses physical or logical techniques that make recovery infeasible even with state of the art laboratory techniques. Destroy also makes recovery infeasible and leaves the media unusable for storing data.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The answer correctly describes clearing, purging, and destroying, but the reference to 'advanced techniques' in the context of destruction is not explicitly supported by the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes the differences between clearing, purging, and destroying media, aligning with the key facts presented in the reference answer."
+      }
+    },
+    {
+      "id": "in-08",
+      "question": "What record should be filled in after a drive has been sanitized?",
+      "in_corpus": true,
+      "answer": "After a drive has been sanitized, an organization may choose to record information such as the position/title of the person who performed the sanitization, the date, location, phone or other contact information, and a signature. Additionally, if data was backed up, the record should include where the backup is stored [3].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-88r1.pdf p.32"
+      ],
+      "reference": "A certificate of media disposition (certificate of sanitization), completed for each piece of media that has been sanitized.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information about recording details after a drive has been sanitized as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer provides additional details about what information may be recorded but does not explicitly mention the required certificate of media disposition."
+      }
+    },
+    {
+      "id": "in-09",
+      "question": "What is the difference between a precursor and an indicator of an incident?",
+      "in_corpus": true,
+      "answer": "A precursor is a sign that an incident may occur in the future, while an indicator is a sign that an incident may have occurred or may be occurring now. Precursors are relatively rare, whereas indicators are more common and can include various types of alerts and events that suggest a security incident might be happening [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.36"
+      ],
+      "reference": "A precursor is a sign that an incident may occur in the future. An indicator is a sign that an incident may have occurred or may be occurring now.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the definitions and characteristics of precursors and indicators as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the definitions of precursor and indicator, and it adds extra detail about the rarity of precursors compared to indicators."
+      }
+    },
+    {
+      "id": "in-10",
+      "question": "How soon after an incident should the lessons learned meeting take place?",
+      "in_corpus": true,
+      "answer": "The lessons learned meeting should be held within several days of the end of the incident [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.48"
+      ],
+      "reference": "Within several days of the end of the incident.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information provided in the passage regarding the timing of the lessons learned meeting."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the timing for the lessons learned meeting as specified in the reference."
+      }
+    },
+    {
+      "id": "in-11",
+      "question": "What categories describe how much effort it takes to recover from an incident?",
+      "in_corpus": true,
+      "answer": "The categories that describe the effort required to recover from an incident are: Regular, where recovery time is predictable with existing resources; Supplemented, where recovery time is predictable with additional resources; Extended, where recovery time is unpredictable and requires additional resources and outside help; and Not Recoverable, where recovery from the incident is not possible [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.43"
+      ],
+      "reference": "Regular, Supplemented, Extended and Not Recoverable.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes the four categories of recoverability effort as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes all the categories mentioned in the reference answer and provides additional detail about each category."
+      }
+    },
+    {
+      "id": "in-12",
+      "question": "What structures can an incident response team have?",
+      "in_corpus": true,
+      "answer": "An incident response team can have several structures, including a Central Incident Response Team, which handles incidents throughout the organization; Distributed Incident Response Teams, where multiple teams are responsible for different segments of the organization; and a Coordinating Team, which provides advice to other teams without directly handling incidents [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.23"
+      ],
+      "reference": "A central incident response team, distributed incident response teams, or a coordinating team.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "Every factual claim in the answer is stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the key structures of an incident response team as mentioned in the reference answer, providing additional detail without contradicting it."
+      }
+    },
+    {
+      "id": "in-13",
+      "question": "What are the six functions of the Cybersecurity Framework?",
+      "in_corpus": true,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": [],
+      "reference": "Govern, Identify, Protect, Detect, Respond and Recover.",
+      "citation_correct": false
+    },
+    {
+      "id": "in-14",
+      "question": "What are the four tiers called?",
+      "in_corpus": true,
+      "answer": "The four tiers are called Partial (Tier 1), Risk Informed (Tier 2), Repeatable (Tier 3), and Adaptive (Tier 4) [2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.CSWP.29.pdf p.12"
+      ],
+      "reference": "Partial (Tier 1), Risk Informed (Tier 2), Repeatable (Tier 3) and Adaptive (Tier 4).",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately lists the four tiers as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the names of the four tiers as provided in the reference answer."
+      }
+    },
+    {
+      "id": "in-15",
+      "question": "What are the main kinds of remote access methods for teleworkers?",
+      "in_corpus": true,
+      "answer": "The main kinds of remote access methods for teleworkers are tunneling, portals, remote desktop access, and direct application access [1]. Additionally, the most commonly used specific method is the virtual private network (VPN), particularly the Internet Protocol Security (IPsec) VPN [2]. Terminal server access is also mentioned as a method that provides teleworkers with access to a separate standard virtual desktop [3].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-46r2.pdf p.14",
+        "NIST.SP.800-114r1.pdf p.13",
+        "NIST.SP.800-114r1.pdf p.13"
+      ],
+      "reference": "Tunneling, portals, remote desktop access and direct application access.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "Every factual claim in the answer is stated in or directly follows from the passages."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer includes additional methods and details that are not in the reference, but it does not clearly state that the main kinds are limited to those listed in the reference."
+      }
+    },
+    {
+      "id": "in-16",
+      "question": "How can we find out whether an employee's phone has been jailbroken?",
+      "in_corpus": true,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": [],
+      "reference": "With network access control health checks or mobile device management (MDM) software, which can detect a device that has been rooted or jailbroken.",
+      "citation_correct": false
+    },
+    {
+      "id": "in-17",
+      "question": "What should we do about systems that cannot be patched?",
+      "in_corpus": true,
+      "answer": "For systems that cannot be patched, other compensating security controls may be necessary to mitigate vulnerabilities. Additionally, organizations can establish in-house support by developing customized patches or obtain services from external providers for ongoing support of unsupported components [1][5].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-137.pdf p.66",
+        "NIST.SP.800-171r3.pdf p.81"
+      ],
+      "reference": "Reduce their risk with isolation or other long-term mitigation methods besides patching, for example network segmentation, and plan and review those methods.",
+      "citation_correct": false,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The first part about compensating security controls is supported, but the mention of obtaining services from external providers for ongoing support of unsupported components is not explicitly stated in the passages."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer mentions compensating security controls but does not specifically address isolation or long-term mitigation methods like network segmentation as suggested in the reference."
+      }
+    },
+    {
+      "id": "in-18",
+      "question": "How does emergency patching differ from routine patching?",
+      "in_corpus": true,
+      "answer": "Emergency patching is conducted in response to a crisis situation, such as a severe vulnerability or active exploitation, and needs to be handled as efficiently as possible to prevent imminent exploitation of vulnerable assets. In contrast, routine patching follows a standard procedure on a regular release cycle and can often be postponed, which may lead to additional risks [1][3]. Emergency patching typically involves a highly accelerated schedule and may include testing on a small number of assets before wider deployment, while routine patching may involve phased deployments to assess impact [2][4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-40r4.pdf p.18",
+        "NIST.SP.800-40r4.pdf p.22",
+        "NIST.SP.800-40r4.pdf p.19",
+        "NIST.SP.800-40r4.pdf p.21"
+      ],
+      "reference": "Routine patching is the standard procedure for patches on a regular release cycle. Emergency patching handles a crisis such as a severe or actively exploited vulnerability, with the same general approach on a highly accelerated schedule.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "Every factual claim in the answer is stated in or directly follows from the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes the differences between emergency patching and routine patching, including the urgency and approach of each."
+      }
+    },
+    {
+      "id": "in-19",
+      "question": "What is the difference between security awareness and security training?",
+      "in_corpus": true,
+      "answer": "The difference between security awareness and security training is that awareness focuses on changing behavior and reinforcing good security practices, while training seeks to teach specific skills that allow individuals to perform particular functions. Awareness presentations aim to help individuals recognize IT security concerns, whereas training builds upon this awareness to develop relevant security skills and competencies [1][2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-50.pdf p.21",
+        "nistspecialpublication800-50.pdf p.20"
+      ],
+      "reference": "Awareness only focuses attention on security so that people recognize concerns and respond accordingly. Training aims to produce relevant and needed security skills and competencies.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the distinctions between security awareness and training as described in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately distinguishes between security awareness and security training, highlighting their respective focuses and objectives."
+      }
+    },
+    {
+      "id": "in-20",
+      "question": "What models are there for organizing a security awareness and training program?",
+      "in_corpus": true,
+      "answer": "There are three common models for organizing a security awareness and training program: Model 1 is a Centralized Program Management Model where all responsibilities are managed by a central authority; Model 2 is a Partially Decentralized Program Management Model where policy and strategy are centralized but implementation is distributed; and Model 3 is a Fully Decentralized Model where only policy development is centralized and all other responsibilities are delegated to individual agency components [3][5].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-50.pdf p.23",
+        "nistspecialpublication800-50.pdf p.11"
+      ],
+      "reference": "Three models: centralized (central policy, strategy and implementation), partially decentralized (central policy and strategy, distributed implementation) and fully decentralized (central policy, distributed strategy and implementation).",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes the three common models for organizing a security awareness and training program as stated in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes the three models for organizing a security awareness and training program, aligning with the reference answer."
+      }
+    },
+    {
+      "id": "in-21",
+      "question": "What is a keystroke logger?",
+      "in_corpus": true,
+      "answer": "A keystroke logger is a tool that monitors and records keyboard use, with some requiring the attacker to retrieve the data from the host, while others actively transfer the data to another host through various means [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.15"
+      ],
+      "reference": "A tool that monitors and records keyboard use.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes a keystroke logger as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes a keystroke logger and provides additional relevant details without contradicting the reference."
+      }
+    },
+    {
+      "id": "in-22",
+      "question": "What is sandboxing and how does it limit malware?",
+      "in_corpus": true,
+      "answer": "Sandboxing is a security model where applications are run in a controlled environment that restricts their operations and isolates them from other applications on the same host. This limits malware by preventing it from performing malicious actions and restricting its access to system resources, thereby reducing the potential damage it can cause [1][3]. Additionally, the sandbox can be reset to a known good state, further enhancing its protective capabilities [2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.26",
+        "NIST.SP.800-83r1.pdf p.26",
+        "NIST.SP.800-83r1.pdf p.9"
+      ],
+      "reference": "A security model in which applications run inside a controlled environment that restricts the operations they can perform and isolates them from other applications on the host.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "Every factual claim in the answer is stated in or directly follows from the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes sandboxing and its role in limiting malware, including key details about isolation and the ability to reset the environment."
+      }
+    },
+    {
+      "id": "in-23",
+      "question": "How often should a small business make a full backup of its data?",
+      "in_corpus": true,
+      "answer": "A small business should conduct a full, encrypted backup of the data on each computer and mobile device at least once a month, shortly after a complete virus scan [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.IR.7621r1.pdf p.32"
+      ],
+      "reference": "At least once a month.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the recommendation from the passage regarding conducting full, encrypted backups at least once a month."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer correctly states that a small business should make a full backup at least once a month and adds relevant details about encryption and timing after a virus scan."
+      }
+    },
+    {
+      "id": "in-24",
+      "question": "Why should a small business install an uninterruptible power supply?",
+      "in_corpus": true,
+      "answer": "A small business should install an uninterruptible power supply (UPS) to provide a limited amount of battery power during short power outages, allowing time to save data and continue operations. Additionally, a UPS can protect against power fluctuations, which can damage electronic systems [1][4].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.IR.7621r1.pdf p.25",
+        "nistspecialpublication800-34r1.pdf p.60"
+      ],
+      "reference": "A UPS provides a limited amount of battery power so that work can continue through short power outages and data can be saved before systems shut down.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The answer correctly states that a UPS provides battery power during outages and protects against power fluctuations, but it incorrectly cites a source that is not present in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the key facts about a UPS providing battery power during outages and includes additional relevant information about protecting against power fluctuations."
+      }
+    },
+    {
+      "id": "in-25",
+      "question": "Is it safe to check work email from a hotel kiosk computer?",
+      "in_corpus": true,
+      "answer": "It is not safe to check work email from a hotel kiosk computer, as teleworkers typically do not know if such devices have been secured properly or if they have been compromised, which could lead to the use of a device infected with malware that steals sensitive information [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-114r1.pdf p.10"
+      ],
+      "reference": "No, it is risky. A kiosk is controlled by a third party, so the teleworker cannot know whether it is secured or compromised; it may carry malware that steals passwords.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information in the passage regarding the risks of using unknown devices for remote access."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately reflects the risks associated with using a hotel kiosk computer to check work email, including the potential for malware and lack of security."
+      }
+    },
+    {
+      "id": "in-26",
+      "question": "What are the three basic types of information security policy?",
+      "in_corpus": true,
+      "answer": "The three basic types of information security policy are Program Policy, Issue-Specific Policy, and System-Specific Policy [1][2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-12r1.pdf p.36",
+        "nistspecialpublication800-35.pdf p.45"
+      ],
+      "reference": "Program policy, issue-specific policy and system-specific policy.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately lists the three basic types of information security policy as stated in the passages."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the three basic types of information security policy as mentioned in the reference."
+      }
+    },
+    {
+      "id": "out-01",
+      "question": "What is the refund policy for annual subscriptions?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "out-02",
+      "question": "What is the capital of Australia?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "similarity",
+      "cited": []
+    },
+    {
+      "id": "out-03",
+      "question": "How do I descale an espresso machine?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "similarity",
+      "cited": []
+    },
+    {
+      "id": "out-04",
+      "question": "What are the maximum fines under GDPR for a data breach?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "out-05",
+      "question": "How much does ISO 27001 certification cost?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "out-06",
+      "question": "What caused the 2017 Equifax breach?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "unknown word",
+      "cited": []
+    },
+    {
+      "id": "out-07",
+      "question": "Which encryption protocol does WhatsApp use for its messages?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "out-08",
+      "question": "How do I configure single sign-on for Salesforce with Okta?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "unknown word",
+      "cited": []
+    }
+  ]
+}

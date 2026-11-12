@@ -1,0 +1,259 @@
+{
+  "label": "answers-heldout-core-rerank",
+  "implementation": "plain Python",
+  "questions": "questions-heldout.json",
+  "collection": "core",
+  "answer_mode": "generated",
+  "model": "openai/gpt-4o-mini",
+  "endpoint": "https://openrouter.ai/api/v1",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "threshold": 0.62,
+  "strict_threshold": 0.75,
+  "rerank": "Xenova/ms-marco-MiniLM-L-6-v2, pool 10, threshold -1.5",
+  "chunks": 2448,
+  "spend": {
+    "calls": 21,
+    "input_tokens": 13422,
+    "output_tokens": 755,
+    "estimated_usd": 0.0025,
+    "price_input_per_m": 0.15,
+    "price_output_per_m": 0.6
+  },
+  "run_at": "2026-11-12T01:44:41+00:00",
+  "summary": {
+    "answer_correct": {
+      "count": 5,
+      "of": 6,
+      "rate": 0.833
+    },
+    "answer_partial": {
+      "count": 1,
+      "of": 6,
+      "rate": 0.167
+    },
+    "answer_incorrect": {
+      "count": 0,
+      "of": 6,
+      "rate": 0.0
+    },
+    "false_refusals_in_corpus": {
+      "count": 0,
+      "of": 6,
+      "rate": 0.0
+    },
+    "citation_correct": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "faithful_of_answered": {
+      "count": 5,
+      "of": 6,
+      "rate": 0.833
+    },
+    "partly_faithful_of_answered": {
+      "count": 1,
+      "of": 6,
+      "rate": 0.167
+    },
+    "unfaithful_of_answered": {
+      "count": 0,
+      "of": 6,
+      "rate": 0.0
+    },
+    "refusals_out_of_corpus": {
+      "count": 6,
+      "of": 6,
+      "rate": 1.0
+    },
+    "refused_by_model_out_of_corpus": {
+      "count": 3,
+      "of": 6,
+      "rate": 0.5
+    }
+  },
+  "rows": [
+    {
+      "id": "held-in-01",
+      "question": "What is a rootkit?",
+      "in_corpus": true,
+      "answer": "A rootkit is a collection of files that is installed on a host to alter its standard functionality in a malicious and stealthy way. It typically makes many changes to a host to hide its existence, making it very difficult to determine that the rootkit is present and to identify what it has changed [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.15"
+      ],
+      "reference": "A collection of files installed on a host to alter its standard functionality in a malicious and stealthy way.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the definition and characteristics of a rootkit as described in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states the key facts of the reference and provides additional detail without contradicting it."
+      }
+    },
+    {
+      "id": "held-in-02",
+      "question": "What is a blended attack?",
+      "in_corpus": true,
+      "answer": "A blended attack uses multiple infection or transmission methods, combining the propagation methods of different types of malware, such as viruses and worms. Many instances of malware today are considered blended attacks, which often rely on social engineering to trick users into executing malicious actions [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.14"
+      ],
+      "reference": "An attack that uses multiple infection or transmission methods, for example combining the propagation methods of viruses and worms.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the information about blended attacks and their characteristics as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately describes a blended attack as using multiple infection methods and provides additional relevant details about its prevalence and use of social engineering."
+      }
+    },
+    {
+      "id": "held-in-03",
+      "question": "What does maximum tolerable downtime mean?",
+      "in_corpus": true,
+      "answer": "Maximum Tolerable Downtime (MTD) is the total amount of time leaders/managers are willing to accept for a mission/business process outage or disruption, which includes all impact considerations. Determining MTD is important for selecting appropriate recovery methods and developing recovery procedures [2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.121"
+      ],
+      "reference": "The total amount of time the organization is willing to accept for a mission or business process outage or disruption, including all impact considerations.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the definition and importance of Maximum Tolerable Downtime (MTD) as stated in the passage."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately defines maximum tolerable downtime and includes additional relevant details about its importance in recovery planning."
+      }
+    },
+    {
+      "id": "held-in-04",
+      "question": "What is the difference between an event and an incident?",
+      "in_corpus": true,
+      "answer": "An event is any observable occurrence in a system or network, while an incident is a violation or imminent threat of violation of computer security policies, acceptable use policies, or standard security practices. Adverse events have negative consequences, such as system crashes or unauthorized access, whereas incidents specifically involve security policy violations [1][2].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.16",
+        "NIST.SP.800-61r2.pdf p.75"
+      ],
+      "reference": "An event is any observable occurrence in a system or network. An incident is a violation or imminent threat of violation of computer security policies, acceptable use policies or standard security practices.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately describes the definitions of events and incidents as well as the nature of adverse events, all of which are supported by the passages."
+      },
+      "correctness": {
+        "verdict": "partial",
+        "reason": "The answer includes the definitions of event and incident but introduces the concept of adverse events, which is not mentioned in the reference answer."
+      }
+    },
+    {
+      "id": "held-in-05",
+      "question": "How long does the salt need to be when password hashes are stored?",
+      "in_corpus": true,
+      "answer": "The salt SHALL be at least 32 bits in length when password hashes are stored [1][3].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.SP.800-63b.pdf p.26",
+        "NIST.SP.800-63b.pdf p.27"
+      ],
+      "reference": "At least 32 bits.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "partial",
+        "reason": "The claim about the salt being at least 32 bits in length is supported, but the reference to '[3]' is unsupported as there is no passage 3."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states that the salt must be at least 32 bits in length, aligning with the reference answer."
+      }
+    },
+    {
+      "id": "held-in-06",
+      "question": "How frequently should incremental backups run in a small business?",
+      "in_corpus": true,
+      "answer": "Incremental backups in a small business should be conducted at least once a week, but it may be prudent to conduct them every day or every hour depending on how much information is changed or generated and the potential impact of losing that information [1].",
+      "refused": false,
+      "refused_by": null,
+      "cited": [
+        "NIST.IR.7621r1.pdf p.33"
+      ],
+      "reference": "At least once a week.",
+      "citation_correct": true,
+      "faithfulness": {
+        "verdict": "supported",
+        "reason": "The answer accurately reflects the guidance provided in the passage regarding the frequency of incremental backups."
+      },
+      "correctness": {
+        "verdict": "correct",
+        "reason": "The answer accurately states that incremental backups should be conducted at least once a week and provides additional context about the frequency based on data changes."
+      }
+    },
+    {
+      "id": "held-out-01",
+      "question": "Which antivirus product is the best choice for a small business?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "held-out-02",
+      "question": "How much does a hot site cost per month?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "rerank",
+      "cited": []
+    },
+    {
+      "id": "held-out-03",
+      "question": "Who is the current director of NIST?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held-out-04",
+      "question": "What is the penalty for failing to report an incident within 72 hours?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "unknown word",
+      "cited": []
+    },
+    {
+      "id": "held-out-05",
+      "question": "How many people work on the incident response team at NIST?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    },
+    {
+      "id": "held-out-06",
+      "question": "What password does the default administrator account use?",
+      "in_corpus": false,
+      "answer": "I could not find this in the documents.",
+      "refused": true,
+      "refused_by": "model",
+      "cited": []
+    }
+  ]
+}

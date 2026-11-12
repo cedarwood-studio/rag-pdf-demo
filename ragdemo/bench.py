@@ -55,6 +55,7 @@ def main() -> None:
     parser.add_argument("--collection", default=settings.collection)
     parser.add_argument("--passes", type=int, default=3)
     parser.add_argument("--with-index", action="store_true", help="also build an HNSW index and measure again")
+    parser.add_argument("--with-rerank", action="store_true", help="also measure with the optional reranker switched on")
     parser.add_argument("--label", default=None)
     args = parser.parse_args()
     questions = [q["question"] for q in json.loads(Path(QUESTIONS).read_text())]
@@ -92,9 +93,7 @@ def main() -> None:
             "top5_overlap_with_exact": round(same / sum(len(exact_top5[q]) for q in questions), 3),
             "table_with_indexes_bytes": indexed.retriever.store.stats(args.collection)["table_with_indexes_bytes"],
         }
-    if not settings.use_index:
-        store.drop_index()  # leave the database as the default configuration expects it: exact search
-    if settings.rerank:
+    if args.with_rerank:
         measured = run(build_pipeline(settings, **common, rerank=True, use_index=False), questions, 1)
         measured.pop("top5")
         report["exact_with_rerank"] = measured

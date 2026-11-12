@@ -119,7 +119,7 @@ def build_pipeline(settings: config.Settings, spend: Spend | None = None, **over
         mode = "generated" if opt["openai_api_key"] else "extractive"
     if mode == "generated":
         spend = spend or Spend(opt["price_input_per_m"], opt["price_output_per_m"], opt["max_spend_usd"])
-        answerer: Answerer = GeneratedAnswerer(ChatClient(opt["openai_api_key"], opt["openai_base_url"], opt["openai_model"], spend))
+        answerer: Answerer = GeneratedAnswerer(ChatClient(opt["openai_api_key"], opt["openai_base_url"], opt["answer_model"], spend))
     else:
         answerer = ExtractiveAnswerer()
     return Pipeline(
