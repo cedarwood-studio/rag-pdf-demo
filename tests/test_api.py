@@ -1,6 +1,11 @@
-import httpx
+from dataclasses import replace
 
-from ragdemo.answer import REFUSAL, OpenAICompatAnswerer
+import httpx
+import pytest
+
+from ragdemo.answer import GeneratedAnswerer
+from ragdemo.llm import BudgetExceeded, ChatClient, Spend
+from ragdemo.refusal import REFUSAL
 from ragdemo.store import Hit
 
 
@@ -47,13 +52,15 @@ PASSAGES = [
 ]
 
 
-def _answerer(reply: str) -> OpenAICompatAnswerer:
+def _answerer(reply: str, spend: Spend | None = None) -> GeneratedAnswerer:
     def handler(request: httpx.Request) -> httpx.Response:
         assert request.headers["authorization"] == "Bearer test-key"
-        return httpx.Response(200, json={"choices": [{"message": {"content": reply}}]})
+        body = {"choices": [{"message": {"content": reply}}], "usage": {"prompt_tokens": 1000, "completion_tokens": 100}}
+        return httpx.Response(200, json=body)
 
     client = httpx.Client(transport=httpx.MockTransport(handler))
-    return OpenAICompatAnswerer("test-key", "https://llm.invalid/v1", "some-model", client=client)
+    spend = spend or Spend(0.15, 0.60, max_usd=1.0)
+    return GeneratedAnswerer(ChatClient("test-key", "https://llm.invalid/v1", "some-model", spend, client=client))
 
 
 def test_generated_answer_keeps_only_cited_passages():
@@ -74,18 +81,50 @@ def test_generated_refusal_is_passed_through():
     assert answer.cited == []
 
 
+def test_spend_is_counted_and_capped():
+    spend = Spend(0.15, 0.60, max_usd=0.0003)
+    answerer = _answerer("Every two months [1].", spend)
+    answerer.answer("How often?", PASSAGES)
+    assert spend.input_tokens == 1000 and spend.output_tokens == 100
+    assert abs(spend.usd - 0.00021) < 1e-9
+    answerer.answer("How often?", PASSAGES)  # 0.00042 after this call, over the cap
+    with pytest.raises(BudgetExceeded):
+        answerer.answer("How often?", PASSAGES)
+
+
 def test_question_with_a_word_absent_from_the_corpus_meets_the_strict_threshold(pipeline):
     question = "How often should I descale the kettle in Reykjavik?"
     assert pipeline.chat(question).refused is False
-    guarded = pipeline.chat(question, strict_threshold=0.99)
-    assert guarded.refused is True
-    assert guarded.unknown_terms == ["reykjavik"]
-    # A question made only of words the corpus knows is not held to the strict threshold.
-    assert pipeline.chat("How often should I descale the kettle?", strict_threshold=0.99).refused is False
+    pipeline.strict_threshold = 0.99
+    try:
+        guarded = pipeline.chat(question)
+        assert guarded.refused is True
+        assert guarded.unknown_terms == ["reykjavik"]
+        # A question made only of words the corpus knows is not held to the strict threshold.
+        assert pipeline.chat("How often should I descale the kettle?").refused is False
+    finally:
+        pipeline.strict_threshold = 0.0
 
 
-def test_hybrid_search_finds_exact_words_and_keeps_cosine_scores(pipeline):
-    vector = pipeline.embedder.embed_query("limescale")
-    hits = pipeline.store.search_hybrid("test", vector, ["limescale"], k=3)
-    assert hits[0].page == 3
-    assert 0.0 < hits[0].score <= 1.0
+class OverlapReranker:
+    """Stands in for the cross-encoder: scores a passage by the question words it contains."""
+
+    def rerank(self, question: str, hits: list[Hit], top_k: int) -> list[Hit]:
+        words = set(question.lower().replace("?", "").split())
+        scored = [replace(h, rerank_score=float(len(words & set(h.text.lower().split())))) for h in hits]
+        return sorted(scored, key=lambda h: -h.rerank_score)[:top_k]
+
+
+def test_reranker_reorders_and_can_refuse(pipeline):
+    pipeline.reranker, pipeline.rerank_threshold = OverlapReranker(), 1.0
+    try:
+        result = pipeline.chat("How long is the warranty on the heating element of the kettle?")
+        assert result.refused is False
+        assert result.citations[0].page == 3
+        assert result.rerank_score >= 1.0
+        pipeline.rerank_threshold = 99.0
+        refused = pipeline.chat("How long is the warranty on the heating element of the kettle?")
+        assert refused.refused is True
+        assert refused.refused_by == "rerank"
+    finally:
+        pipeline.reranker = None

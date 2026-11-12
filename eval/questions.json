@@ -5,7 +5,8 @@
     "document": "NIST.SP.800-63b.pdf",
     "pages": [
       24
-    ]
+    ],
+    "reference": "At least 8 characters."
   },
   {
     "id": "in-02",
@@ -14,7 +15,8 @@
     "pages": [
       25,
       65
-    ]
+    ],
+    "reference": "No. Passwords should not have to be changed arbitrarily or periodically; a change should be forced only when there is evidence of compromise."
   },
   {
     "id": "in-03",
@@ -23,7 +25,8 @@
     "pages": [
       19,
       22
-    ]
+    ],
+    "reference": "After 30 minutes of inactivity (and in any case at least once every 12 hours)."
   },
   {
     "id": "in-04",
@@ -34,7 +37,8 @@
       37,
       61,
       62
-    ]
+    ],
+    "reference": "A cold site has space and basic infrastructure such as power and HVAC but no equipment in place. A warm site is partially equipped with some or all of the hardware, software, telecommunications and power. A hot site is fully equipped and ready to operate."
   },
   {
     "id": "in-05",
@@ -44,7 +48,8 @@
       31,
       121,
       144
-    ]
+    ],
+    "reference": "The point in time, before a disruption or outage, to which data can be recovered after the outage, given the most recent backup."
   },
   {
     "id": "in-06",
@@ -52,7 +57,8 @@
     "document": "nistspecialpublication800-34r1.pdf",
     "pages": [
       43
-    ]
+    ],
+    "reference": "A discussion-based exercise in which personnel meet in a classroom setting or breakout groups to talk through their roles and their responses to an emergency scenario presented by a facilitator."
   },
   {
     "id": "in-07",
@@ -60,7 +66,8 @@
     "document": "NIST.SP.800-88r1.pdf",
     "pages": [
       18
-    ]
+    ],
+    "reference": "Clear uses logical techniques on user-addressable storage and protects against simple, non-invasive recovery. Purge uses physical or logical techniques that make recovery infeasible even with state of the art laboratory techniques. Destroy also makes recovery infeasible and leaves the media unusable for storing data."
   },
   {
     "id": "in-08",
@@ -70,7 +77,8 @@
       31,
       32,
       65
-    ]
+    ],
+    "reference": "A certificate of media disposition (certificate of sanitization), completed for each piece of media that has been sanitized."
   },
   {
     "id": "in-09",
@@ -78,7 +86,8 @@
     "document": "NIST.SP.800-61r2.pdf",
     "pages": [
       36
-    ]
+    ],
+    "reference": "A precursor is a sign that an incident may occur in the future. An indicator is a sign that an incident may have occurred or may be occurring now."
   },
   {
     "id": "in-10",
@@ -86,7 +95,8 @@
     "document": "NIST.SP.800-61r2.pdf",
     "pages": [
       48
-    ]
+    ],
+    "reference": "Within several days of the end of the incident."
   },
   {
     "id": "in-11",
@@ -94,7 +104,8 @@
     "document": "NIST.SP.800-61r2.pdf",
     "pages": [
       43
-    ]
+    ],
+    "reference": "Regular, Supplemented, Extended and Not Recoverable."
   },
   {
     "id": "in-12",
@@ -102,15 +113,18 @@
     "document": "NIST.SP.800-61r2.pdf",
     "pages": [
       23
-    ]
+    ],
+    "reference": "A central incident response team, distributed incident response teams, or a coordinating team."
   },
   {
     "id": "in-13",
     "question": "What are the six functions of the Cybersecurity Framework?",
     "document": "NIST.CSWP.29.pdf",
     "pages": [
-      8
-    ]
+      8,
+      31
+    ],
+    "reference": "Govern, Identify, Protect, Detect, Respond and Recover."
   },
   {
     "id": "in-14",
@@ -120,7 +134,8 @@
       12,
       29,
       31
-    ]
+    ],
+    "reference": "Partial (Tier 1), Risk Informed (Tier 2), Repeatable (Tier 3) and Adaptive (Tier 4)."
   },
   {
     "id": "in-15",
@@ -128,7 +143,8 @@
     "document": "NIST.SP.800-46r2.pdf",
     "pages": [
       14
-    ]
+    ],
+    "reference": "Tunneling, portals, remote desktop access and direct application access."
   },
   {
     "id": "in-16",
@@ -137,7 +153,8 @@
     "pages": [
       27,
       35
-    ]
+    ],
+    "reference": "With network access control health checks or mobile device management (MDM) software, which can detect a device that has been rooted or jailbroken."
   },
   {
     "id": "in-17",
@@ -147,7 +164,8 @@
       19,
       22,
       23
-    ]
+    ],
+    "reference": "Reduce their risk with isolation or other long-term mitigation methods besides patching, for example network segmentation, and plan and review those methods."
   },
   {
     "id": "in-18",
@@ -157,7 +175,8 @@
       18,
       19,
       22
-    ]
+    ],
+    "reference": "Routine patching is the standard procedure for patches on a regular release cycle. Emergency patching handles a crisis such as a severe or actively exploited vulnerability, with the same general approach on a highly accelerated schedule."
   },
   {
     "id": "in-19",
@@ -166,16 +185,19 @@
     "pages": [
       20,
       21
-    ]
+    ],
+    "reference": "Awareness only focuses attention on security so that people recognize concerns and respond accordingly. Training aims to produce relevant and needed security skills and competencies."
   },
   {
     "id": "in-20",
     "question": "What models are there for organizing a security awareness and training program?",
     "document": "nistspecialpublication800-50.pdf",
     "pages": [
+      11,
       23,
       24
-    ]
+    ],
+    "reference": "Three models: centralized (central policy, strategy and implementation), partially decentralized (central policy and strategy, distributed implementation) and fully decentralized (central policy, distributed strategy and implementation)."
   },
   {
     "id": "in-21",
@@ -183,7 +205,8 @@
     "document": "NIST.SP.800-83r1.pdf",
     "pages": [
       15
-    ]
+    ],
+    "reference": "A tool that monitors and records keyboard use."
   },
   {
     "id": "in-22",
@@ -192,7 +215,8 @@
     "pages": [
       9,
       26
-    ]
+    ],
+    "reference": "A security model in which applications run inside a controlled environment that restricts the operations they can perform and isolates them from other applications on the host."
   },
   {
     "id": "in-23",
@@ -200,7 +224,8 @@
     "document": "NIST.IR.7621r1.pdf",
     "pages": [
       32
-    ]
+    ],
+    "reference": "At least once a month."
   },
   {
     "id": "in-24",
@@ -208,7 +233,8 @@
     "document": "NIST.IR.7621r1.pdf",
     "pages": [
       25
-    ]
+    ],
+    "reference": "A UPS provides a limited amount of battery power so that work can continue through short power outages and data can be saved before systems shut down."
   },
   {
     "id": "in-25",
@@ -217,7 +243,8 @@
     "pages": [
       10,
       37
-    ]
+    ],
+    "reference": "No, it is risky. A kiosk is controlled by a third party, so the teleworker cannot know whether it is secured or compromised; it may carry malware that steals passwords."
   },
   {
     "id": "in-26",
@@ -225,7 +252,8 @@
     "document": "NIST.SP.800-12r1.pdf",
     "pages": [
       36
-    ]
+    ],
+    "reference": "Program policy, issue-specific policy and system-specific policy."
   },
   {
     "id": "out-01",

@@ -1,41 +1,18 @@
-"""Retrieve, apply the refusal threshold, answer, attach citations."""
+"""The whole question-to-answer path: retrieve, apply the refusal checks, answer, attach citations."""
 
 from __future__ import annotations
 
-import re
+import time
 from dataclasses import asdict, dataclass, field
 
-from .answer import REFUSAL, Answerer
-from .embed import Embedder
+from . import config
+from .answer import Answerer, ExtractiveAnswerer, GeneratedAnswerer
+from .embed import make_embedder
+from .llm import ChatClient, Spend
+from .refusal import REFUSAL, content_terms, decide, decide_reranked
+from .rerank import Reranker
+from .retrieval import Retriever
 from .store import Hit, PgVectorStore
-
-STOPWORDS = frozenset(
-    """about after again also been before being between both cannot could does doing down during each from have having
-    here into itself just many more most much must only other over same should some such than that their them then
-    there these they this those through under until very were what when where which while will with would your
-    often long soon ever make made take need want know tell find give mean means called kind kinds""".split()
-)
-
-
-def query_words(question: str) -> list[str]:
-    """Words handed to full-text search. Postgres does its own stemming, so they are passed whole."""
-    words = [w for w in re.findall(r"[a-z0-9]+", question.lower()) if w not in STOPWORDS and len(w) >= 3]
-    return list(dict.fromkeys(words))
-
-
-def content_terms(question: str) -> list[str]:
-    """Words of the question worth checking against the corpus, with plural and verb endings trimmed."""
-    terms = []
-    for token in re.findall(r"[a-z0-9]+", question.lower()):
-        if token in STOPWORDS or (len(token) < 4 and not token.isdigit()):
-            continue
-        if token.isdigit() and len(token) < 3:
-            continue
-        stem = re.sub(r"(ies|es|s|ing|ed)$", "", token) if token.isalpha() else token
-        term = stem if len(stem) >= 4 else token
-        if term not in terms:
-            terms.append(term)
-    return terms
 
 
 @dataclass
@@ -57,64 +34,102 @@ class ChatResult:
     threshold: float
     citations: list[Citation] = field(default_factory=list)
     unknown_terms: list[str] = field(default_factory=list)
+    rerank_score: float | None = None
+    refused_by: str = ""
     retrieved: list[Hit] = field(default_factory=list)
+    passages: list[Hit] = field(default_factory=list)
 
     def public(self) -> dict:
         data = asdict(self)
         data.pop("retrieved")
+        data.pop("passages")
         return data
 
 
 class Pipeline:
     def __init__(
         self,
-        store: PgVectorStore,
-        embedder: Embedder,
+        retriever: Retriever,
         answerer: Answerer,
-        collection: str,
-        top_k: int = 5,
-        max_citations: int = 3,
         threshold: float = 0.62,
         strict_threshold: float = 0.0,
-        hybrid: bool = False,
-        keyword_weight: float = 1.0,
+        max_citations: int = 3,
+        max_context: int = 5,
+        reranker: Reranker | None = None,
+        rerank_threshold: float = 0.0,
+        top_k: int = 5,
     ) -> None:
-        self.store = store
-        self.embedder = embedder
+        self.retriever = retriever  # fetches top_k passages, or the larger rerank pool when a reranker is set
         self.answerer = answerer
-        self.collection = collection
-        self.top_k = top_k
-        self.max_citations = max_citations
         self.threshold = threshold
-        self.hybrid = hybrid
-        self.keyword_weight = keyword_weight
         # Applied in place of the threshold when the question uses a word found nowhere in the corpus. 0 turns it off.
         self.strict_threshold = strict_threshold
+        self.max_citations = max_citations
+        self.max_context = max_context
+        self.reranker = reranker
+        self.rerank_threshold = rerank_threshold
+        self.top_k = top_k  # passages kept after reranking
+        self.timings: dict[str, float] = {}
 
-    def retrieve(self, question: str, k: int | None = None) -> list[Hit]:
-        vector = self.embedder.embed_query(question)
-        if self.hybrid:
-            return self.store.search_hybrid(self.collection, vector, query_words(question), k or self.top_k, keyword_weight=self.keyword_weight)
-        return self.store.search(self.collection, vector, k or self.top_k)
+    @property
+    def mode(self) -> str:
+        return self.answerer.mode  # "extractive" or "generated"
 
-    def chat(
-        self,
-        question: str,
-        threshold: float | None = None,
-        strict_threshold: float | None = None,
-        hits: list[Hit] | None = None,
-    ) -> ChatResult:
-        threshold = self.threshold if threshold is None else threshold
-        strict = self.strict_threshold if strict_threshold is None else strict_threshold
-        hits = self.retrieve(question) if hits is None else hits
-        top = max((h.score for h in hits), default=0.0)
-        unknown = self.store.missing_terms(self.collection, content_terms(question)) if strict > threshold else []
-        limit = strict if unknown else threshold
-        passages = [h for h in hits if h.score >= threshold][: self.max_citations]
-        if top < limit or not passages:
-            return ChatResult(REFUSAL, True, self.answerer.mode, top, limit, [], unknown, hits)
-        answer = self.answerer.answer(question, passages)
-        citations = [
-            Citation(p.document, p.title, p.page, p.heading, round(p.score, 4), p.text[:240]) for p in (passages[i] for i in answer.cited)
-        ]
-        return ChatResult(answer.text, answer.refused, self.answerer.mode, top, limit, citations, unknown, hits)
+    @property
+    def collection(self) -> str:
+        return self.retriever.collection
+
+    def count(self) -> int:
+        return self.retriever.store.count(self.collection)
+
+    def chat(self, question: str) -> ChatResult:
+        hits = self.retriever.retrieve(question)
+        self.timings = {**self.retriever.timings, "rerank_ms": 0.0}
+        unknown = []
+        if self.strict_threshold > self.threshold:
+            unknown = self.retriever.store.missing_terms(self.collection, content_terms(question))
+        max_passages = self.max_context if self.mode == "generated" else self.max_citations
+        decision = decide(hits, unknown, self.threshold, self.strict_threshold, max_passages)
+        if self.reranker and not decision.refused:
+            # Only questions that pass the cheap checks pay for the cross-encoder.
+            start = time.perf_counter()
+            hits = self.reranker.rerank(question, hits, self.top_k)
+            self.timings["rerank_ms"] = (time.perf_counter() - start) * 1000
+            decision = decide_reranked(decision, hits, self.rerank_threshold, self.threshold, max_passages)
+        hits = hits[: self.top_k]
+        d = decision
+        if d.refused:
+            return ChatResult(REFUSAL, True, self.mode, d.top_score, d.limit, [], unknown, d.rerank_score, d.refused_by, hits, [])
+        answer = self.answerer.answer(question, d.passages)
+        cited = [d.passages[i] for i in answer.cited]
+        citations = [Citation(p.document, p.title, p.page, p.heading, round(p.score, 4), p.text[:240]) for p in cited]
+        refused_by = "model" if answer.refused else ""
+        return ChatResult(answer.text, answer.refused, self.mode, d.top_score, d.limit, citations, unknown, d.rerank_score, refused_by, hits, cited)
+
+
+def build_pipeline(settings: config.Settings, spend: Spend | None = None, **overrides) -> Pipeline:
+    """Wire the parts together from settings. Keyword overrides replace single settings, for the eval scripts."""
+    opt = {**asdict(settings), **overrides}
+    embedder = make_embedder(opt["embedding_provider"], opt["embedding_model"])
+    store = PgVectorStore(opt["database_url"], embedder.dim, use_index=opt["use_index"])
+    reranker = Reranker(opt["rerank_model"]) if opt["rerank"] else None
+    retriever = Retriever(store, embedder, opt["collection"], opt["rerank_pool"] if reranker else opt["top_k"])
+    mode = opt["answer_mode"]
+    if mode == "auto":
+        mode = "generated" if opt["openai_api_key"] else "extractive"
+    if mode == "generated":
+        spend = spend or Spend(opt["price_input_per_m"], opt["price_output_per_m"], opt["max_spend_usd"])
+        answerer: Answerer = GeneratedAnswerer(ChatClient(opt["openai_api_key"], opt["openai_base_url"], opt["openai_model"], spend))
+    else:
+        answerer = ExtractiveAnswerer()
+    return Pipeline(
+        retriever,
+        answerer,
+        opt["score_threshold"],
+        opt["strict_threshold"],
+        opt["max_citations"],
+        opt["max_context"],
+        reranker,
+        opt["rerank_threshold"],
+        opt["top_k"],
+    )

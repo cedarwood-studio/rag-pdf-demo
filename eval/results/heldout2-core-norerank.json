@@ -1,0 +1,714 @@
+{
+  "label": "heldout2-core-norerank",
+  "implementation": "plain Python",
+  "questions": "questions-heldout2.json",
+  "collection": "core",
+  "answer_mode": "extractive",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "threshold": 0.62,
+  "strict_threshold": 0.75,
+  "search": "exact",
+  "rerank": "off",
+  "top_k": 5,
+  "max_citations": 3,
+  "chunks": 2448,
+  "run_at": "2026-11-11T23:49:18+00:00",
+  "summary": {
+    "retrieval_hit@1": {
+      "count": 6,
+      "of": 10,
+      "rate": 0.6
+    },
+    "retrieval_hit@3": {
+      "count": 8,
+      "of": 10,
+      "rate": 0.8
+    },
+    "retrieval_hit@5": {
+      "count": 9,
+      "of": 10,
+      "rate": 0.9
+    },
+    "citation_correct": {
+      "count": 8,
+      "of": 10,
+      "rate": 0.8
+    },
+    "top_citation_correct": {
+      "count": 6,
+      "of": 10,
+      "rate": 0.6
+    },
+    "false_refusals_in_corpus": {
+      "count": 0,
+      "of": 10,
+      "rate": 0.0
+    },
+    "refusals_out_of_corpus": {
+      "count": 5,
+      "of": 12,
+      "rate": 0.417
+    }
+  },
+  "rows": [
+    {
+      "id": "held2-in-01",
+      "question": "What is an attrition attack?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-61r2.pdf p.12,35",
+      "top_score": 0.8178,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.12 (0.818)",
+        "NIST.SP.800-61r2.pdf p.35 (0.684)",
+        "NIST.SP.800-12r1.pdf p.31 (0.683)",
+        "NIST.SP.800-12r1.pdf p.71 (0.676)",
+        "NIST.SP.800-12r1.pdf p.30 (0.669)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.12",
+        "NIST.SP.800-61r2.pdf p.35",
+        "NIST.SP.800-12r1.pdf p.31"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-02",
+      "question": "What is a portal in a remote access setup?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-46r2.pdf p.17",
+      "top_score": 0.7911,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-46r2.pdf p.17 (0.791)",
+        "NIST.SP.800-46r2.pdf p.18 (0.787)",
+        "NIST.SP.800-46r2.pdf p.17 (0.781)",
+        "NIST.SP.800-46r2.pdf p.24 (0.766)",
+        "NIST.SP.800-46r2.pdf p.23 (0.748)"
+      ],
+      "cited": [
+        "NIST.SP.800-46r2.pdf p.17",
+        "NIST.SP.800-46r2.pdf p.18",
+        "NIST.SP.800-46r2.pdf p.17"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-03",
+      "question": "What are the steps in the life cycle of a security awareness and training program?",
+      "in_corpus": true,
+      "expected": "nistspecialpublication800-50.pdf p.11",
+      "top_score": 0.8382,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "nistspecialpublication800-50.pdf p.23 (0.838)",
+        "nistspecialpublication800-50.pdf p.43 (0.829)",
+        "nistspecialpublication800-50.pdf p.11 (0.826)",
+        "nistspecialpublication800-50.pdf p.13 (0.821)",
+        "nistspecialpublication800-50.pdf p.11 (0.815)"
+      ],
+      "cited": [
+        "nistspecialpublication800-50.pdf p.23",
+        "nistspecialpublication800-50.pdf p.43",
+        "nistspecialpublication800-50.pdf p.11"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": false,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-04",
+      "question": "What types of compiled viruses are there?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-83r1.pdf p.13",
+      "top_score": 0.7958,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-83r1.pdf p.13 (0.796)",
+        "NIST.SP.800-83r1.pdf p.13 (0.678)",
+        "NIST.SP.800-12r1.pdf p.33 (0.662)",
+        "NIST.SP.800-12r1.pdf p.34 (0.658)",
+        "NIST.SP.800-12r1.pdf p.33 (0.655)"
+      ],
+      "cited": [
+        "NIST.SP.800-83r1.pdf p.13",
+        "NIST.SP.800-83r1.pdf p.13",
+        "NIST.SP.800-12r1.pdf p.33"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-05",
+      "question": "What should a small business do when an employee leaves?",
+      "in_corpus": true,
+      "expected": "NIST.IR.7621r1.pdf p.25",
+      "top_score": 0.6424,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.IR.7621r1.pdf p.21 (0.642)",
+        "NIST.IR.7621r1.pdf p.35 (0.638)",
+        "NIST.IR.7621r1.pdf p.29 (0.637)",
+        "NIST.IR.7621r1.pdf p.28 (0.628)",
+        "NIST.IR.7621r1.pdf p.25 (0.623)"
+      ],
+      "cited": [
+        "NIST.IR.7621r1.pdf p.21",
+        "NIST.IR.7621r1.pdf p.35",
+        "NIST.IR.7621r1.pdf p.29"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "hit@5": true,
+      "top_citation_correct": false,
+      "citation_correct": false
+    },
+    {
+      "id": "held2-in-06",
+      "question": "What does an Organizational Profile describe?",
+      "in_corpus": true,
+      "expected": "NIST.CSWP.29.pdf p.11",
+      "top_score": 0.7444,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.CSWP.29.pdf p.12 (0.744)",
+        "NIST.CSWP.29.pdf p.11 (0.730)",
+        "NIST.SP.800-12r1.pdf p.18 (0.717)",
+        "NIST.SP.800-40r4.pdf p.18 (0.711)",
+        "NIST.CSWP.29.pdf p.16 (0.708)"
+      ],
+      "cited": [
+        "NIST.CSWP.29.pdf p.12",
+        "NIST.CSWP.29.pdf p.11",
+        "NIST.SP.800-12r1.pdf p.18"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": false,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-07",
+      "question": "How long a password should a system let users choose?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-63b.pdf p.24,64",
+      "top_score": 0.805,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-114r1.pdf p.24 (0.805)",
+        "NIST.IR.7621r1.pdf p.38 (0.804)",
+        "NIST.SP.800-63b.pdf p.79 (0.753)",
+        "NIST.SP.800-63b.pdf p.79 (0.744)",
+        "NIST.SP.800-63b.pdf p.78 (0.738)"
+      ],
+      "cited": [
+        "NIST.SP.800-114r1.pdf p.24",
+        "NIST.IR.7621r1.pdf p.38",
+        "NIST.SP.800-63b.pdf p.79"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "hit@5": false,
+      "top_citation_correct": false,
+      "citation_correct": false
+    },
+    {
+      "id": "held2-in-08",
+      "question": "How often should staff with contingency plan roles be trained?",
+      "in_corpus": true,
+      "expected": "nistspecialpublication800-34r1.pdf p.42",
+      "top_score": 0.8134,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "nistspecialpublication800-34r1.pdf p.42 (0.813)",
+        "nistspecialpublication800-34r1.pdf p.127 (0.762)",
+        "nistspecialpublication800-34r1.pdf p.133 (0.750)",
+        "nistspecialpublication800-34r1.pdf p.43 (0.741)",
+        "nistspecialpublication800-34r1.pdf p.128 (0.740)"
+      ],
+      "cited": [
+        "nistspecialpublication800-34r1.pdf p.42",
+        "nistspecialpublication800-34r1.pdf p.127",
+        "nistspecialpublication800-34r1.pdf p.133"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-09",
+      "question": "Which wireless security option is preferred for a home network?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-114r1.pdf p.21",
+      "top_score": 0.8147,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-114r1.pdf p.21 (0.815)",
+        "NIST.SP.800-114r1.pdf p.20 (0.797)",
+        "NIST.SP.800-114r1.pdf p.20 (0.784)",
+        "NIST.SP.800-114r1.pdf p.20 (0.780)",
+        "NIST.SP.800-114r1.pdf p.19 (0.777)"
+      ],
+      "cited": [
+        "NIST.SP.800-114r1.pdf p.21",
+        "NIST.SP.800-114r1.pdf p.20",
+        "NIST.SP.800-114r1.pdf p.20"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-in-10",
+      "question": "How many security control baselines are there and what do they correspond to?",
+      "in_corpus": true,
+      "expected": "NIST.SP.800-12r1.pdf p.53",
+      "top_score": 0.7818,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-12r1.pdf p.53 (0.782)",
+        "NIST.SP.800-12r1.pdf p.71 (0.776)",
+        "NIST.SP.800-12r1.pdf p.53 (0.767)",
+        "NIST.SP.800-63b.pdf p.17 (0.766)",
+        "NIST.SP.800-63b.pdf p.19 (0.763)"
+      ],
+      "cited": [
+        "NIST.SP.800-12r1.pdf p.53",
+        "NIST.SP.800-12r1.pdf p.71",
+        "NIST.SP.800-12r1.pdf p.53"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "hit@5": true,
+      "top_citation_correct": true,
+      "citation_correct": true
+    },
+    {
+      "id": "held2-out-01",
+      "question": "Which mobile device management product should we buy?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7143,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-46r2.pdf p.35 (0.714)",
+        "NIST.SP.800-46r2.pdf p.35 (0.707)",
+        "NIST.SP.800-46r2.pdf p.34 (0.705)",
+        "NIST.SP.800-114r1.pdf p.36 (0.683)",
+        "NIST.SP.800-63b.pdf p.65 (0.680)"
+      ],
+      "cited": [
+        "NIST.SP.800-46r2.pdf p.35",
+        "NIST.SP.800-46r2.pdf p.35",
+        "NIST.SP.800-46r2.pdf p.34"
+      ]
+    },
+    {
+      "id": "held2-out-02",
+      "question": "How much does an uninterruptible power supply cost for a small office?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6709,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.IR.7621r1.pdf p.25 (0.671)",
+        "nistspecialpublication800-34r1.pdf p.60 (0.657)",
+        "nistspecialpublication800-34r1.pdf p.60 (0.651)",
+        "NIST.IR.7621r1.pdf p.43 (0.640)",
+        "nistspecialpublication800-34r1.pdf p.71 (0.632)"
+      ],
+      "cited": [
+        "NIST.IR.7621r1.pdf p.25",
+        "nistspecialpublication800-34r1.pdf p.60",
+        "nistspecialpublication800-34r1.pdf p.60"
+      ]
+    },
+    {
+      "id": "held2-out-03",
+      "question": "What is the email address of the incident response team?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7717,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.29 (0.772)",
+        "NIST.SP.800-61r2.pdf p.23 (0.763)",
+        "NIST.SP.800-61r2.pdf p.22 (0.762)",
+        "NIST.SP.800-61r2.pdf p.28 (0.756)",
+        "NIST.SP.800-61r2.pdf p.19 (0.753)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.29",
+        "NIST.SP.800-61r2.pdf p.23",
+        "NIST.SP.800-61r2.pdf p.22"
+      ]
+    },
+    {
+      "id": "held2-out-04",
+      "question": "Which company makes the most reliable degausser?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.607,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "similarity",
+      "retrieved": [
+        "NIST.SP.800-88r1.pdf p.43 (0.607)",
+        "NIST.SP.800-88r1.pdf p.62 (0.574)",
+        "NIST.SP.800-88r1.pdf p.33 (0.572)",
+        "NIST.SP.800-88r1.pdf p.29 (0.559)",
+        "NIST.SP.800-88r1.pdf p.41 (0.556)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held2-out-05",
+      "question": "What salary does an incident response team manager earn?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7332,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.75 (0.733)",
+        "NIST.SP.800-61r2.pdf p.25 (0.732)",
+        "NIST.SP.800-61r2.pdf p.26 (0.720)",
+        "NIST.SP.800-61r2.pdf p.23 (0.719)",
+        "NIST.SP.800-61r2.pdf p.28 (0.718)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.75",
+        "NIST.SP.800-61r2.pdf p.25",
+        "NIST.SP.800-61r2.pdf p.26"
+      ]
+    },
+    {
+      "id": "held2-out-06",
+      "question": "Which VPN vendor has had the fewest vulnerabilities?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6769,
+      "unknown_terms": [
+        "fewest"
+      ],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "unknown word",
+      "retrieved": [
+        "NIST.SP.800-46r2.pdf p.23 (0.677)",
+        "NIST.SP.800-114r1.pdf p.13 (0.665)",
+        "NIST.IR.7621r1.pdf p.19 (0.655)",
+        "NIST.SP.800-46r2.pdf p.50 (0.654)",
+        "NIST.SP.800-46r2.pdf p.45 (0.650)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held2-out-07",
+      "question": "Which training vendor offers the cheapest security awareness course?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6768,
+      "unknown_terms": [
+        "cheapest"
+      ],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "unknown word",
+      "retrieved": [
+        "nistspecialpublication800-50.pdf p.41 (0.677)",
+        "nistspecialpublication800-50.pdf p.33 (0.670)",
+        "nistspecialpublication800-50.pdf p.34 (0.669)",
+        "nistspecialpublication800-50.pdf p.19 (0.667)",
+        "nistspecialpublication800-50.pdf p.22 (0.666)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held2-out-08",
+      "question": "On what date will the incident handling guide be withdrawn?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7361,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-61r2.pdf p.1 (0.736)",
+        "NIST.SP.800-61r2.pdf p.45 (0.725)",
+        "NIST.SP.800-61r2.pdf p.49 (0.720)",
+        "NIST.SP.800-61r2.pdf p.1 (0.718)",
+        "NIST.SP.800-61r2.pdf p.49 (0.706)"
+      ],
+      "cited": [
+        "NIST.SP.800-61r2.pdf p.1",
+        "NIST.SP.800-61r2.pdf p.45",
+        "NIST.SP.800-61r2.pdf p.49"
+      ]
+    },
+    {
+      "id": "held2-out-09",
+      "question": "Which cloud provider is approved for storing our backups?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.7382,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.IR.7621r1.pdf p.32 (0.738)",
+        "nistspecialpublication800-34r1.pdf p.65 (0.709)",
+        "nistspecialpublication800-34r1.pdf p.60 (0.699)",
+        "NIST.IR.7621r1.pdf p.33 (0.698)",
+        "NIST.SP.800-46r2.pdf p.37 (0.695)"
+      ],
+      "cited": [
+        "NIST.IR.7621r1.pdf p.32",
+        "nistspecialpublication800-34r1.pdf p.65",
+        "nistspecialpublication800-34r1.pdf p.60"
+      ]
+    },
+    {
+      "id": "held2-out-10",
+      "question": "How many passwords were stolen in the largest breach on record?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.6986,
+      "unknown_terms": [],
+      "rerank_score": null,
+      "refused": false,
+      "refused_by": "",
+      "retrieved": [
+        "NIST.SP.800-63b.pdf p.79 (0.699)",
+        "NIST.SP.800-63b.pdf p.78 (0.676)",
+        "NIST.SP.800-63b.pdf p.80 (0.655)",
+        "NIST.SP.800-63b.pdf p.80 (0.649)",
+        "NIST.SP.800-114r1.pdf p.24 (0.646)"
+      ],
+      "cited": [
+        "NIST.SP.800-63b.pdf p.79",
+        "NIST.SP.800-63b.pdf p.78",
+        "NIST.SP.800-63b.pdf p.80"
+      ]
+    },
+    {
+      "id": "held2-out-11",
+      "question": "What is the boiling point of water at sea level?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.5053,
+      "unknown_terms": [
+        "boil"
+      ],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "similarity",
+      "retrieved": [
+        "NIST.SP.800-88r1.pdf p.28 (0.505)",
+        "NIST.SP.800-88r1.pdf p.11 (0.503)",
+        "NIST.SP.800-88r1.pdf p.53 (0.503)",
+        "NIST.SP.800-12r1.pdf p.53 (0.502)",
+        "NIST.SP.800-63b.pdf p.26 (0.499)"
+      ],
+      "cited": []
+    },
+    {
+      "id": "held2-out-12",
+      "question": "Who won the football World Cup in 2018?",
+      "in_corpus": false,
+      "expected": "not in corpus",
+      "top_score": 0.4389,
+      "unknown_terms": [
+        "football"
+      ],
+      "rerank_score": null,
+      "refused": true,
+      "refused_by": "similarity",
+      "retrieved": [
+        "nistspecialpublication800-50.pdf p.1 (0.439)",
+        "NIST.SP.800-12r1.pdf p.67 (0.423)",
+        "NIST.SP.800-63b.pdf p.1 (0.423)",
+        "NIST.SP.800-83r1.pdf p.5 (0.423)",
+        "NIST.SP.800-61r2.pdf p.1 (0.422)"
+      ],
+      "cited": []
+    }
+  ],
+  "sweep": [
+    {
+      "threshold": 0.5,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.52,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.54,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.56,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.58,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.6,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 4,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.62,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 5,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.64,
+      "false_refusals_in_corpus": 0,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 5,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.66,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 5,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.68,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 6,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.7,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 7,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.72,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 8,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.74,
+      "false_refusals_in_corpus": 1,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 11,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.76,
+      "false_refusals_in_corpus": 2,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 11,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.78,
+      "false_refusals_in_corpus": 2,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 12,
+      "out_of_corpus": 12
+    },
+    {
+      "threshold": 0.8,
+      "false_refusals_in_corpus": 5,
+      "in_corpus": 10,
+      "refusals_out_of_corpus": 12,
+      "out_of_corpus": 12
+    }
+  ],
+  "rerank_sweep": []
+}

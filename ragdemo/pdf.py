@@ -37,7 +37,8 @@ def _extract_lines(page) -> list[Line]:
     weights: Counter = Counter()
 
     def flush() -> None:
-        text = re.sub(r"\s+", " ", "".join(parts)).strip()
+        # Some PDFs carry NUL bytes in their text, which Postgres text columns reject.
+        text = re.sub(r"\s+", " ", "".join(parts).replace("\x00", "")).strip()
         if text:
             (size, bold), _ = weights.most_common(1)[0] if weights else ((0.0, False), 0)
             lines.append(Line(text=text, size=size, bold=bold))

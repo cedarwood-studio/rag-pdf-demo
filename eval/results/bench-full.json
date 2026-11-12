@@ -1,0 +1,76 @@
+{
+  "label": "bench-full",
+  "implementation": "plain Python",
+  "collection": "full",
+  "answer_mode": "extractive",
+  "chunks": 18205,
+  "collection_bytes": 44215892,
+  "table_with_indexes_bytes": 91709440,
+  "exact": {
+    "embed": {
+      "p50_ms": 13.5,
+      "p95_ms": 40.2
+    },
+    "search": {
+      "p50_ms": 102.9,
+      "p95_ms": 117.5
+    },
+    "rerank": {
+      "p50_ms": 0.0,
+      "p95_ms": 0.0
+    },
+    "total": {
+      "p50_ms": 133.9,
+      "p95_ms": 289.6
+    },
+    "samples": 102
+  },
+  "exact_without_text_index": {
+    "total": {
+      "p50_ms": 145.6,
+      "p95_ms": 453.1
+    },
+    "samples": 34
+  },
+  "hnsw": {
+    "embed": {
+      "p50_ms": 11.7,
+      "p95_ms": 50.3
+    },
+    "search": {
+      "p50_ms": 2.4,
+      "p95_ms": 4.5
+    },
+    "rerank": {
+      "p50_ms": 0.0,
+      "p95_ms": 0.0
+    },
+    "total": {
+      "p50_ms": 34.2,
+      "p95_ms": 190.5
+    },
+    "samples": 102,
+    "build_seconds": 3.6,
+    "top5_overlap_with_exact": 0.971,
+    "table_with_indexes_bytes": 134561792
+  },
+  "exact_with_rerank": {
+    "embed": {
+      "p50_ms": 26.5,
+      "p95_ms": 45.0
+    },
+    "search": {
+      "p50_ms": 105.7,
+      "p95_ms": 127.3
+    },
+    "rerank": {
+      "p50_ms": 761.4,
+      "p95_ms": 1997.1
+    },
+    "total": {
+      "p50_ms": 940.7,
+      "p95_ms": 2134.9
+    },
+    "samples": 34
+  }
+}

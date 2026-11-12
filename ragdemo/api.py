@@ -10,10 +10,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from . import config
-from .answer import make_answerer
-from .embed import make_embedder
-from .pipeline import Pipeline
-from .store import PgVectorStore
+from .pipeline import Pipeline, build_pipeline
 
 app = FastAPI(title="PDF question answering demo")
 STATIC = Path(__file__).parent / "static"
@@ -39,16 +36,14 @@ class ChatResponse(BaseModel):
     top_score: float
     threshold: float
     unknown_terms: list[str]
+    rerank_score: float | None
+    refused_by: str
     citations: list[CitationOut]
 
 
 @lru_cache(maxsize=1)
 def get_pipeline() -> Pipeline:
-    s = config.load()
-    embedder = make_embedder(s.embedding_provider, s.embedding_model)
-    store = PgVectorStore(s.database_url, embedder.dim)
-    answerer = make_answerer(s.openai_api_key, s.openai_base_url, s.openai_model)
-    return Pipeline(store, embedder, answerer, s.collection, s.top_k, s.max_citations, s.score_threshold, s.strict_threshold, s.hybrid, s.keyword_weight)
+    return build_pipeline(config.load())
 
 
 @app.get("/health")
@@ -56,11 +51,12 @@ def health(pipeline: Pipeline = Depends(get_pipeline)) -> dict:
     return {
         "status": "ok",
         "collection": pipeline.collection,
-        "chunks": pipeline.store.count(pipeline.collection),
-        "answer_mode": pipeline.answerer.mode,
+        "chunks": pipeline.count(),
+        "answer_mode": pipeline.mode,
         "threshold": pipeline.threshold,
         "strict_threshold": pipeline.strict_threshold,
-        "hybrid": pipeline.hybrid,
+        "rerank": pipeline.reranker is not None,
+        "rerank_threshold": pipeline.rerank_threshold,
     }
 
 

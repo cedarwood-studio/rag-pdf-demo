@@ -1,0 +1,166 @@
+[
+  {
+    "id": "held2-in-01",
+    "question": "What is an attrition attack?",
+    "document": "NIST.SP.800-61r2.pdf",
+    "pages": [
+      12,
+      35
+    ],
+    "reference": "An attack that uses brute force methods to compromise, degrade or destroy systems, networks or services."
+  },
+  {
+    "id": "held2-in-02",
+    "question": "What is a portal in a remote access setup?",
+    "document": "NIST.SP.800-46r2.pdf",
+    "pages": [
+      17
+    ],
+    "reference": "A server that offers access to one or more applications through a single centralized interface."
+  },
+  {
+    "id": "held2-in-03",
+    "question": "What are the steps in the life cycle of a security awareness and training program?",
+    "document": "nistspecialpublication800-50.pdf",
+    "pages": [
+      11
+    ],
+    "reference": "Four steps: program design, material development, program implementation and post-implementation."
+  },
+  {
+    "id": "held2-in-04",
+    "question": "What types of compiled viruses are there?",
+    "document": "NIST.SP.800-83r1.pdf",
+    "pages": [
+      13
+    ],
+    "reference": "File infector viruses, boot sector viruses and multipartite viruses."
+  },
+  {
+    "id": "held2-in-05",
+    "question": "What should a small business do when an employee leaves?",
+    "document": "NIST.IR.7621r1.pdf",
+    "pages": [
+      25
+    ],
+    "reference": "Make sure they no longer have access to the business's information or systems: collect their ID and keys, delete their username and account from all systems, and change any group passwords or combination locks they knew."
+  },
+  {
+    "id": "held2-in-06",
+    "question": "What does an Organizational Profile describe?",
+    "document": "NIST.CSWP.29.pdf",
+    "pages": [
+      11
+    ],
+    "reference": "An organization's current and/or target cybersecurity posture in terms of the Core's outcomes."
+  },
+  {
+    "id": "held2-in-07",
+    "question": "How long a password should a system let users choose?",
+    "document": "NIST.SP.800-63b.pdf",
+    "pages": [
+      24,
+      64
+    ],
+    "reference": "Verifiers should permit subscriber-chosen passwords of at least 64 characters."
+  },
+  {
+    "id": "held2-in-08",
+    "question": "How often should staff with contingency plan roles be trained?",
+    "document": "nistspecialpublication800-34r1.pdf",
+    "pages": [
+      42
+    ],
+    "reference": "At least annually, and shortly after a person is newly appointed to a role."
+  },
+  {
+    "id": "held2-in-09",
+    "question": "Which wireless security option is preferred for a home network?",
+    "document": "NIST.SP.800-114r1.pdf",
+    "pages": [
+      21
+    ],
+    "reference": "WPA2 with AES is the most preferred option, then WPA with AES, then WPA with TKIP. WEP has serious flaws."
+  },
+  {
+    "id": "held2-in-10",
+    "question": "How many security control baselines are there and what do they correspond to?",
+    "document": "NIST.SP.800-12r1.pdf",
+    "pages": [
+      53
+    ],
+    "reference": "Three, corresponding to low-impact, moderate-impact and high-impact systems."
+  },
+  {
+    "id": "held2-out-01",
+    "question": "Which mobile device management product should we buy?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-02",
+    "question": "How much does an uninterruptible power supply cost for a small office?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-03",
+    "question": "What is the email address of the incident response team?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-04",
+    "question": "Which company makes the most reliable degausser?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-05",
+    "question": "What salary does an incident response team manager earn?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-06",
+    "question": "Which VPN vendor has had the fewest vulnerabilities?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-07",
+    "question": "Which training vendor offers the cheapest security awareness course?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-08",
+    "question": "On what date will the incident handling guide be withdrawn?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-09",
+    "question": "Which cloud provider is approved for storing our backups?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-10",
+    "question": "How many passwords were stolen in the largest breach on record?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-11",
+    "question": "What is the boiling point of water at sea level?",
+    "document": null,
+    "pages": []
+  },
+  {
+    "id": "held2-out-12",
+    "question": "Who won the football World Cup in 2018?",
+    "document": null,
+    "pages": []
+  }
+]

@@ -1,12 +1,13 @@
 """Chunk storage and similarity search in Postgres with the pgvector extension.
 
-Search is exact (a sequential scan ordered by cosine distance). At a few
-thousand chunks that takes milliseconds; an HNSW index is the next step when a
-corpus grows past roughly a hundred thousand chunks.
+Search is exact by default: a scan ordered by cosine distance. With use_index
+an HNSW index is built and Postgres uses it. A trigram index on the chunk text
+serves the word lookups of the refusal check.
 """
 
 from __future__ import annotations
 
+import threading
 import time
 from dataclasses import dataclass
 
@@ -21,6 +22,7 @@ class Hit:
     heading: str
     text: str
     score: float  # cosine similarity, 1.0 is identical
+    rerank_score: float | None = None  # cross-encoder score, set when the reranker is on
 
 
 def _vec(values: list[float]) -> str:
@@ -28,15 +30,38 @@ def _vec(values: list[float]) -> str:
 
 
 class PgVectorStore:
-    def __init__(self, database_url: str, dim: int, table: str = "chunks") -> None:
+    def __init__(self, database_url: str, dim: int, table: str = "chunks", use_index: bool = False) -> None:
         if not table.isidentifier():
             raise ValueError("table name must be a plain identifier")
         self.url = database_url
         self.dim = dim
         self.table = table
+        self.use_index = use_index
+        self._conn: psycopg.Connection | None = None
+        self._lock = threading.Lock()
+        if use_index:
+            self.create_index()
 
     def connect(self) -> psycopg.Connection:
         return psycopg.connect(self.url)
+
+    def _query(self, sql: str, params: tuple | dict = ()) -> list[tuple]:
+        """Run a read query on one long-lived connection, reconnecting once if it has dropped."""
+        with self._lock:
+            for attempt in (0, 1):
+                try:
+                    if self._conn is None or self._conn.closed:
+                        # No server-side prepared statements: with a generic plan Postgres cannot use the trigram index for ILIKE.
+                        self._conn = psycopg.connect(self.url, autocommit=True, prepare_threshold=None)
+                        # The HNSW index holds every collection, so the scan has to keep going until k rows pass the filter.
+                        self._conn.execute("SET hnsw.iterative_scan = strict_order")
+                        self._conn.execute("SET hnsw.ef_search = 100")
+                    return self._conn.execute(sql, params).fetchall()
+                except psycopg.OperationalError:
+                    self._conn = None
+                    if attempt:
+                        raise
+        return []
 
     def wait_until_ready(self, attempts: int = 30, delay: float = 2.0) -> None:
         for attempt in range(attempts):
@@ -66,15 +91,39 @@ class PgVectorStore:
                 """
             )
             conn.execute(f"CREATE INDEX IF NOT EXISTS {self.table}_collection_idx ON {self.table} (collection)")
-            conn.execute(
-                f"CREATE INDEX IF NOT EXISTS {self.table}_fts_idx ON {self.table} "
-                "USING gin (to_tsvector('english', heading || ' ' || body))"
-            )
+        self.create_text_index()
+
+    def create_text_index(self) -> None:
+        """A trigram index makes "does this word occur anywhere" a fast lookup instead of a scan of every chunk."""
+        with self.connect() as conn:
+            conn.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm")
+            conn.execute(f"CREATE INDEX IF NOT EXISTS {self.table}_body_trgm_idx ON {self.table} USING gin (body gin_trgm_ops)")
+
+    def drop_text_index(self) -> None:
+        with self.connect() as conn:
+            conn.execute(f"DROP INDEX IF EXISTS {self.table}_body_trgm_idx")
+
+    def create_index(self) -> float:
+        """Build an HNSW index for cosine distance. Returns the build time in seconds."""
+        start = time.perf_counter()
+        with self.connect() as conn:
+            conn.execute(f"CREATE INDEX IF NOT EXISTS {self.table}_hnsw_idx ON {self.table} USING hnsw (embedding vector_cosine_ops)")
+        return time.perf_counter() - start
+
+    def drop_index(self) -> None:
+        with self.connect() as conn:
+            conn.execute(f"DROP INDEX IF EXISTS {self.table}_hnsw_idx")
 
     def count(self, collection: str) -> int:
-        with self.connect() as conn:
-            row = conn.execute(f"SELECT count(*) FROM {self.table} WHERE collection = %s", (collection,)).fetchone()
-            return int(row[0])
+        return int(self._query(f"SELECT count(*) FROM {self.table} WHERE collection = %s", (collection,))[0][0])
+
+    def stats(self, collection: str) -> dict:
+        """Row count and stored size of one collection, plus the size of the whole table with its indexes."""
+        rows, size = self._query(
+            f"SELECT count(*), coalesce(sum(pg_column_size(c.*)), 0) FROM {self.table} c WHERE collection = %s", (collection,)
+        )[0]
+        total = self._query("SELECT pg_total_relation_size(%s::regclass)", (self.table,))[0][0]
+        return {"chunks": int(rows), "collection_bytes": int(size), "table_with_indexes_bytes": int(total)}
 
     def delete_collection(self, collection: str) -> None:
         with self.connect() as conn:
@@ -90,57 +139,20 @@ class PgVectorStore:
             )
 
     def search(self, collection: str, embedding: list[float], k: int) -> list[Hit]:
-        with self.connect() as conn:
-            rows = conn.execute(
-                f"SELECT document, title, page, heading, body, 1 - (embedding <=> %s::vector) AS score "
-                f"FROM {self.table} WHERE collection = %s ORDER BY embedding <=> %s::vector LIMIT %s",
-                (_vec(embedding), collection, _vec(embedding), k),
-            ).fetchall()
-        return [Hit(document=r[0], title=r[1], page=r[2], heading=r[3], text=r[4], score=float(r[5])) for r in rows]
-
-    def search_hybrid(self, collection: str, embedding: list[float], words: list[str], k: int, pool: int = 30, keyword_weight: float = 1.0
-    ) -> list[Hit]:
-        """Vector search and Postgres full-text search, merged by reciprocal rank fusion.
-
-        The score on each hit is still its cosine similarity, so the refusal threshold means the same thing in both modes.
-        """
-        words = [w for w in words if w.isalnum()]
-        if not words:
-            return self.search(collection, embedding, k)
-        fts = "to_tsvector('english', heading || ' ' || body)"
-        sql = f"""
-            WITH q AS (SELECT %(vec)s::vector AS v, to_tsquery('english', %(tsq)s) AS t),
-            vec AS (
-                SELECT id, row_number() OVER (ORDER BY embedding <=> q.v) AS r
-                FROM {self.table}, q WHERE collection = %(c)s ORDER BY embedding <=> q.v LIMIT %(pool)s
-            ),
-            kw AS (
-                SELECT id, row_number() OVER (ORDER BY ts_rank_cd({fts}, q.t) DESC, id) AS r
-                FROM {self.table}, q WHERE collection = %(c)s AND {fts} @@ q.t
-                ORDER BY ts_rank_cd({fts}, q.t) DESC, id LIMIT %(pool)s
-            ),
-            fused AS (
-                SELECT id, sum(w / (60 + r)) AS rrf
-                FROM (SELECT id, r, 1.0 AS w FROM vec UNION ALL SELECT id, r, %(kw)s AS w FROM kw) u GROUP BY id
-            )
-            SELECT document, title, page, heading, body, 1 - (embedding <=> q.v) AS score
-            FROM fused JOIN {self.table} USING (id), q
-            ORDER BY rrf DESC, score DESC LIMIT %(k)s
-        """
-        params = {"vec": _vec(embedding), "tsq": " | ".join(words), "c": collection, "pool": pool, "k": k, "kw": keyword_weight}
-        with self.connect() as conn:
-            rows = conn.execute(sql, params).fetchall()
+        rows = self._query(
+            f"SELECT document, title, page, heading, body, 1 - (embedding <=> %s::vector) AS score "
+            f"FROM {self.table} WHERE collection = %s ORDER BY embedding <=> %s::vector LIMIT %s",
+            (_vec(embedding), collection, _vec(embedding), k),
+        )
         return [Hit(document=r[0], title=r[1], page=r[2], heading=r[3], text=r[4], score=float(r[5])) for r in rows]
 
     def missing_terms(self, collection: str, terms: list[str]) -> list[str]:
         """Terms that occur in no chunk of the collection (case-insensitive substring match)."""
         missing = []
-        with self.connect() as conn:
-            for term in terms:
-                row = conn.execute(
-                    f"SELECT EXISTS (SELECT 1 FROM {self.table} WHERE collection = %s AND body ILIKE %s)",
-                    (collection, f"%{term}%"),
-                ).fetchone()
-                if not row[0]:
-                    missing.append(term)
+        for term in terms:
+            found = self._query(
+                f"SELECT EXISTS (SELECT 1 FROM {self.table} WHERE collection = %s AND body ILIKE %s)", (collection, f"%{term}%")
+            )[0][0]
+            if not found:
+                missing.append(term)
         return missing

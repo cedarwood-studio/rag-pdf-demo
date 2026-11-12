@@ -5,7 +5,8 @@
     "document": "NIST.SP.800-83r1.pdf",
     "pages": [
       15
-    ]
+    ],
+    "reference": "A collection of files installed on a host to alter its standard functionality in a malicious and stealthy way."
   },
   {
     "id": "held-in-02",
@@ -13,7 +14,8 @@
     "document": "NIST.SP.800-83r1.pdf",
     "pages": [
       14
-    ]
+    ],
+    "reference": "An attack that uses multiple infection or transmission methods, for example combining the propagation methods of viruses and worms."
   },
   {
     "id": "held-in-03",
@@ -23,7 +25,8 @@
       31,
       121,
       144
-    ]
+    ],
+    "reference": "The total amount of time the organization is willing to accept for a mission or business process outage or disruption, including all impact considerations."
   },
   {
     "id": "held-in-04",
@@ -31,7 +34,8 @@
     "document": "NIST.SP.800-61r2.pdf",
     "pages": [
       16
-    ]
+    ],
+    "reference": "An event is any observable occurrence in a system or network. An incident is a violation or imminent threat of violation of computer security policies, acceptable use policies or standard security practices."
   },
   {
     "id": "held-in-05",
@@ -39,7 +43,8 @@
     "document": "NIST.SP.800-63b.pdf",
     "pages": [
       26
-    ]
+    ],
+    "reference": "At least 32 bits."
   },
   {
     "id": "held-in-06",
@@ -47,7 +52,8 @@
     "document": "NIST.IR.7621r1.pdf",
     "pages": [
       33
-    ]
+    ],
+    "reference": "At least once a week."
   },
   {
     "id": "held-out-01",

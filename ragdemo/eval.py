@@ -1,10 +1,10 @@
 """Scripted evaluation over the fixed question set in eval/questions.json.
 
-    python -m ragdemo.eval --collection heading --threshold 0.62 --label tuned
+    python -m ragdemo.eval --collection core --label core
 
 Each question names the document and the pages where its answer is stated, or
 no document at all when the answer is not in the corpus. The script runs every
-question through the same Pipeline object that serves /chat and reports:
+question through the same Pipeline object that serves /chat, with the extractive answer step, and reports:
 
 - retrieval hit rate at k: an accepted page of the expected document is among the top k chunks
 - citation correctness: the answer was given and a cited passage is on an accepted page
@@ -20,26 +20,24 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from . import config
-from .answer import make_answerer
-from .embed import make_embedder
-from .pipeline import Pipeline
-from .store import PgVectorStore
+from .pipeline import Pipeline, build_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 QUESTIONS = ROOT / "eval" / "questions.json"
 RESULTS = ROOT / "eval" / "results"
 KS = (1, 3, 5)
+IMPLEMENTATION = "plain Python"
 
 
 def _match(q: dict, document: str, page: int) -> bool:
     return document == q["document"] and page in q["pages"]
 
 
-def evaluate(pipeline: Pipeline, questions: list[dict], threshold: float, strict: float = 0.0) -> dict:
+def evaluate(pipeline: Pipeline, questions: list[dict]) -> dict:
     rows = []
     for q in questions:
-        hits = pipeline.retrieve(q["question"], k=pipeline.top_k)
-        result = pipeline.chat(q["question"], threshold=threshold, strict_threshold=strict, hits=hits)
+        result = pipeline.chat(q["question"])
+        hits = result.retrieved
         in_corpus = q["document"] is not None
         row = {
             "id": q["id"],
@@ -48,16 +46,16 @@ def evaluate(pipeline: Pipeline, questions: list[dict], threshold: float, strict
             "expected": f"{q['document']} p.{','.join(map(str, q['pages']))}" if in_corpus else "not in corpus",
             "top_score": round(result.top_score, 4),
             "unknown_terms": result.unknown_terms,
+            "rerank_score": None if result.rerank_score is None else round(result.rerank_score, 2),
             "refused": result.refused,
+            "refused_by": result.refused_by,
             "retrieved": [f"{h.document} p.{h.page} ({h.score:.3f})" for h in hits],
             "cited": [f"{c.document} p.{c.page}" for c in result.citations],
         }
         if in_corpus:
             for k in KS:
                 row[f"hit@{k}"] = any(_match(q, h.document, h.page) for h in hits[:k])
-            row["top_citation_correct"] = bool(result.citations) and _match(
-                q, result.citations[0].document, result.citations[0].page
-            )
+            row["top_citation_correct"] = bool(result.citations) and _match(q, result.citations[0].document, result.citations[0].page)
             row["citation_correct"] = any(_match(q, c.document, c.page) for c in result.citations)
         rows.append(row)
 
@@ -99,6 +97,26 @@ def sweep(rows: list[dict], strict: float = 0.0) -> list[dict]:
     return out
 
 
+def rerank_sweep(rows: list[dict]) -> list[dict]:
+    """For questions that passed the similarity checks: how many each rerank threshold would refuse."""
+    passed = [r for r in rows if r["rerank_score"] is not None]
+    inside = [r for r in passed if r["in_corpus"]]
+    outside = [r for r in passed if not r["in_corpus"]]
+    out = []
+    for step in range(-8, 9):
+        t = step / 2
+        out.append(
+            {
+                "rerank_threshold": t,
+                "false_refusals_in_corpus": sum(r["rerank_score"] < t for r in inside),
+                "in_corpus": len(inside),
+                "refusals_out_of_corpus": sum(r["rerank_score"] < t for r in outside),
+                "out_of_corpus": len(outside),
+            }
+        )
+    return out
+
+
 def to_markdown(report: dict) -> str:
     s = report["summary"]
     lines = [
@@ -107,7 +125,9 @@ def to_markdown(report: dict) -> str:
         f"- Questions: `eval/{report['questions']}`",
         f"- Collection: `{report['collection']}`",
         f"- Answer mode: {report['answer_mode']}",
-        f"- Retrieval: {report['retrieval']}",
+        f"- Implementation: {report['implementation']}",
+        f"- Search: {report['search']}",
+        f"- Reranker: {report['rerank']}",
         f"- Embedding model: {report['embedding_model']}",
         f"- Refusal threshold: {report['threshold']}",
         f"- Strict threshold for questions with a word found nowhere in the corpus: {report['strict_threshold'] or 'off'}",
@@ -119,20 +139,34 @@ def to_markdown(report: dict) -> str:
     ]
     for key, value in s.items():
         lines.append(f"| {key} | {value['count']}/{value['of']} ({value['rate']:.0%}) |")
-    lines += ["", "| Id | Question | Expected | Top score | Unknown words | Outcome | Cited |", "| --- | --- | --- | --- | --- | --- | --- |"]
+    lines += ["", "| Id | Question | Expected | Top score | Rerank score | Unknown words | Outcome | Cited |", "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     for r in report["rows"]:
         if r["in_corpus"]:
-            outcome = "refused (wrong)" if r["refused"] else ("citation correct" if r["citation_correct"] else "citation wrong")
+            outcome = f"refused by {r['refused_by']} check (wrong)" if r["refused"] else ("citation correct" if r["citation_correct"] else "citation wrong")
         else:
-            outcome = "refused (right)" if r["refused"] else "answered (wrong)"
+            outcome = f"refused by {r['refused_by']} check (right)" if r["refused"] else "answered (wrong)"
         lines.append(
-            f"| {r['id']} | {r['question']} | {r['expected']} | {r['top_score']:.3f} | {', '.join(r['unknown_terms']) or '-'} | {outcome} | {'; '.join(r['cited']) or 'none'} |"
+            f"| {r['id']} | {r['question']} | {r['expected']} | {r['top_score']:.3f} | {'-' if r['rerank_score'] is None else r['rerank_score']} | {', '.join(r['unknown_terms']) or '-'} | {outcome} | {'; '.join(r['cited']) or 'none'} |"
         )
     lines += ["", "## Threshold sweep", "", "| Threshold | False refusals (in corpus) | Refusals (out of corpus) |", "| --- | --- | --- |"]
     for row in report["sweep"]:
         lines.append(
             f"| {row['threshold']:.2f} | {row['false_refusals_in_corpus']}/{row['in_corpus']} | {row['refusals_out_of_corpus']}/{row['out_of_corpus']} |"
         )
+    if report.get("rerank_sweep"):
+        lines += [
+            "",
+            "## Rerank threshold sweep",
+            "",
+            "Only questions that passed the similarity checks reach the reranker, so only those are counted here.",
+            "",
+            "| Rerank threshold | False refusals (in corpus) | Refusals (out of corpus) |",
+            "| --- | --- | --- |",
+        ]
+        for row in report["rerank_sweep"]:
+            lines.append(
+                f"| {row['rerank_threshold']:.1f} | {row['false_refusals_in_corpus']}/{row['in_corpus']} | {row['refusals_out_of_corpus']}/{row['out_of_corpus']} |"
+            )
     return "\n".join(lines) + "\n"
 
 
@@ -142,42 +176,52 @@ def main() -> None:
     parser.add_argument("--collection", default=settings.collection)
     parser.add_argument("--threshold", type=float, default=settings.score_threshold)
     parser.add_argument("--strict-threshold", type=float, default=settings.strict_threshold)
-    parser.add_argument("--hybrid", action=argparse.BooleanOptionalAction, default=settings.hybrid)
-    parser.add_argument("--keyword-weight", type=float, default=settings.keyword_weight)
+    parser.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=settings.rerank)
+    parser.add_argument("--rerank-threshold", type=float, default=settings.rerank_threshold)
+    parser.add_argument("--use-index", action=argparse.BooleanOptionalAction, default=settings.use_index)
     parser.add_argument("--questions", type=Path, default=QUESTIONS, help="question file, defaults to eval/questions.json")
     parser.add_argument("--label", default=None)
     args = parser.parse_args()
 
-    embedder = make_embedder(settings.embedding_provider, settings.embedding_model)
-    store = PgVectorStore(settings.database_url, embedder.dim)
-    answerer = make_answerer(settings.openai_api_key, settings.openai_base_url, settings.openai_model)
-    pipeline = Pipeline(store, embedder, answerer, args.collection, settings.top_k, settings.max_citations, args.threshold, hybrid=args.hybrid)
-    pipeline.keyword_weight = args.keyword_weight
-
+    # This script scores retrieval, citations and refusals. It always runs the extractive answer step,
+    # so a key in the environment cannot change its numbers. Generated answers are scored by ragdemo.eval_answers.
+    pipeline = build_pipeline(
+        settings,
+        collection=args.collection,
+        score_threshold=args.threshold,
+        strict_threshold=args.strict_threshold,
+        use_index=args.use_index,
+        rerank=args.rerank,
+        rerank_threshold=args.rerank_threshold,
+        answer_mode="extractive",
+    )
     questions = json.loads(args.questions.read_text())
-    report = evaluate(pipeline, questions, args.threshold, args.strict_threshold)
+    report = evaluate(pipeline, questions)
     label = args.label or args.collection
     report = {
         "label": label,
+        "implementation": IMPLEMENTATION,
         "questions": args.questions.name,
         "collection": args.collection,
-        "answer_mode": answerer.mode,
+        "answer_mode": pipeline.mode,
         "embedding_model": settings.embedding_model,
         "threshold": args.threshold,
         "strict_threshold": args.strict_threshold,
-        "retrieval": f"hybrid (vector plus full-text, rank fusion, keyword weight {args.keyword_weight})" if args.hybrid else "vector only",
+        "search": "HNSW index" if args.use_index else "exact",
+        "rerank": f"{settings.rerank_model}, pool {settings.rerank_pool}, threshold {args.rerank_threshold}" if args.rerank else "off",
         "top_k": settings.top_k,
         "max_citations": settings.max_citations,
-        "chunks": store.count(args.collection),
+        "chunks": pipeline.count(),
         "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
         **report,
     }
     report["sweep"] = sweep(report["rows"], args.strict_threshold)
+    report["rerank_sweep"] = rerank_sweep(report["rows"]) if args.rerank else []
     RESULTS.mkdir(parents=True, exist_ok=True)
     (RESULTS / f"{label}.json").write_text(json.dumps(report, indent=2) + "\n")
     (RESULTS / f"{label}.md").write_text(to_markdown(report))
 
-    print(f"label={label} collection={args.collection} mode={answerer.mode} threshold={args.threshold} strict={args.strict_threshold}")
+    print(f"label={label} collection={args.collection} mode={pipeline.mode} threshold={args.threshold} strict={args.strict_threshold}")
     for key, value in report["summary"].items():
         print(f"  {key:28s} {value['count']}/{value['of']}  {value['rate']:.0%}")
     print(f"saved eval/results/{label}.json and eval/results/{label}.md")

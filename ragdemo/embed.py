@@ -10,6 +10,10 @@ from __future__ import annotations
 import hashlib
 import math
 import re
+import sqlite3
+import struct
+import time
+from pathlib import Path
 from typing import Protocol
 
 
@@ -67,7 +71,52 @@ class HashEmbedder:
         return self._embed(text)
 
 
-def make_embedder(provider: str, model: str) -> Embedder:
+class CachedEmbedder:
+    """Keeps document embeddings in a local SQLite file so that a re-ingest does not embed the same text twice.
+
+    Embedding on CPU is the slow part of ingestion. The cache key is the model name plus the exact text.
+    """
+
+    def __init__(self, inner: Embedder, model: str, path: Path) -> None:
+        self.inner = inner
+        self.dim = inner.dim
+        self.model = model
+        path.parent.mkdir(parents=True, exist_ok=True)
+        self._db = sqlite3.connect(path)
+        self._db.execute("CREATE TABLE IF NOT EXISTS embeddings (key TEXT PRIMARY KEY, vector BLOB NOT NULL)")
+        self.computed = 0  # texts embedded by the model in this process
+        self.compute_seconds = 0.0
+
+    def _key(self, text: str) -> str:
+        return hashlib.sha1(f"{self.model}\0{text}".encode()).hexdigest()
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        keys = [self._key(t) for t in texts]
+        found: dict[str, list[float]] = {}
+        for start in range(0, len(keys), 500):
+            batch = keys[start : start + 500]
+            marks = ",".join("?" * len(batch))
+            for key, blob in self._db.execute(f"SELECT key, vector FROM embeddings WHERE key IN ({marks})", batch):
+                found[key] = list(struct.unpack(f"{self.dim}f", blob))
+        todo = [i for i, key in enumerate(keys) if key not in found]
+        if todo:
+            begin = time.perf_counter()
+            vectors = self.inner.embed_documents([texts[i] for i in todo])
+            self.compute_seconds += time.perf_counter() - begin
+            self.computed += len(todo)
+            for i, vector in zip(todo, vectors, strict=True):
+                found[keys[i]] = vector
+                self._db.execute("INSERT OR REPLACE INTO embeddings VALUES (?, ?)", (keys[i], struct.pack(f"{self.dim}f", *vector)))
+            self._db.commit()
+        return [found[key] for key in keys]
+
+    def embed_query(self, text: str) -> list[float]:
+        return self.inner.embed_query(text)
+
+
+def make_embedder(provider: str, model: str, cache: Path | None = None) -> Embedder:
+    if cache is not None:
+        return CachedEmbedder(make_embedder(provider, model), model, cache)
     if provider == "fastembed":
         return FastEmbedEmbedder(model)
     if provider == "hash":

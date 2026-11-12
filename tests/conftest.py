@@ -18,6 +18,7 @@ from ragdemo.api import app, get_pipeline
 from ragdemo.embed import HashEmbedder
 from ragdemo.ingest import ingest_file
 from ragdemo.pipeline import Pipeline
+from ragdemo.retrieval import Retriever
 from ragdemo.store import PgVectorStore
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://rag:rag@localhost:54329/rag")
@@ -67,7 +68,7 @@ def pipeline(sample_pdf):
     except psycopg.OperationalError as error:
         pytest.skip(f"Postgres with pgvector is not reachable at DATABASE_URL: {error}")
     ingest_file(store, embedder, "test", sample_pdf, "kettle-guide.pdf", "Kettle Guide", "heading")
-    yield Pipeline(store, embedder, ExtractiveAnswerer(), "test", top_k=3, max_citations=2, threshold=0.25)
+    yield Pipeline(Retriever(store, embedder, "test", top_k=3), ExtractiveAnswerer(), threshold=0.25, max_citations=2)
     with store.connect() as conn:
         conn.execute(f"DROP TABLE IF EXISTS {table}")
 
